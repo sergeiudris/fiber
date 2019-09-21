@@ -6,6 +6,8 @@
             [tools.core]
             [fiber.core]
             [app.data.core]
+            [app.data.usda]
+   
    ;
             )
   ;

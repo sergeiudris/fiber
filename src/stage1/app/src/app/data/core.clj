@@ -10,11 +10,6 @@
 
 (def data-dir "/opt/data/")
 
-(def DATA_SRC (str "/opt/data/" "sr28asc/DATA_SRC.txt"))
-
- (when-not (.exists (io/file (str data-dir "sr28asc")))
-   (sh "bash "))
-
 (comment
 
   (sh "ls")
@@ -74,18 +69,7 @@
        (rest csv-data)))
 
 
-(comment 
-  
-  (.exists (io/file DATA_SRC))
-  
-  (read-csv-file DATA_SRC)
-  
-  (clojure.string/split "3^3^^" #"\^" 100)
-  
-  (source clojure.string/split)
-  
-  ;
-  )
+
 
 
 
