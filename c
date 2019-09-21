@@ -22,20 +22,20 @@ term(){
    dc exec $1 bash -c "bash;"
 }
 
-link_data(){
+link-data(){
     mkdir -p spaces/data
     ln -s ../../../fiber.data spaces/data/fiber.data
 }
 
-link_space_srv() {
+link-space-srv() {
     SPACE=srv
     mkdir -p spaces/$SPACE
     ln -s ../../src/stage1/app/src spaces/$SPACE/app
     ln -s ../../src/stage1/fiber/src spaces/$SPACE/fiber
     ln -s ../../.vscode spaces/$SPACE/.vscode
-    ln -s ../../src/stage1/app/deps.edn space/$SPACE/deps.edn
+    ln -s ../../src/stage1/app/deps.edn spaces/$SPACE/deps.edn
 }
-link_space_cln() {
+link-space-cln() {
     SPACE=cln
     mkdir -p spaces/$SPACE
     ln -s ../../src/stage1/ui/src spaces/$SPACE/ui
@@ -45,11 +45,11 @@ link_space_cln() {
     ln -s ../../.vscode spaces/$SPACE/.vscode
 }
 
-reset_spaces(){
+reset-spaces(){
     rm -rf spaces
-    link_data
-    link_space_srv
-    link_space_cln
+    link-data
+    link-space-srv
+    link-space-cln
 }
 
 "$@"
