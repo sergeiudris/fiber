@@ -34,6 +34,7 @@ link-space-srv() {
     ln -s ../../src/stage1/fiber/src spaces/$SPACE/fiber
     ln -s ../../.vscode spaces/$SPACE/.vscode
     ln -s ../../src/stage1/app/deps.edn spaces/$SPACE/deps.edn
+    ln -s ../../../fiber.data spaces/$SPACE/data
 }
 link-space-cln() {
     SPACE=cln

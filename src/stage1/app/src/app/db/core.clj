@@ -1,6 +1,7 @@
 (ns app.db.core
-  (:require [datomic.api :as d]
-            [tools.datomic.core :as td]))
+  (:require   [clojure.repl  :refer :all]
+              [datomic.api :as d]
+              [tools.datomic.core :as td]))
 
 
 (def db-uri "datomic:free://datomicdb:4334/fiber?password=datomic")
@@ -32,11 +33,17 @@
   [data]
   @(d/transact conn data))
 
+
+
+
+
 (comment
 
   (td/q-attrs (db-now))
 
   (td/q-idents (db-now))
+  
+  (source line-seq)
 
   ;
   )
