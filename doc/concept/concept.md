@@ -8,9 +8,17 @@
 
 ## concept
 
+
+
 ## stages
 
 #### stage 1: mwp 
+
+<div align="center">
+<a>
+<img width="80%" src="./resources/count1.png"></img>
+</a>
+</div>
 
 * accelerate, make minimal working product
 * users can:
