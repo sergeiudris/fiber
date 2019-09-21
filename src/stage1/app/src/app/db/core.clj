@@ -64,6 +64,7 @@
          :in $ ?search
          :where [(fulltext $ :usda.nutr/desc ?search) [[?entity ?name ?tx ?score]]]]
        (db-now) 
+   #_"Tocopherol"
    "Protein"
    #_"Sucrose"
    )
@@ -81,6 +82,13 @@
     :attribute :usda.item/id
     :limit 10
     :offset 0})
+  
+  (d/q '[:find ?entity ?name ?tx ?score
+         :in $ ?search
+         :where [(fulltext $ :usda.item/desc-long ?search) [[?entity ?name ?tx ?score]]]]
+       (db-now)
+       "Buckwheat"
+       )
   
   ;
   )
