@@ -1,0 +1,47 @@
+{
+  "name": "ui",
+  "version": "0.1.0",
+  "description": "FIXME: Write a one-line description of your library/project.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "dev": "npx shadow-cljs -A:dev watch app;",
+    "devcards": "shadow-cljs  -A:dev watch devcards",
+    "all": "shadow-cljs  -A:dev watch app devcards",
+    "info": "shadow-cljs info",
+    "prod": "shadow-cljs -A:prod release app;",
+    "repl": "shadow-cljs cljs-repl app",
+    "stop": "shadow-cljs stop",
+    "server": "shadow-cljs  -A:dev server;",
+    "compile-tests": "shadow-cljs -A:dev compile test;",
+    "test": "karma start --single-run",
+    "clean": "rm -rf target; rm -rf resources/public/js"
+  },
+  "dependencies": {
+    "@material-ui/core": "4.4.0",
+    "@vx/group": "0.0.190",
+    "@vx/mock-data": "0.0.189",
+    "@vx/scale": "0.0.190",
+    "@vx/shape": "0.0.190",
+    "ace-builds": "1.4.5",
+    "antd": "3.23.1",
+    "create-react-class": "15.6.3",
+    "react": "16.8.6",
+    "react-ace": "7.0.4",
+    "react-dom": "16.8.6",
+    "semantic-ui-react": "0.87.3"
+  },
+  "devDependencies": {
+    "highlight.js": "9.15.8",
+    "karma": "3.0.0",
+    "karma-chrome-launcher": "2.2.0",
+    "karma-cljs-test": "0.1.0",
+    "react-flip-move": "3.0.3",
+    "react-highlight.js": "1.0.7",
+    "shadow-cljs": "2.8.52"
+  }
+}

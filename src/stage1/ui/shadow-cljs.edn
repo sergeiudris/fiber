@@ -1,0 +1,72 @@
+{:deps         true
+
+ :nrepl        {:port 7888
+                ;:init-ns sniff.core
+                }
+;  :dev-http     {9500 {:roots ["resources/public" "target/public" ]
+;                      ;  :proxy-url "https://localhost:7881/attrs"
+;                       }}
+ :http {:port 9630
+        :host "0.0.0.0"}
+ :builds
+ {:app {:target :browser
+        :output-dir "resources/public/js-out"
+        :asset-path "/js-out"
+        :module-loader true
+        :modules
+        {:main {:entries [#_simple.core
+                          ui.core
+                          #_routing-example.core
+                          #_conduit.core]}
+         :extra {:entries [ui.core.extra]
+                 :depends-on #{:main}}
+         :cred {:entries [ui.cred.view]
+                :depends-on #{:main}}
+         :entity {:entries [ui.entity.view]
+                  :depends-on #{:main}}
+         :query {:entries [ui.query.view]
+                 :depends-on #{:main}}
+         :timeline {:entries [ui.timeline.view]
+                    :depends-on #{:main}}
+         :login {:entries [ui.login.view]
+                 :depends-on #{:main}}
+         :reg {:entries [ui.reg.view]
+               :depends-on #{:main}}}
+
+        :compiler-options
+        {:infer-externs    :auto
+         :closure-warnings {:global-this :off}
+         :closure-defines  {"re_frame.trace.trace_enabled_QMARK_"         true
+                            "day8.re_frame.tracing.trace_enabled_QMARK_"  true
+                            re-frame.trace/trace-enabled? true
+                            day8.re-frame.tracing/trace-enabled? true}}
+
+        :devtools
+        {#_:after-load
+         #_simple.core/init
+         #_ui.core/main
+         #_routing-example.core/init!
+         #_conduit.core/init
+         :http-root  "resources/public"
+         :http-port  9500
+         :preloads   [day8.re-frame-10x.preload]}}
+
+  :devcards {:target     :browser
+             :output-dir "resources/public/js-out/devcards"
+             :asset-path "/js-out/devcards"
+
+             :modules
+             {:main {:entries [sniff.devcards]}}
+
+             :devtools {:http-port        4001
+                        :http-root        "resources/public"
+                        :http-handler     shadow.http.push-state/handle
+                        :push-state/index "devcards.html"
+                        ;:before-load     sniff.devcards/before-load
+                        ;:preloads        [dev.devcards]
+                        :after-load       sniff.devcards/main}
+             :dev {:compiler-options {:devcards true}}}
+
+  :test {:target    :karma
+         :output-to "target/test.js"
+         :ns-regexp "-test$"}}}

@@ -1,0 +1,63 @@
+version: "3.2"
+
+services:
+
+  app:
+    image: fiber.stage1.app
+    volumes:
+      - ../stage1/app:/opt/app
+      - ../:/opt/root
+    build:
+      context: ../stage1/app
+      dockerfile: ./Dockerfile
+    ports:
+      - 4554:7878
+      - 4500:8080
+      # - 7878:7878
+      # - 11488:7888
+      # - 12083:8080
+    # command: bash c dev
+    command: tail -f /dev/null
+    stdin_open: true
+    tty: true
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 8096M
+        # reservations:
+        #   cpus: '0.25'
+        #   memory: 20M      
+
+  ui:
+    image: fiber.stage1.ui
+    volumes:
+      - ../stage1/ui:/opt/app
+      - ../:/opt/root
+    build:
+      context: ../stage1/ui
+      dockerfile: ./Dockerfile
+    ports:
+      # - 7802:7878
+      # - 7082:8080
+      - 4664:7888
+      - 4600:9500
+      - 9630:9630
+      # - 7878:7878
+      # - 11488:7888
+      # - 12083:8080
+    # command: bash c dev
+    command: tail -f /dev/null
+    stdin_open: true
+    tty: true
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 2048M
+        # reservations:
+        #   cpus: '0.25'
+        #   memory: 20M
+
+volumes:
+  fiber.stage1.datomicdb:

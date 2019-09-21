@@ -1,0 +1,52 @@
+{:paths ["src" "config" "resources"]
+ :mvn/repos {"central" {:url "https://repo1.maven.org/maven2/"}
+             "my.datomic.com" {:url "https://my.datomic.com/repo/"}
+             "clojars" {:url "https://clojars.org/repo/"}}
+ :deps {org.clojure/clojure {:mvn/version "1.10.1"}
+        org.clojure/core.async {:mvn/version "0.4.500"}
+        nrepl {:mvn/version "0.6.0"}
+        cider/cider-nrepl {:mvn/version "0.21.1"}
+
+        clj-http {:mvn/version "3.10.0"}
+        cheshire {:mvn/version "5.8.1"}
+        clj-time {:mvn/version "0.15.0"}
+        org.clojure/data.csv {:mvn/version "0.1.4"}
+
+
+       ;  org.clojure/tools.namespace {:mvn/version "0.2.11"}
+
+        io.pedestal/pedestal.service {:mvn/version "0.5.7"}
+        io.pedestal/pedestal.jetty {:mvn/version "0.5.7"}
+        ch.qos.logback/logback-classic {:mvn/version "1.1.2"
+                                        :exclusions [org.slf4j/slf4j-api]}
+        org.slf4j/jul-to-slf4j {:mvn/version "1.7.7"}
+        org.slf4j/jcl-over-slf4j {:mvn/version "1.7.7"}
+        org.slf4j/log4j-over-slf4j {:mvn/version "1.7.7"}
+
+        ; commons-io/commons-io {:mvn/version "2.4"}
+        io.dgraph/dgraph4j {:mvn/version "1.7.3"}
+        org.clojure/java.jdbc {:mvn/version "0.7.9"}
+        org.postgresql/postgresql {:mvn/version "42.2.6"}
+       ;  com.datomic/datomic-free {:mvn/version "0.9.5656"}
+        com.datomic/datomic-free {:mvn/version "0.9.5697"}
+
+        ;
+        }
+ :aliases {:dev {:extra-deps {io.pedestal/pedestal.service-tools {:mvn/version "0.5.7"}}}
+           :cache {:extra-deps
+                   {;local libs deps for caching during docker build
+                    org.clojure/test.check {:mvn/version "0.10.0"}}}
+           :local {:extra-deps {;tools {:local/root "/opt/root/stage1/tools"}
+                                fiber  {:local/root "/opt/root/stage1/fiber"}}}
+
+           :cider-clj {:extra-deps {org.clojure/clojure {:mvn/version "1.10.1"}
+                                    cider/cider-nrepl {:mvn/version "0.22.1"}}
+                       :main-opts ["-m" "nrepl.cmdline" "--middleware" "[cider.nrepl/cider-middleware]"]}
+
+           :cider-cljs {:extra-deps {org.clojure/clojure {:mvn/version "1.10.1"}
+                                     org.clojure/clojurescript {:mvn/version "1.10.339"}
+                                     cider/cider-nrepl {:mvn/version "0.22.1"}
+                                     cider/piggieback {:mvn/version "0.4.1"}}
+                        :main-opts ["-m" "nrepl.cmdline" "--middleware"
+                                    "[cider.nrepl/cider-middleware,cider.piggieback/wrap-cljs-repl]"]}}
+ }

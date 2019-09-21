@@ -1,0 +1,38 @@
+version: "3.2"
+
+services:
+
+  ubuntu18:
+    image: fiber.ubuntu18
+    build:
+      context: ./ubuntu18
+      dockerfile: ./Dockerfile
+    # command: tail -f /dev/null
+    stdin_open: true
+    tty: true
+
+  java8clj10:
+    image: fiber.java8clj10
+    build:
+      context: ./java8clj10
+      dockerfile: ./Dockerfile
+    volumes:
+      - ../:/opt/root
+      - ./java8clj10:/opt/app
+      - ../.dockershare/java8clj10:/opt/shared
+    # command: tail -f /dev/null
+    stdin_open: true
+    tty: true
+    links:
+      - ubuntu18
+
+  base2:
+    image: fiber.base2
+    build:
+      context: ./base2
+      dockerfile: ./Dockerfile
+    # command: tail -f /dev/null
+    stdin_open: true
+    tty: true
+    links:
+      - java8clj10
