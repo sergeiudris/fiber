@@ -5,12 +5,12 @@
              [re-frame.core :as rf]
              [ui.count.subs :as subs]
              [ui.count.events :as events]
-   
+             ["antd/lib/button" :default ant-Button]
              #_[ui.core.extra :refer [extra-component]]))
 
 (defonce cnt (atom 0))
 
-#_(def ant-button (r/adapt-react-class ant-Button))
+(def ant-button (r/adapt-react-class ant-Button))
 
 (comment
   
@@ -37,7 +37,7 @@
      [:p.someclass
       "I have " [:strong "bold"]
       [:span {:style {:color "red"}} " and red "] "text."]
-     [:button {:on-click (fn [] (rf/dispatch [::events/inc-module-count]) )
+     [ant-button {:on-click (fn [] (rf/dispatch [::events/inc-module-count]) )
                   } "inc module count"]
      #_[extra-component]
      [stateful-comp]

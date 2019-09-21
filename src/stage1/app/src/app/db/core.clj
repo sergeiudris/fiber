@@ -116,7 +116,7 @@
   
   (food-des-search "Buckwheat")
   
-  (food-des-search "B")
+  (food-des-search "Buck")
   
   
   

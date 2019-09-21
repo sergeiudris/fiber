@@ -29,7 +29,8 @@
   [module-name]
   (case module-name
     "count" {:panel [(resolve 'ui.count.view/count-panel)]
-            :actions nil}
+             :actions nil}
+    "dbquery" {:panel [(resolve 'ui.dbquery.view/cred-panel)]}
     [:div (str "no panel for module: " module-name)]))
 
 (defn module->panel
@@ -89,6 +90,7 @@
 (defn- panels [panel-name]
   (case panel-name
     :count-panel [ui.count.view/count-panel]
+    :dbquery-panel [panel-defered "dbquery"]
     [:div (str "no panel: " panel-name)]))
 
 

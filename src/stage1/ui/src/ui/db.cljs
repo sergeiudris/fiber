@@ -24,7 +24,7 @@
                    :ents (str base-url "/ents")
                    :ent (str base-url "/ent")}
 
-    ; cred
+    ; dbquery
 
     ;
      }))

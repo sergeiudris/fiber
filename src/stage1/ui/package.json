@@ -22,7 +22,8 @@
     "clean": "rm -rf target; rm -rf resources/public/js"
   },
   "dependencies": {
-    "@material-ui/core": "4.4.0",
+    "react-ace": "7.0.4",
+    "antd": "3.23.1",
     "create-react-class": "15.6.3",
     "highlight.js": "9.15.8",
     "react": "16.8.6",

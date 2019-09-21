@@ -17,7 +17,9 @@
         {:main {:entries [#_simple.core
                           ui.core
                           #_routing-example.core
-                          #_conduit.core]}}
+                          #_conduit.core]}
+         :dbquery {:entries [ui.dbquery.view]
+                   :depends-on #{:main}}}
 
         :compiler-options
         {:infer-externs    :auto
