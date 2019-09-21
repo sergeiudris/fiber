@@ -24,6 +24,12 @@
                   db attribute)})
 
 
+(defn count-total
+  [db attribute]
+  (d/q '{:find  [(count ?e) .]
+         :in    [$ ?attribute]
+         :where [[?e ?attribute]]}
+       db attribute))
 
 (defn q-idents
   "find the idents of all schema elements in the system"

@@ -19,7 +19,16 @@
 
 #_(def schema-tx (read-string (slurp "src/app/db/schema.edn")))
 
+#_(def sample (read-string (slurp "src/app/db/sample.edn")))
+
+#_(def nutr-def (read-string (slurp "/opt/data/stage1/nutr-def.edn")))
+
+
 #_(do @(d/transact conn schema-tx))
+
+#_(count nutr-def)
+
+#_(do @(d/transact conn nutr-def))
 
 
 (defn query
@@ -33,6 +42,8 @@
   [data]
   @(d/transact conn data))
 
+; https://docs.datomic.com/on-prem/query.html#fulltext
+
 
 
 
@@ -44,6 +55,13 @@
   (td/q-idents (db-now))
   
   (source line-seq)
-
+  
+  (d/q '[:find ?entity ?name ?tx ?score
+         :in $ ?search
+         :where [(fulltext $ :usda.nutr/desc ?search) [[?entity ?name ?tx ?score]]]]
+       (db-now) "Protein")
+  
+  (td/count-total (db-now) :usda.nutr/desc )
+  
   ;
   )
