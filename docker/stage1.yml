@@ -6,7 +6,7 @@ services:
     image: fiber.stage1.app
     volumes:
       - ../src/stage1/app:/opt/app
-      - ../src/spaces/data:/opt/data
+      - ../../fiber.data:/opt/data
       - ../:/opt/root
     build:
       context: ../src/stage1/app
