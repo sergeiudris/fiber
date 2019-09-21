@@ -5,6 +5,7 @@
             [app.srv.server]
             [tools.core]
             [fiber.core]
+            [app.data.core]
    ;
             )
   ;

@@ -31,7 +31,7 @@
         base-url @(rf/subscribe [:ui.subs/base-url] )
         ]
     [:div
-     [:p (str "I am a component! " @cnt)]
+     [:p (str "I am a component!! " @cnt)]
      [:p (str "loaded modules count: " module-count) ]
      [:base-url (str "base url is: " base-url) ]
      [:p.someclass
