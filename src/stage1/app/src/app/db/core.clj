@@ -59,9 +59,18 @@
   (d/q '[:find ?entity ?name ?tx ?score
          :in $ ?search
          :where [(fulltext $ :usda.nutr/desc ?search) [[?entity ?name ?tx ?score]]]]
-       (db-now) "Protein")
+       (db-now) 
+   #_"Protein"
+   "Sucrose"
+   )
   
   (td/count-total (db-now) :usda.nutr/desc )
+  
+  (td/get-paginted-entity
+   {:db (db-now)
+    :attribute :usda.nutr/desc
+    :limit 10
+    :offset 0})
   
   ;
   )
