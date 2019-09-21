@@ -17,21 +17,7 @@
         {:main {:entries [#_simple.core
                           ui.core
                           #_routing-example.core
-                          #_conduit.core]}
-         :extra {:entries [ui.core.extra]
-                 :depends-on #{:main}}
-         :cred {:entries [ui.cred.view]
-                :depends-on #{:main}}
-         :entity {:entries [ui.entity.view]
-                  :depends-on #{:main}}
-         :query {:entries [ui.query.view]
-                 :depends-on #{:main}}
-         :timeline {:entries [ui.timeline.view]
-                    :depends-on #{:main}}
-         :login {:entries [ui.login.view]
-                 :depends-on #{:main}}
-         :reg {:entries [ui.reg.view]
-               :depends-on #{:main}}}
+                          #_conduit.core]}}
 
         :compiler-options
         {:infer-externs    :auto

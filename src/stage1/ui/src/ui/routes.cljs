@@ -5,7 +5,6 @@
             [clerk.core :as clerk]
             #_[goog.events ]
             [reagent.core :as r]
-            [accountant.core :as accountant]
             [ui.events :as events]
             [re-frame.core :as rf])
   #_(:import goog.History

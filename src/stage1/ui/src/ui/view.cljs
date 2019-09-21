@@ -7,7 +7,6 @@
             [shadow.loader :as loader]
             [ui.subs :as subs]
             [ui.count.view]
-            [ui.comp.core :refer [ant-icon-loading]]
             [cljs.core.async :refer [<! timeout]]
             [ui.config :as config]
             [clojure.string]))
@@ -72,7 +71,7 @@
                      (swap! comp-state update-in [module-name] (module->panel module-name)))
                    (fn [] (js/console.log (str "module load failed: " module-name))))))
             #_[:div "nothing"]
-            [ant-icon-loading])
+            [:div "loading..."])
           ;
           )))))
 
@@ -110,12 +109,10 @@
     #_(prn "act-panel-con: " @active-panel)
     #_(prn "act-panel-con: " @module-count)
     #_(prn (actions-fn))
-    [act-panel {:module-actions  (actions-fn) }]
+    #_[act-panel {:module-actions  (actions-fn) }]
     )
   )
 ; (keyword (str (name (:handler matched-route)) "-panel"))
 (defn ui
   []
-  [base-layout
-   [main-panel]
-   ])
+  [main-panel])
