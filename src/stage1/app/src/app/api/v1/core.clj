@@ -5,7 +5,9 @@
             [io.pedestal.http.body-params :as body-params]
             [io.pedestal.http.ring-middlewares :refer [cookies]]
             [tools.core :refer [version]]
-            [app.api.v1.system]))
+            [app.api.v1.system]
+            [app.api.v1.query]
+            [app.api.v1.usda]))
 
 (def cnt (atom 0))
 
@@ -24,6 +26,8 @@
 (def routes #{["/v1" :get (conj itcprs `home-page)]
               ["/v1/system-info" :get (conj itcprs `app.api.v1.system/get-system-info)]
               ; ["/v1/ents2" :get (conj itcprs `app.api.v1.ent/ents-get)]
+              ["/v1/query" :post (conj itcprs `app.api.v1.query/post-query)]
+              ["/v1/usda/ping" :get (conj itcprs `app.api.v1.usda/get-ping)]
               ;
               })
 

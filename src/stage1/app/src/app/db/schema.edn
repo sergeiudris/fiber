@@ -1,10 +1,139 @@
 [;; fiber
 
- {:db/ident :fiber.spec/uuid
-  :db/valueType :db.type/uuid
+ ;; FOOD_DES
+
+ {:db/ident :usda.item/id
+  :db/valueType :db.type/string
   :db/unique :db.unique/identity
   :db/cardinality :db.cardinality/one
-  :db/doc "resource uuid"}
+  :db/doc
+  "5-digit Nutrient Databank string that uniquely identifies a food item"}
 
+ {:db/ident :usda.item/group-id
+  :db/valueType :db.type/long
+  :db/cardinality :db.cardinality/one
+  :db/doc
+  "4-digit code indicating food group to which a food item belongs"}
+
+ {:db/ident :usda.item/desc-long
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/fulltext true
+  :db/doc
+  "200-character description of food item"}
+
+ {:db/ident :usda.item/desc-short
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/fulltext true
+  :db/doc
+  "60-character abbreviated description of food item."}
+
+ {:db/ident :usda.item/com-name
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/fulltext true
+  :db/doc
+  "Other names commonly used to describe a food"}
+
+ {:db/ident :usda.item/manufac-name
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/fulltext true
+  :db/doc
+  "Indicates the company that manufactured the product"}
+
+ {:db/ident :usda.item/survey
+  :db/valueType :db.type/boolean
+  :db/cardinality :db.cardinality/one
+  :db/doc
+  "If has a complete nutrient profile for the 65 FNDDS nutrients"}
+
+ {:db/ident :usda.item/ref-desc
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc
+  "Description of inedible parts of a food item (refuse)"}
+
+ {:db/ident :usda.item/refuse
+  :db/valueType :db.type/long
+  :db/cardinality :db.cardinality/one
+  :db/doc
+  "Percentage of refuse"}
+
+ {:db/ident :usda.item/sci-name
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/fulltext true
+  :db/doc
+  "Scientific name of the food item"}
+
+ {:db/ident :usda.item/n-factor
+  :db/valueType :db.type/float
+  :db/cardinality :db.cardinality/one
+  :db/doc
+  "Factor for converting nitrogen to protein (see p. 12)"}
+
+ {:db/ident :usda.item/pro-factor
+  :db/valueType :db.type/float
+  :db/cardinality :db.cardinality/one
+  :db/doc
+  "Factor for calculating calories from protein (see p. 14)"}
+
+ {:db/ident :usda.item/fat-factor
+  :db/valueType :db.type/float
+  :db/cardinality :db.cardinality/one
+  :db/doc
+  "Factor for calculating calories from fat (see p. 14)"}
+
+ {:db/ident :usda.item/cho-factor
+  :db/valueType :db.type/float
+  :db/cardinality :db.cardinality/one
+  :db/doc
+  "Factor for calculating calories from carbohydrate (see p. 14)"}
+
+ 
+ ;; NUT_DEF
+ 
+ {:db/ident :usda.nutr/id
+  :db/valueType :db.type/string
+  :db/unique :db.unique/identity
+  :db/cardinality :db.cardinality/one
+  :db/doc
+  "Unique 3-digit identifier code for a nutrient"}
+ 
+ {:db/ident :usda.nutr/units
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc
+  "Units of measure (mg, g, μg, and so on)"}
+ 
+ {:db/ident :usda.nutr/tagname
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc
+  "International Network of Food Data Systems (INFOODS) Tagnames"}
+ 
+ {:db/ident :usda.nutr/desc
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc
+  "Name of nutrient/food component"}
+ 
+ {:db/ident :usda.nutr/num-dec
+  :db/valueType :db.type/long
+  :db/cardinality :db.cardinality/one
+  :db/doc
+  "Number of decimal places to which a nutrient value is rounded"}
+ 
+ {:db/ident :usda.nutr/sr-order
+  :db/valueType :db.type/long
+  :db/cardinality :db.cardinality/one
+  :db/doc
+  "Used to sort nutrient records in the same order as various reports produced from SR"}
+ 
+ ;; NUT_DATA
+
+ 
  ]
 

@@ -34,8 +34,9 @@
 
 (comment
 
-  (td/q-attrs db)
+  (td/q-attrs (db-now))
 
+  (td/q-idents (db-now))
 
   ;
   )
