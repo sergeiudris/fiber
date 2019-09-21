@@ -60,8 +60,8 @@
          :in $ ?search
          :where [(fulltext $ :usda.nutr/desc ?search) [[?entity ?name ?tx ?score]]]]
        (db-now) 
-   #_"Protein"
-   "Sucrose"
+   "Protein"
+   #_"Sucrose"
    )
   
   (td/count-total (db-now) :usda.nutr/desc )

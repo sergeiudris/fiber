@@ -117,6 +117,7 @@
  {:db/ident :usda.nutr/desc
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
+  :db/fulltext true
   :db/doc
   "Name of nutrient/food component"}
  
