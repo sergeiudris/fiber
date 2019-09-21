@@ -28,6 +28,7 @@
               ; ["/v1/ents2" :get (conj itcprs `app.api.v1.ent/ents-get)]
               ["/v1/query" :post (conj itcprs `app.api.v1.query/post-query)]
               ["/v1/usda/ping" :get (conj itcprs `app.api.v1.usda/get-ping)]
+              ["/v1/usda/search" :get (conj itcprs `app.api.v1.usda/get-search)]
               ;
               })
 

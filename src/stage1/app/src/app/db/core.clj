@@ -46,6 +46,30 @@
   [data]
   @(d/transact conn data))
 
+(defn food-des-query
+  [s]
+  (try
+    {:data (d/q '[:find ?entity ?name ?tx ?score
+                  :in $ ?search
+                  :where [(fulltext $ :usda.item/desc-long ?search) [[?entity ?name ?tx ?score]]]]
+                (db-now)
+                s)}
+    (catch Exception e {:msg (.getMessage e)})))
+
+(defn food-des-search
+  [s]
+  (let [q-res (food-des-query s)
+        q-res-data (:data q-res)]
+    (if q-res-data
+      {:data (vec
+              (map (fn [tup]
+                     {:entity nil #_(d/pull (db-now) '[*] (first tup))
+                      :db/id (nth tup 0)
+                      :usda.item/desc-long (nth tup 1)
+                      :tx (nth tup 2)
+                      :score (nth tup 3)}) (vec q-res-data)))}
+      q-res)))
+
 ; https://docs.datomic.com/on-prem/query.html#fulltext
 
 
@@ -87,8 +111,14 @@
          :in $ ?search
          :where [(fulltext $ :usda.item/desc-long ?search) [[?entity ?name ?tx ?score]]]]
        (db-now)
-       "Buckwheat"
+       "B"
        )
+  
+  (food-des-search "Buckwheat")
+  
+  (food-des-search "B")
+  
+  
   
   ;
   )
