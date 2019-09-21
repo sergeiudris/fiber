@@ -45,7 +45,7 @@
   (cond
     (float? number-string) number-string
     :else (try (Float/parseFloat number-string)
-               (catch Exception e number-string))))
+               (catch Exception e nil))))
 
 (defn replace-double-quotes
   [s & {:keys [ch]

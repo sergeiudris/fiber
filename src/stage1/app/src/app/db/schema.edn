@@ -10,7 +10,7 @@
   "5-digit Nutrient Databank string that uniquely identifies a food item"}
 
  {:db/ident :usda.item/group-id
-  :db/valueType :db.type/long
+  :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
   :db/doc
   "4-digit code indicating food group to which a food item belongs"}

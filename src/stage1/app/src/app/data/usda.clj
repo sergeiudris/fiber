@@ -84,27 +84,61 @@
        ;
        ))))
 
+(defn food-des->edn
+  "Processes ascii file into edn file"
+  []
+  (ascii-file->edn-file
+   FOOD_DES
+   FOOD_DES-out
+   (fn [line]
+     (let [vals (ascii-line->vals line)]
+       (into {}
+             (filter (comp some? val)
+                     {:usda.item/id (nth vals 0)
+                      :usda.item/group-id (nth vals 1)
+                      :usda.item/desc-long (nth vals 2)
+                      :usda.item/desc-short (nth vals 3)
+                      :usda.item/com-name (nth vals 4)
+                      :usda.item/manufac-name (nth vals 5)
+                      :usda.item/survey (if (= (nth vals 6) "Y") true false)
+                      :usda.item/ref-desc (nth vals 7)
+                      :usda.item/refuse (try-parse-int (nth vals 8))
+                      :usda.item/sci-name (nth vals 9)
+                      :usda.item/n-factor (try-parse-float (nth vals 10))
+                      :usda.item/pro-factor (try-parse-float (nth vals 11))
+                      :usda.item/fat-factor (try-parse-float (nth vals 12))
+                      :usda.item/cho-factor (try-parse-float (nth vals 13))
+                      }))
+       ;
+       ))))
+
 
 
 (comment
-  
-  (read-src-file NUTR_DEF NUTR_DEF-out )
-  
-  
-  
+
+  (read-src-file NUTR_DEF NUTR_DEF-out)
+
+  (try-parse-float "")
+
   (nutr-def->edn)
-  
-  (delete-files NUTR_DEF-out)
-  
+  #_(delete-files NUTR_DEF-out)
+
+  (food-des->edn)
+  #_(delete-files FOOD_DES-out)
+
   (def line (read-nth-line NUTR_DEF 1))
   (count-lines NUTR_DEF)
+
+  (def line (read-nth-line FOOD_DES 35))
   
-  (clojure.string/split line #"\^" 20)
-  
+  (def linev (clojure.string/split line #"\^" 20))
+
+  (count linev)
+
   (ascii-line->vals line)
-  
-  
-  
+
+
+
   (dir clojure.string)
   (source clojure.string/starts-with?)
   (source clojure.string/triml)

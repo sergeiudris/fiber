@@ -18,17 +18,21 @@
 (defn db-now []  (d/db conn))
 
 #_(def schema-tx (read-string (slurp "src/app/db/schema.edn")))
+#_(do @(d/transact conn schema-tx))
+
 
 #_(def sample (read-string (slurp "src/app/db/sample.edn")))
 
 #_(def nutr-def (read-string (slurp "/opt/data/stage1/nutr-def.edn")))
+#_(do @(d/transact conn nutr-def))
+
+#_(def food-des (read-string (slurp "/opt/data/stage1/food-des.edn")))
+#_(def _ (do @(d/transact conn food-des)))
 
 
-#_(do @(d/transact conn schema-tx))
 
 #_(count nutr-def)
 
-#_(do @(d/transact conn nutr-def))
 
 
 (defn query
@@ -65,10 +69,16 @@
    )
   
   (td/count-total (db-now) :usda.nutr/desc )
-  
   (td/get-paginted-entity
    {:db (db-now)
     :attribute :usda.nutr/desc
+    :limit 10
+    :offset 0})
+  
+  (td/count-total (db-now) :usda.item/id)
+  (td/get-paginted-entity
+   {:db (db-now)
+    :attribute :usda.item/id
     :limit 10
     :offset 0})
   
