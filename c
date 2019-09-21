@@ -23,29 +23,31 @@ term(){
 }
 
 link_data(){
-    ln -s ../../fiber.data data/fiber.data
+    mkdir -p spaces/data
+    ln -s ../../../fiber.data spaces/data/fiber.data
 }
 
 link_space_srv() {
     SPACE=srv
-    mkdir -p space/$SPACE
-    ln -s ../../stage1/app/src space/$SPACE/app
-    ln -s ../../stage1/fiber/src space/$SPACE/fiber
-    ln -s ../../.vscode space/$SPACE/.vscode
-    ln -s ../../stage1/app/deps.edn space/$SPACE/deps.edn
+    mkdir -p spaces/$SPACE
+    ln -s ../../src/stage1/app/src spaces/$SPACE/app
+    ln -s ../../src/stage1/fiber/src spaces/$SPACE/fiber
+    ln -s ../../.vscode spaces/$SPACE/.vscode
+    ln -s ../../src/stage1/app/deps.edn space/$SPACE/deps.edn
 }
 link_space_cln() {
     SPACE=cln
-    mkdir -p space/$SPACE
-    ln -s ../../stage1/ui/src space/$SPACE/ui
-    ln -s ../../stage1/ui/shadow-cljs.edn space/$SPACE/shadow-cljs.edn
-    ln -s ../../stage1/ui/resources/public/css space/cln/css
-    ln -s ../../stage1/fiber/src space/$SPACE/fiber
-    ln -s ../../.vscode space/$SPACE/.vscode
+    mkdir -p spaces/$SPACE
+    ln -s ../../src/stage1/ui/src spaces/$SPACE/ui
+    ln -s ../../src/stage1/ui/shadow-cljs.edn spaces/$SPACE/shadow-cljs.edn
+    ln -s ../../src/stage1/ui/resources/public/css spaces/cln/css
+    ln -s ../../src/stage1/fiber/src spaces/$SPACE/fiber
+    ln -s ../../.vscode spaces/$SPACE/.vscode
 }
 
 reset_spaces(){
-    rm -rf space
+    rm -rf spaces
+    link_data
     link_space_srv
     link_space_cln
 }

@@ -5,10 +5,10 @@ services:
   app:
     image: fiber.stage1.app
     volumes:
-      - ../stage1/app:/opt/app
+      - ../src/stage1/app:/opt/app
       - ../:/opt/root
     build:
-      context: ../stage1/app
+      context: ../src/stage1/app
       dockerfile: ./Dockerfile
     ports:
       - 4554:7878
@@ -18,6 +18,8 @@ services:
       # - 12083:8080
     # command: bash c dev
     command: tail -f /dev/null
+    depends_on:
+      - base2
     stdin_open: true
     tty: true
     deploy:
@@ -32,10 +34,10 @@ services:
   ui:
     image: fiber.stage1.ui
     volumes:
-      - ../stage1/ui:/opt/app
+      - ../src/stage1/ui:/opt/app
       - ../:/opt/root
     build:
-      context: ../stage1/ui
+      context: ../src/stage1/ui
       dockerfile: ./Dockerfile
     ports:
       # - 7802:7878
@@ -48,6 +50,8 @@ services:
       # - 12083:8080
     # command: bash c dev
     command: tail -f /dev/null
+    depends_on:
+      - base2
     stdin_open: true
     tty: true
     deploy:
