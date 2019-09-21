@@ -38,7 +38,7 @@
                     org.clojure/test.check {:mvn/version "0.10.0"}}}
            :dev {:extra-deps {;       thheller/shadow-cljs        {:mvn/version "2.6.4"}
                               }}
-           :local {:extra-deps {fiber {:local/root "/opt/root/stage1/fiber"}}}
+           :local {:extra-deps {fiber {:local/root "/opt/root/src/stage1/fiber"}}}
            :prod
            {:extra-deps
             {day8.re-frame/tracing-stubs {:mvn/version "0.5.1"}}}

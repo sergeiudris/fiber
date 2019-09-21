@@ -3,7 +3,6 @@
              [cljs.repl :as repl]
              [cljs.pprint :as pp]
              [re-frame.core :as rf]
-             ["antd/lib/button" :default ant-Button]
              [ui.count.subs :as subs]
              [ui.count.events :as events]
    
@@ -11,7 +10,7 @@
 
 (defonce cnt (atom 0))
 
-(def ant-button (r/adapt-react-class ant-Button))
+#_(def ant-button (r/adapt-react-class ant-Button))
 
 (comment
   
@@ -38,7 +37,7 @@
      [:p.someclass
       "I have " [:strong "bold"]
       [:span {:style {:color "red"}} " and red "] "text."]
-     [ant-button {:on-click (fn [] (rf/dispatch [::events/inc-module-count]) )
+     [:button {:on-click (fn [] (rf/dispatch [::events/inc-module-count]) )
                   } "inc module count"]
      #_[extra-component]
      [stateful-comp]

@@ -37,7 +37,7 @@
                    {;local libs deps for caching during docker build
                     org.clojure/test.check {:mvn/version "0.10.0"}}}
            :local {:extra-deps {;tools {:local/root "/opt/root/stage1/tools"}
-                                fiber  {:local/root "/opt/root/stage1/fiber"}}}
+                                fiber  {:local/root "/opt/root/src/stage1/fiber"}}}
 
            :cider-clj {:extra-deps {org.clojure/clojure {:mvn/version "1.10.1"}
                                     cider/cider-nrepl {:mvn/version "0.22.1"}}
