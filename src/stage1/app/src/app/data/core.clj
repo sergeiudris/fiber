@@ -1,12 +1,16 @@
 (ns app.data.core
   (:require [clojure.repl :refer :all]
             [clojure.java.shell :refer [sh] :as shell]
-            [clojure.java.io :as io]))
+            [clojure.java.io :as io]
+            [clojure.data.csv :as csv]
+            [clojure.string]))
 
 ; (prn "---using .java.shell to list directory:")
 ; (sh "ls /")
 
 (def data-dir "/opt/data/")
+
+(def DATA_SRC (str "/opt/data/" "sr28asc/DATA_SRC.txt"))
 
  (when-not (.exists (io/file (str data-dir "sr28asc")))
    (sh "bash "))
@@ -48,5 +52,40 @@
 
   ;
   )
+
+
+(defn read-column [reader column-index]
+  (let [data (csv/read-csv reader)]
+    (map #(nth % column-index) data)))
+
+(defn read-csv-file [filename]
+  (with-open [reader (io/reader filename)]
+    #_(prn reader)
+    (->> (read-column reader 1)
+         (drop 1)
+         #_(map #(Double/parseDouble %))
+         #_(reduce + 0))))
+
+(defn csv-data->maps [csv-data]
+  (map zipmap
+       (->> (first csv-data) ;; First row is the header
+            (map keyword) ;; Drop if you want string keys instead
+            repeat)
+       (rest csv-data)))
+
+
+(comment 
+  
+  (.exists (io/file DATA_SRC))
+  
+  (read-csv-file DATA_SRC)
+  
+  (clojure.string/split "3^3^^" #"\^" 100)
+  
+  (source clojure.string/split)
+  
+  ;
+  )
+
 
 
