@@ -44,11 +44,13 @@
 (defn table
     []
     (let [search-res (rf/subscribe [:ui.count.subs/search-res])]
-      (prn @search-res)
       (fn []
-        [ant-table {:size "small"
-                    :columns columns 
-                    :data []}])))
+        (let [items (:data @search-res)]
+          (prn (count items))
+          [ant-table {:size "small"
+                      :columns columns
+                      :data []}])
+        )))
 
 (defn search
   []

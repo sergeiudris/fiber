@@ -23,7 +23,9 @@
      :ui.core/api {:base-url base-url
                    :search (str base-url "/usda/search")}
 
-    ; dbquery
+    ; count
+     
+     :ui.count/search-res {:data []}
 
     ;
      }))
