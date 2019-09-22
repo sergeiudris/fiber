@@ -10,6 +10,7 @@
             [cljs.core.async :refer [<! timeout]]
             [ui.config :as config]
             [clojure.string]
+            [ui.routes]
             [tools.comp.layout :as layout]
             ["antd/lib/menu" :default AntMenu]
             ["antd/lib/icon" :default AntIcon]))
@@ -128,11 +129,15 @@
   (let [on-select (fn [eargs]
                     (let [eargs-clj (js->clj eargs :keywordize-keys true)
                           {:keys [key]} eargs-clj]
-                      (rf/dispatch [:ui.events/set-active-panel (keyword key)])))]
+                      (ui.routes/set-path! (str "/" (panel->module-name (keyword key) )) )
+                      #_(rf/dispatch [:ui.events/set-active-panel (keyword key)])))
+        active-panel (rf/subscribe [:ui.subs/active-panel])
+        ]
     (fn []
       [ant-menu {:theme "light"
                  :mode "inline"
                  :default-selected-keys ["count-panel"]
+                 :selected-keys (if @active-panel [(name @active-panel)] nil)
                  :on-select on-select }
        [ant-menu-item {:key "count-panel"}
         [ant-icon {:type "pie-chart"}]

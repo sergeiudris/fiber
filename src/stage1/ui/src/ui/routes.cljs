@@ -7,7 +7,7 @@
             [reagent.core :as r]
             [ui.events :as events]
             [re-frame.core :as rf])
-  #_(:import goog.History
+  (:import goog.History
            goog.history.Html5History
            goog.history.Html5History.TokenTransformer
            goog.history.EventType
@@ -15,6 +15,7 @@
 
 (def routes ["/" {""      :count
                   "count" :count
+                  "dbquery" :dbquery
                   }])
 
 #_(def _ (events/listen history EventType.NAVIGATE
@@ -44,9 +45,30 @@
     (rf/dispatch [::events/set-active-panel panel-name])
     #_(clerk/navigate-page! url)))
 
+(declare history)
+
 (defn app-routes []
   #_(clerk/initialize!)
-  (pushy/start! (pushy/pushy dispatch-route parse-url)))
+  (defonce history (pushy/pushy dispatch-route parse-url))
+  (pushy/start! history))
+
+#_(defn app-routes []
+  #_(clerk/initialize!)
+  (pushy/start! (pushy/pushy dispatch-route parse-url))
+  )
+
+;Cannot infer target type in expression
+;https://clojurescript.org/guides/externs#externs-inference
+(defn ^:export set-path!
+  [path]
+  #_(set-token! history path)
+  (.setToken ^js/Object (.-history history)  path))
+
+#_(defn get-path
+  []
+  (get-token history))
+
+
 
 (def path-for (partial bidi/path-for routes))
 
