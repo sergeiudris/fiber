@@ -62,22 +62,36 @@
            })
         food-des-keywords))
 
-(def columns food-des-columns)
+(def food-des-key :usda.item/id)
 
+(def columns food-des-columns)
+(def ents-a (atom []) )
+
+(def pagination {:show-size-changer true
+                 :default-page-size 10
+                 :page-size-options ["5" "10" "20"]
+                 :position "top"
+                 :show-total #(str "Total: " % " entities")})
 (defn table
     []
     (let [search-res (rf/subscribe [:ui.count.subs/search-res])
           results-visible? (rf/subscribe [:ui.count.subs/results-visible?])]
       (fn []
         (let [items (:data @search-res)
+              total (:total @search-res)
               ents (mapv #(-> % :entity (dissoc :db/id) ) items )
               ]
+          (reset! ents-a ents )
+          ; (prn ents)
           (if @results-visible?
             [ant-table {:show-header true
                         :size "small"
-                        :row-key "key"
+                        :row-key food-des-key
                         :columns columns
-                        :data-source ents }]
+                        :dataSource ents
+                        :pagination (merge pagination
+                                           {:total total
+                                            :on-change #(js/console.log %1 %2)})}]
             nil))
         )))
 
