@@ -10,3 +10,8 @@
  ::search-res
  (fn [db _]
    (:ui.count/search-res db)))
+
+(rf/reg-sub
+ ::results-visible?
+ (fn [db _]
+   (:ui.count/results-visible? db)))

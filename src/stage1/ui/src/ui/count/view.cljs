@@ -8,6 +8,7 @@
              [ajax.core :refer [GET POST]]
              ["antd/lib/icon" :default AntIcon]
              ["antd/lib/button" :default AntButton]
+             ["antd/lib/button/button-group" :default AntButtonGroup]
              ["antd/lib/input" :default AntInput]
              ["antd/lib/input/Search" :default AntInputSearch]
              ["antd/lib/table" :default AntTable]
@@ -15,6 +16,7 @@
 
 (def ant-icon (r/adapt-react-class AntIcon))
 (def ant-button (r/adapt-react-class AntButton))
+(def ant-button-group (r/adapt-react-class AntButtonGroup))
 (def ant-input (r/adapt-react-class AntInput))
 (def ant-input-search (r/adapt-react-class AntInputSearch))
 (def ant-auto-complete (r/adapt-react-class AntAutoComplete))
@@ -43,13 +45,16 @@
 
 (defn table
     []
-    (let [search-res (rf/subscribe [:ui.count.subs/search-res])]
+    (let [search-res (rf/subscribe [:ui.count.subs/search-res])
+          results-visible? (rf/subscribe [:ui.count.subs/results-visible?])]
       (fn []
         (let [items (:data @search-res)]
-          (prn (count items))
-          [ant-table {:size "small"
-                      :columns columns
-                      :data []}])
+          (js/console.log (count items))
+          (if @results-visible?
+            [ant-table {:size "small"
+                        :columns columns
+                        :data []}]
+            nil))
         )))
 
 (defn search
@@ -103,6 +108,15 @@
         ]
        ])))
 
+(defn buttons
+  []
+  (let []
+    (fn []
+      [ant-button-group
+       {:size "small"
+        :style {:margin-left 8}}
+       [ant-button {:icon "unordered-list" :on-click #(rf/dispatch [:ui.count.events/results-visible] ) }]])))
+
 (defn count-panel
   []
   (let [module-count @(rf/subscribe [::subs/module-count])
@@ -111,7 +125,7 @@
       [:section
        #_[search]
        [auto-complete {}]
-       [:br]
+       [buttons]
        [:br]
        [:br]
        [table]])))

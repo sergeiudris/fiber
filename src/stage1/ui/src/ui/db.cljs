@@ -24,8 +24,9 @@
                    :search (str base-url "/usda/search")}
 
     ; count
-     
+
      :ui.count/search-res {:data []}
+     :ui.count/results-visible? true
 
     ;
      }))

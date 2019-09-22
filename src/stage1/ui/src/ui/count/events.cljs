@@ -20,3 +20,10 @@
  ::search-res
  (fn-traced [db [_ val]]
             (assoc db :ui.count/search-res val)))
+
+(rf/reg-event-db
+ ::results-visible
+ (fn-traced [db [_ eargs]]
+            (let [key :ui.count/results-visible?
+                  value (key db)]
+              (assoc db key (not value)))))
