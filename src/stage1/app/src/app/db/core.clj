@@ -61,13 +61,15 @@
   (let [q-res (food-des-query s)
         q-res-data (:data q-res)]
     (if q-res-data
-      {:data (vec
+      {:data (->>
               (map (fn [tup]
                      {:entity nil #_(d/pull (db-now) '[*] (first tup))
                       :db/id (nth tup 0)
                       :usda.item/desc-long (nth tup 1)
                       :tx (nth tup 2)
-                      :score (nth tup 3)}) (vec q-res-data)))}
+                      :score (nth tup 3)}) (vec q-res-data))
+              (take 20)
+              vec)}
       q-res)))
 
 ; https://docs.datomic.com/on-prem/query.html#fulltext
