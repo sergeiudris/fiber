@@ -5,7 +5,7 @@
 (defn gen-default-conf
   "Returns the default api conf"
   []
-  (let [api-v1-baseurl "http://localhost:5600/v1"]
+  (let [api-v1-baseurl "http://localhost:4500/v1"]
     {:api.v1/base-url api-v1-baseurl}))
 
 (defn gen-default-db
@@ -15,14 +15,13 @@
         base-url (:api.v1/base-url conf)]
     {; core
 
-     :ui.core/name "re-frame"
+     :ui.core/name "fiber"
      :ui.core/count 0
      :ui.core/module-count 0
      :ui.core/active-panel nil
      :ui.core/conf conf
      :ui.core/api {:base-url base-url
-                   :ents (str base-url "/ents")
-                   :ent (str base-url "/ent")}
+                   :search (str base-url "/usda/search")}
 
     ; dbquery
 

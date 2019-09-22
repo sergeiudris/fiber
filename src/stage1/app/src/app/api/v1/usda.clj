@@ -16,9 +16,9 @@
   [req]
   (let [{:keys [body params json-params headers edn-params]} req
         s (:s params)
-        data {:data (if s (db/food-des-search s) [] ) } ]
+        data (if s (db/food-des-search s) {}) ]
     (ring-resp/response
-     (str {:data data})))
+     (str data)))
   )
 
 #_(try (db/transact! [(:user edn-params)])

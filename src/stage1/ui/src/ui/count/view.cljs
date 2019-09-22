@@ -5,6 +5,7 @@
              [re-frame.core :as rf]
              [ui.count.subs :as subs]
              [ui.count.events :as events]
+             [ajax.core :refer [GET POST]]
              ["antd/lib/icon" :default AntIcon]
              ["antd/lib/button" :default AntButton]
              ["antd/lib/input" :default AntInput]
@@ -42,7 +43,8 @@
 
 (defn table
     []
-    (let []
+    (let [search-res (rf/subscribe [:ui.count.subs/search-res])]
+      (prn @search-res)
       (fn []
         [ant-table {:size "small"
                     :columns columns 
@@ -52,7 +54,6 @@
   []
   (let [on-search (fn [s]
                     (prn s)
-                    
                     )]
     (fn []
       [ant-input-search {:style {:width "50%"}
@@ -67,21 +68,22 @@
     :style {:margin-right "-12px"}
     :size "default"
     :on-click on-click
-    :type "primary"}
+    :type "default"}
    [ant-icon {:type "search"}]])
 
 (defn auto-complete
-  [{:keys [on-search]}]
+  [{:keys []}]
   (let [state (r/atom {:input ""})
         on-select (fn [s]
                     (prn "selected " s))
+        on-search (fn [s]
+                    (rf/dispatch [:ui.count.events/search {:input s}]))
         on-change (fn [s]
                     #_(prn "s:" (.. evt -target -value))
                     (swap! state assoc :input s))
         on-key-up (fn [evt]
                     (when (= (.-key evt) "Enter")
-                      (on-search (.. evt -target -value))))
-        ]
+                      (on-search (.. evt -target -value))))]
     (fn [_]
       [ant-auto-complete
        {:style {:width "50%"}
@@ -106,7 +108,7 @@
     (fn []
       [:section
        #_[search]
-       [auto-complete {:on-search (fn [s] (prn s)) }]
+       [auto-complete {}]
        [:br]
        [:br]
        [:br]

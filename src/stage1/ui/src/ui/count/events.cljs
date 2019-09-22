@@ -3,9 +3,20 @@
             [day8.re-frame.tracing :refer-macros [fn-traced defn-traced]])
   )
 
+(rf/reg-event-fx
+ ::search
+ (fn-traced [{:keys [db]} [_ eargs]]
+            (let [s (:input eargs)
+                  ]
+              {:dispatch [:ui.events/request
+                          {:method :get
+                           :params {:s s}
+                           :path "/usda/search"
+                           :on-success [::search-res]
+                           :on-fail [::search-res]}]
+               :db (assoc db :ui.count/search-ts (js/Date.now))})))
+
 (rf/reg-event-db
- ::inc-module-count
- (fn-traced [db [_ active-panel]]
-            (let [kw :ui.core/module-count]
-              (assoc db kw (inc (kw db))))
-            ))
+ ::search-res
+ (fn-traced [db [_ val]]
+            (assoc db :ui.count/search-res val)))
