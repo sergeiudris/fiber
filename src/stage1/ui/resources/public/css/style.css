@@ -71,3 +71,29 @@ body {
   height: 128px ;
   overflow-y: auto;
 }
+
+/* ant overrides */
+
+.ant-layout {
+  background: #fff;
+}
+
+.ant-layout-sider, .ant-layout-sider-trigger {
+  border-right: 1px solid #f0f2f5;
+}
+
+.ant-layout-sider .logo {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ant-layout-sider .logo-img {
+  max-height: 32px;
+}
+
+.ant-layout-sider .logo-name {
+  left: -9px;
+  position: relative;
+}
