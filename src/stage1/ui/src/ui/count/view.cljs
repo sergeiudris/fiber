@@ -61,40 +61,41 @@
                          }])))
 
 (defn auto-complete-suffix
-  []
-  (fn []
-    [ant-button
-     {:class "search-btn"
-      :style {:margin-right "-12px"}
-      :size "default"
-      :type "primary"}
-     [ant-icon {:type "search"}]]))
+  [{:keys [on-click]}]
+  [ant-button
+   {:class "search-btn"
+    :style {:margin-right "-12px"}
+    :size "default"
+    :on-click on-click
+    :type "primary"}
+   [ant-icon {:type "search"}]])
 
 (defn auto-complete
   [{:keys [on-search]}]
-  (let [state (r/atom {:count 0})
-        ; on-search (fn [s]
-        ;             (prn s))
+  (let [state (r/atom {:input ""})
         on-select (fn [s]
-                    (prn "selected " s)
-                    )
+                    (prn "selected " s))
+        on-change (fn [s]
+                    #_(prn "s:" (.. evt -target -value))
+                    (swap! state assoc :input s))
+        on-key-up (fn [evt]
+                    (when (= (.-key evt) "Enter")
+                      (on-search (.. evt -target -value))))
         ]
     (fn [_]
       [ant-auto-complete
        {:style {:width "50%"}
         :size "default"
-        
         :placeholder "search"
-        ; :on-search on-search
+        :on-search on-change
         :on-select on-select
-        :option-label-prop "text"
-        }
+        :option-label-prop "text"}
        [ant-input
-        {:on-key-up (fn [evt]
-                      (when (= (.-key evt) "Enter")
-                        (on-search (.. evt -target -value))))
-         :suffix (r/as-element [auto-complete-suffix])
-         }
+        {:value (:input @state)
+         :on-press-enter on-key-up
+        ;  :on-key-up on-key-up
+         :suffix (r/as-element [auto-complete-suffix
+                                {:on-click #(on-search (:input @state))}])}
         ]
        ])))
 
@@ -105,7 +106,7 @@
     (fn []
       [:section
        #_[search]
-       [auto-complete {:on-search (fn [s] (prn "input: " s)) }]
+       [auto-complete {:on-search (fn [s] (prn s)) }]
        [:br]
        [:br]
        [:br]
