@@ -1,7 +1,7 @@
 (ns app.api.v1.usda
   (:require [io.pedestal.http.route :as route]
             [ring.util.response :as ring-resp]
-            [tools.core :refer [version prn-members]]
+            [tools.core :refer [version prn-members try-parse-int]]
             [clj-time.core :as t]
             [app.db.core :as db]
             [clj-time.format :as f]))
@@ -15,8 +15,12 @@
 (defn get-search
   [req]
   (let [{:keys [body params json-params headers edn-params]} req
-        s (:s params)
-        data (if s (db/food-des-search s) {}) ]
+        {:keys [s offset limit] :or {offset 0 limit 20}} params
+        offset-num  (try-parse-int offset)
+        limit-num  (try-parse-int limit)
+        data (if s
+               (db/food-des-search s :offset offset-num :limit limit-num)
+               {})]
     (ring-resp/response
      (str data)))
   )

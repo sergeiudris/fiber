@@ -57,24 +57,40 @@
     (catch Exception e {:msg (.getMessage e)})))
 
 (defn food-des-search
-  [s]
+  [s & {:keys [offset limit]  }]
   (let [q-res (food-des-query s)
         q-res-data (:data q-res)]
     (if q-res-data
-      {:data (->>
+      {:total (count q-res-data)
+       :data (->>
               (map (fn [tup]
                      {:entity nil #_(d/pull (db-now) '[*] (first tup))
                       :db/id (nth tup 0)
                       :usda.item/desc-long (nth tup 1)
                       :tx (nth tup 2)
-                      :score (nth tup 3)}) (vec q-res-data))
-              (take 20)
+                      :score (nth tup 3)}) q-res-data)
+              (drop offset)
+              (take limit)
               vec)}
       q-res)))
 
 ; https://docs.datomic.com/on-prem/query.html#fulltext
 
-
+(comment
+  
+  (food-des-search
+   "Beans"
+   :offset 0
+   :limit 3
+   
+   )
+  (food-des-search
+   "Beans"
+   :offset nil
+   :limit nil)
+  
+  ;
+  )
 
 
 
