@@ -39,21 +39,49 @@
        [:p "count is: " (get @component-state :count)]
        [:button {:on-click #(swap! component-state update-in [:count] inc)} "Increment"]])))
 
-(def columns [{:title "attr1" :data-index "attr1" :key "attr1"}
+#_(def columns [{:title "attr1" :data-index "attr1" :key "attr1"}
               {:title "attr2" :data-index "attr2" :key "attr2"}
               {:title "attr3" :data-index "attr3" :key "attr3"}])
+
+(def food-des-keywords
+  [:usda.item/group-id
+   :usda.item/desc-long
+   :usda.item/desc-short
+   :usda.item/com-name
+   :usda.item/manufac-name
+   :usda.item/survey
+   :usda.item/ref-desc
+   :usda.item/refuse
+   :usda.item/sci-name
+   :usda.item/n-factor
+   :usda.item/pro-factor
+   :usda.item/fat-factor
+   :usda.item/cho-factor]
+  )
+
+(def food-des-columns
+  (mapv (fn [kw]
+          {:title (name kw) :key (name kw) :dataIndex (name kw)})
+        food-des-keywords))
+
+(def columns food-des-columns)
 
 (defn table
     []
     (let [search-res (rf/subscribe [:ui.count.subs/search-res])
           results-visible? (rf/subscribe [:ui.count.subs/results-visible?])]
       (fn []
-        (let [items (:data @search-res)]
+        (let [items (:data @search-res)
+              ents (mapv #(:entity %) items )
+              ents-js (clj->js ents)
+              ]
           (js/console.log (count items))
+          (js/console.log (clj->js ents-js) )
+          (js/console.log (clj->js columns))
           (if @results-visible?
             [ant-table {:size "small"
-                        :columns columns
-                        :data []}]
+                        :columns (clj->js columns)
+                        :data-source ents-js}]
             nil))
         )))
 

@@ -10,7 +10,7 @@
                   ]
               {:dispatch [:ui.events/request
                           {:method :get
-                           :params {:s s}
+                           :params {:s s :limit 10 :offset 0}
                            :path "/usda/search"
                            :on-success [::search-res]
                            :on-fail [::search-res]}]
