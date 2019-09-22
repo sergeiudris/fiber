@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "react-ace": "7.0.4",
-    "antd": "3.23.1",
+    "antd": "3.23.4",
     "create-react-class": "15.6.3",
     "highlight.js": "9.15.8",
     "react": "16.8.6",

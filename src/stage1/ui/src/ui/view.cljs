@@ -9,7 +9,10 @@
             [ui.count.view]
             [cljs.core.async :refer [<! timeout]]
             [ui.config :as config]
-            [clojure.string]))
+            [clojure.string]
+            [tools.comp.layout :as layout]
+            ["antd/lib/menu" :default AntMenu]
+            ["antd/lib/icon" :default AntIcon]))
 
 (defn fn-to-call-on-load []
   (js/console.log "module loaded"))
@@ -115,6 +118,25 @@
     )
   )
 ; (keyword (str (name (:handler matched-route)) "-panel"))
+
+(def ant-menu (r/adapt-react-class AntMenu))
+(def ant-menu-item (r/adapt-react-class (.-Item AntMenu)))
+(def ant-icon (r/adapt-react-class AntIcon))
+
+(defn sidebar-menu
+  []
+  [ant-menu {:theme "light"
+             :mode "inline"
+             :default-selected-keys ["1"]}
+   [ant-menu-item {:key "1"}
+    [ant-icon {:type "pie-chart"}]
+    [:span "option 1"]]]
+  )
+
 (defn ui
   []
-  [main-panel])
+  [layout/ant-layout-sider-2col
+   [sidebar-menu]
+   [main-panel]
+   ]
+  #_[main-panel])

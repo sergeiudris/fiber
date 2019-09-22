@@ -85,10 +85,10 @@ ansi-regex@^3.0.0:
   resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-3.0.0.tgz#ed0317c322064f79466c02966bddb605ab37d998"
   integrity sha1-7QMXwyIGT3lGbAKWa922Bas32Zg=
 
-antd@3.23.1:
-  version "3.23.1"
-  resolved "https://registry.yarnpkg.com/antd/-/antd-3.23.1.tgz#a251b0cdc2072a91a8c157f8b31de8ad92ce5d18"
-  integrity sha512-+PHcFqApsla7bm8h9FHVuD3CloAAl4FW1J5D7m5ghCC1GWodwQFDgLjAx4lU21TSGCxVhlv1me525dKsYXHQuw==
+antd@3.23.4:
+  version "3.23.4"
+  resolved "https://registry.yarnpkg.com/antd/-/antd-3.23.4.tgz#78110e06652697abfdff979683a118d39d66c6a2"
+  integrity sha512-WmumOVZ7GSbLkiQyL54edRBDW4AVhFROlNJbd0lajonP2i2uzgC/2B1pZbnY9EE2yjv9tY7MiqlkBT7HLu75cw==
   dependencies:
     "@ant-design/create-react-context" "^0.2.4"
     "@ant-design/icons" "~2.1.1"

@@ -15,10 +15,9 @@
              ["brace/mode/graphqlschema.js"]
              ["brace/mode/json.js"]
              ["brace/theme/github.js"]
-             ["antd/lib/button" :default ant-Button]
-             ["antd/lib/table" :default AntTable]))
+             #_["antd/lib/button" :default ant-Button]
+             #_["antd/lib/table" :default AntTable]))
 
-; (js/console.log ReactAce)
 
 (def react-ace (r/adapt-react-class ReactAce))
 
@@ -28,7 +27,7 @@
 #_(with-out-str (cljs.pprint/pprint '(foo bar)))
 
 
-(def ant-table (r/adapt-react-class AntTable))
+#_(def ant-table (r/adapt-react-class AntTable))
 
 
 (comment
@@ -102,7 +101,7 @@
               {:title "attr2" :data-index "attr2" :key "attr2"}
               {:title "attr3" :data-index "attr3" :key "attr3"}])
 
-(defn query-results-table
+#_(defn query-results-table
   []
   (let []
     (fn []
