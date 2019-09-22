@@ -36,7 +36,8 @@
 
 
 (def food-des-keywords
-  [:usda.item/group-id
+  [:usda.item/id
+   :usda.item/group-id
    :usda.item/desc-long
    :usda.item/desc-short
    :usda.item/com-name
@@ -89,6 +90,11 @@
                         :row-key food-des-key
                         :columns columns
                         :dataSource ents
+                        :on-change (fn [pag fil sor ext]
+                                     (js/console.log pag))
+                        :scroll {
+                                ;  :x "max-content" 
+                                 :y 256}
                         :pagination (merge pagination
                                            {:total total
                                             :on-change #(js/console.log %1 %2)})}]
