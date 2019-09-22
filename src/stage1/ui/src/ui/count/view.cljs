@@ -6,15 +6,13 @@
              [ui.count.subs :as subs]
              [ui.count.events :as events]
              ["antd/lib/button" :default ant-Button]
-             #_[ui.core.extra :refer [extra-component]]))
+             ))
 
-(defonce cnt (atom 0))
 
-(def ant-button (r/adapt-react-class ant-Button))
+
 
 (comment
   
-  (swap! cnt inc)
   ;
   )
 
@@ -30,21 +28,5 @@
   (let [module-count @(rf/subscribe [::subs/module-count])
         base-url @(rf/subscribe [:ui.subs/base-url] )
         ]
-    [:div
-     [:p (str "I am a component!! " @cnt)]
-     [:p (str "loaded modules count: " module-count) ]
-     [:base-url (str "base url is: " base-url) ]
-     [:p.someclass
-      "I have " [:strong "bold"]
-      [:span {:style {:color "red"}} " and red "] "text."]
-     [ant-button {:on-click (fn [] (rf/dispatch [::events/inc-module-count]) )
-                  } "inc module count"]
-     #_[extra-component]
-     [stateful-comp]
-     [:div
-      (map (fn [x]
-             [:div {:key x :id x} x]
-             ) (range 1 10) )
-      ]
-     ]))
+    [:div "count"]))
 

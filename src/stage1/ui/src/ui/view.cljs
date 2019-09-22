@@ -7,6 +7,7 @@
             [shadow.loader :as loader]
             [ui.subs :as subs]
             [ui.count.view]
+            [ui.home.view]
             [cljs.core.async :refer [<! timeout]]
             [ui.config :as config]
             [clojure.string]
@@ -34,6 +35,8 @@
   (case module-name
     "count" {:panel [(resolve 'ui.count.view/count-panel)]
              :actions nil}
+    "home" {:panel [(resolve 'ui.home.view/home-panel)]
+            :actions nil}
     "dbquery" {:panel [(resolve 'ui.dbquery.view/cred-panel)]}
     [:div (str "no panel for module: " module-name)]))
 
@@ -94,6 +97,7 @@
 (defn- panels [panel-name]
   (case panel-name
     :count-panel [ui.count.view/count-panel]
+    :home-panel [ui.home.view/home-panel]
     :dbquery-panel [panel-defered "dbquery"]
     [:div (str "no panel: " panel-name)]))
 
@@ -136,9 +140,12 @@
     (fn []
       [ant-menu {:theme "light"
                  :mode "inline"
-                 :default-selected-keys ["count-panel"]
+                 :default-selected-keys ["home-panel"]
                  :selected-keys (if @active-panel [(name @active-panel)] nil)
                  :on-select on-select }
+       [ant-menu-item {:key "home-panel"}
+        [ant-icon {:type "home"}]
+        [:span "home"]]
        [ant-menu-item {:key "count-panel"}
         [ant-icon {:type "pie-chart"}]
         [:span "count"]]
