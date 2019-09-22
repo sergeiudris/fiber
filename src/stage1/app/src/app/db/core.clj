@@ -63,14 +63,14 @@
     (if q-res-data
       {:total (count q-res-data)
        :data (->>
+              (drop offset q-res-data)
+              (take limit)
               (map (fn [tup]
-                     {:entity nil #_(d/pull (db-now) '[*] (first tup))
+                     {:entity (d/pull (db-now) '[*] (first tup))
                       :db/id (nth tup 0)
                       :usda.item/desc-long (nth tup 1)
                       :tx (nth tup 2)
-                      :score (nth tup 3)}) q-res-data)
-              (drop offset)
-              (take limit)
+                      :score (nth tup 3)}) )
               vec)}
       q-res)))
 
