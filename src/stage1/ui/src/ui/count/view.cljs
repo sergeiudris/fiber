@@ -68,7 +68,7 @@
 (def columns food-des-columns)
 (def ents-a (atom []) )
 
-(def pagination {:show-size-changer true
+#_(def pagination {:show-size-changer true
                  :default-page-size 10
                  :page-size-options ["5" "10" "20"]
                  :position "top"
@@ -76,14 +76,15 @@
 (defn table
     []
     (let [search-res (rf/subscribe [:ui.count.subs/search-res])
-          results-visible? (rf/subscribe [:ui.count.subs/results-visible?])]
+          results-visible? (rf/subscribe [:ui.count.subs/results-visible?])
+          table-mdata (rf/subscribe [:ui.count.subs/search-table-mdata])
+          ]
       (fn []
         (let [items (:data @search-res)
               total (:total @search-res)
-              ents (mapv #(-> % :entity (dissoc :db/id) ) items )
-              ]
+              ents (mapv #(-> % :entity (dissoc :db/id)) items)
+              pagination (:pagination @table-mdata)]
           (reset! ents-a ents )
-          ; (prn ents)
           (if @results-visible?
             [ant-table {:show-header true
                         :size "small"
@@ -91,13 +92,18 @@
                         :columns columns
                         :dataSource ents
                         :on-change (fn [pag fil sor ext]
-                                     (js/console.log pag))
+                                     (rf/dispatch [:ui.count.events/search-table-mdata
+                                                   (js->clj {:pagination pag
+                                                             :filters fil
+                                                             :sorter sor
+                                                             :extra ext} :keywordize-keys true)]))
                         :scroll {
                                 ;  :x "max-content" 
                                  :y 256}
                         :pagination (merge pagination
                                            {:total total
-                                            :on-change #(js/console.log %1 %2)})}]
+                                            ; :on-change #(js/console.log %1 %2)
+                                            })}]
             nil))
         )))
 

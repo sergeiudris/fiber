@@ -15,3 +15,13 @@
  ::results-visible?
  (fn [db _]
    (:ui.count/results-visible? db)))
+
+(rf/reg-sub
+ ::search-input
+ (fn [db _]
+   (:ui.count/search-input db)))
+
+(rf/reg-sub
+ ::search-table-mdata
+ (fn [db _]
+   (:ui.count/search-table-mdata db)))
