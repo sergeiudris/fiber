@@ -45,10 +45,10 @@
         value (r/atom default-value)
         generated-ent (rf/subscribe [:ui.dbquery.subs/generate])]
     (fn []
-      [react-ace {:name "respace-ent-editor"
+      [react-ace {:name "fiber-db-editor"
                   :mode "clojure"
                   :theme "github"
-                  :className "respace-ent-editor"
+                  :className "fiber-db-editor"
                     ;  :default-value default-value
                   :value @value
                   :on-load (fn [edr] (reset! ui.dbquery.core/editor edr))
@@ -64,14 +64,14 @@
 #_(def query-editor-default-value
   (with-out-str
     (cljs.pprint/pprint
-     '[:find [?a ...] :where [_ :respace.spec/uuid ?a]])))
+     '[:find [?a ...] :where [_ :fiber.spec/uuid ?a]])))
 
 (def query-editor-default-value
   (with-out-str
     (cljs.pprint/pprint
      '[:find ?e ?uuid
        :where
-       [?e :respace.spec/uuid ?uuid]])))
+       [?e :fiber.spec/uuid ?uuid]])))
 
 
 
@@ -84,10 +84,10 @@
   (let [default-value query-editor-default-value
         value (r/atom default-value)]
     (fn []
-      [react-ace {:name "respace-ent-query-editor"
+      [react-ace {:name "fiber-db-query-editor"
                   :mode "clojure"
                   :theme "github"
-                  :className "respace-ent-query-editor"
+                  :className "fiber-db-query-editor"
                     ;  :default-value default-value
                   :value @value
                   :on-load (fn [edr] (reset! ui.dbquery.core/editor-query edr))
@@ -116,10 +116,10 @@
         value (rf/subscribe [:ui.dbquery.subs/query-resp])
         ]
     (fn []
-      [react-ace {:name "respace-ent-query-results-editor"
+      [react-ace {:name "fiber-db-query-results-editor"
                   :mode "clojure"
                   :theme "github"
-                  :className "respace-ent-query-results-editor"
+                  :className "fiber-db-query-results-editor"
                     ;  :default-value default-value
                   :value (with-out-str (cljs.pprint/pprint @value))
                   :on-load (fn [edr] (reset! ui.dbquery.core/editor-query-results edr))

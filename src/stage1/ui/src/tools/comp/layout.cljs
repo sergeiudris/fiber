@@ -21,7 +21,7 @@
 (defn ant-layout-sider-2col
   [menu content]
   [ant-layout {:style {:min-height "100vh"}}
-   [ant-sider {:collapsible true :theme "light"}
+   [ant-sider {:collapsible true :theme "light" :default-collapsed true}
     [:div {:class "logo"}
      [:img {:class "logo-img" :src "./img/favicon3.png"}]
      [:div {:class "logo-name"} "iber"]
@@ -31,6 +31,7 @@
     [ant-layout-header {:style {:background "#fff" :padding 0}}
      ""
      ]
-    [ant-layout-content {:style {:margin "0 16px"}}
+    [ant-layout-content {:class "main-content"
+                         :style {:margin "0 16px"}}
      content]]
    ])

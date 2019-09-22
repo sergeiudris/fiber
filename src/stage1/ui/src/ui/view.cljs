@@ -125,13 +125,21 @@
 
 (defn sidebar-menu
   []
-  [ant-menu {:theme "light"
-             :mode "inline"
-             :default-selected-keys ["1"]}
-   [ant-menu-item {:key "1"}
-    [ant-icon {:type "pie-chart"}]
-    [:span "option 1"]]]
-  )
+  (let [on-select (fn [eargs]
+                    (let [eargs-clj (js->clj eargs :keywordize-keys true)
+                          {:keys [key]} eargs-clj]
+                      (rf/dispatch [:ui.events/set-active-panel (keyword key)])))]
+    (fn []
+      [ant-menu {:theme "light"
+                 :mode "inline"
+                 :default-selected-keys ["count-panel"]
+                 :on-select on-select }
+       [ant-menu-item {:key "count-panel"}
+        [ant-icon {:type "pie-chart"}]
+        [:span "count"]]
+       [ant-menu-item {:key "dbquery-panel"}
+        [ant-icon {:type "database"}]
+        [:span "dbquery"]]])))
 
 (defn ui
   []

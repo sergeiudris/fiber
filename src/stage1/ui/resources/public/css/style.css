@@ -39,20 +39,20 @@ body {
   display: block;
 }
 
-.fiber-ent-editor {
+.fiber-db-editor {
   border: 1px solid lightgrey;
   height: 256px !important;
   flex: 0 0 auto;
   /* display: inline-block; */
 }
 
-.fiber-ent-query-editor {
+.fiber-db-query-editor {
   border: 1px solid lightgrey;
   height: 192px !important;
   flex: 1 0 auto;
 }
 
-.fiber-ent-query-results-editor {
+.fiber-db-query-results-editor {
   border: 1px solid lightgrey;
   height: 288px !important;
   flex: 1 0 auto;
@@ -96,4 +96,9 @@ body {
 .ant-layout-sider .logo-name {
   left: -9px;
   position: relative;
+}
+
+.main-content.ant-layout-content {
+  height: calc(100vh - 64px);
+  overflow-y: auto;
 }
