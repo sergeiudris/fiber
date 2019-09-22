@@ -13,9 +13,6 @@
          {:keys [current pageSize]} (:pagination table-mdata)
          limit (or pageSize 10)
          offset (or (* pageSize (dec current)) 0)]
-     (prn total)
-     (prn pageSize)
-     (prn current)
      {:dispatch [:ui.events/request
                  {:method :get
                   :params {:s s :limit limit :offset offset}
@@ -43,13 +40,10 @@
                   value eargs]
               (assoc db key value))))
 
-(def mdata (atom {}))
-
 (rf/reg-event-fx
  ::search-table-mdata
  (fn [{:keys [db]} [_ eargs]]
             (let [key :ui.count/search-table-mdata
                   ]
-              (reset! mdata eargs)
               {:dispatch [:ui.count.events/search {}]
                :db (assoc db key eargs)})))

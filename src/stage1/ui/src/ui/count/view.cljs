@@ -37,19 +37,20 @@
 
 (def food-des-keywords
   [:usda.item/id
-   :usda.item/group-id
+  ;  :usda.item/group-id
    :usda.item/desc-long
-   :usda.item/desc-short
-   :usda.item/com-name
-   :usda.item/manufac-name
-   :usda.item/survey
-   :usda.item/ref-desc
-   :usda.item/refuse
-   :usda.item/sci-name
-   :usda.item/n-factor
-   :usda.item/pro-factor
-   :usda.item/fat-factor
-   :usda.item/cho-factor]
+  ;  :usda.item/desc-short
+  ;  :usda.item/com-name
+  ;  :usda.item/manufac-name
+  ;  :usda.item/survey
+  ;  :usda.item/ref-desc
+  ;  :usda.item/refuse
+  ;  :usda.item/sci-name
+  ;  :usda.item/n-factor
+  ;  :usda.item/pro-factor
+  ;  :usda.item/fat-factor
+  ;  :usda.item/cho-factor
+   ]
   )
 
 
@@ -66,7 +67,6 @@
 (def food-des-key :usda.item/id)
 
 (def columns food-des-columns)
-(def ents-a (atom []) )
 
 #_(def pagination {:show-size-changer true
                  :default-page-size 10
@@ -84,7 +84,6 @@
               total (:total @search-res)
               ents (mapv #(-> % :entity (dissoc :db/id)) items)
               pagination (:pagination @table-mdata)]
-          (reset! ents-a ents )
           (if @results-visible?
             [ant-table {:show-header true
                         :size "small"
@@ -98,7 +97,7 @@
                                                              :sorter sor
                                                              :extra ext} :keywordize-keys true)]))
                         :scroll {
-                                ;  :x "max-content" 
+                                 :x "max-content" 
                                  :y 256}
                         :pagination (merge pagination
                                            {:total total
