@@ -97,8 +97,11 @@
                                                              :sorter sor
                                                              :extra ext} :keywordize-keys true)]))
                         :scroll {
-                                 :x "max-content" 
+                                ;  :x "max-content" 
                                  :y 256}
+                        :rowSelection {:on-change (fn [keys rows]
+                                                    (prn keys)
+                                                    )}
                         :pagination (merge pagination
                                            {:total total
                                             ; :on-change #(js/console.log %1 %2)
