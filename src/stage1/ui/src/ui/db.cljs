@@ -38,6 +38,7 @@
                                    :sorter {}
                                    :extra {:currentDataSource []}}
      :ui.count/search-input ""
+     :ui.count/nutrients-res nil
 
     ;
      }))

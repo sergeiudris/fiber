@@ -36,7 +36,8 @@
 
 
 (def food-des-keywords
-  [:usda.item/id
+  [
+  ;  :usda.item/id
   ;  :usda.item/group-id
    :usda.item/desc-long
   ;  :usda.item/desc-short
@@ -82,7 +83,9 @@
       (fn []
         (let [items (:data @search-res)
               total (:total @search-res)
-              ents (mapv #(-> % :entity (dissoc :db/id)) items)
+              ents 
+              items
+              #_(mapv #(-> % :entity (dissoc :db/id)) items)
               pagination (:pagination @table-mdata)]
           (if @results-visible?
             [ant-table {:show-header true
@@ -171,6 +174,8 @@
 
 (defn count-panel
   []
+  #_(js/console.log 'count-panel-fn)
+  (rf/dispatch [:ui.count.events/nutrients])
   (let [module-count @(rf/subscribe [::subs/module-count])
         base-url @(rf/subscribe [:ui.subs/base-url])]
     (fn []

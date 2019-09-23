@@ -25,6 +25,13 @@
      (str data)))
   )
 
+(defn get-nutrients
+  [req]
+  (let [{:keys [body params json-params headers edn-params]} req
+        data (db/query-nutrients)]
+    (ring-resp/response
+     (str data))))
+
 #_(try (db/transact! [(:user edn-params)])
      (catch Exception e {:err-msg (.getMessage e)}))
 

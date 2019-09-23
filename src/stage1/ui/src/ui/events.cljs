@@ -61,3 +61,8 @@
             (js/console.warn ":http-no-on-failure event "
                              eargs)
             db))
+
+(rf/reg-event-db
+ :request-res
+ (fn-traced [db [_ db-key res]]
+            (assoc db db-key res)))

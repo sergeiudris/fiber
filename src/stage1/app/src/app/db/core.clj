@@ -90,7 +90,9 @@
               (drop offset q-res-data)
               (take limit)
               (map (fn [tup]
-                     {:entity (d/pull (db-now) '[*] (first tup))
+                     {:entity nil
+                      #_(d/pull (db-now) '[:usda.item/desc-long] (first tup))
+                      #_(d/pull (db-now) '[*] (first tup))
                       :db/id (nth tup 0)
                       attr (nth tup 1)
                       :tx (nth tup 2)
@@ -104,9 +106,28 @@
 
 (def food-des-search (mk-search-fulltext :usda.item/desc-long))
 
+(def nutrients-q
+  '[:find ?e
+    :in $
+    :where [?e :usda.nutr/id]])
+
+(defn query-nutrients
+  []
+  (try
+    (let [qres (d/q nutrients-q
+                    (db-now))]
+      {:total (count qres)
+       :data (->>
+              (map (fn [v]
+                     (-> (db-now) (d/entity (first v)) d/touch)) qres)
+              (vec))})
+    (catch Exception e {:msg (.getMessage e)})))
+
 ; https://docs.datomic.com/on-prem/query.html#fulltext
 
 (comment
+  
+  (query-nutrients)
 
   (pp/pprint (food-des-search
               "Beans"
