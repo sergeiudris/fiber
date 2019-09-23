@@ -1,7 +1,9 @@
 (ns app.db.core
   (:require   [clojure.repl  :refer :all]
               [datomic.api :as d]
-              [tools.datomic.core :as td]))
+              [tools.datomic.core :as td]
+              [tools.io.core :as tio]
+              [clojure.java.io :as io]))
 
 
 (def db-uri "datomic:free://datomicdb:4334/fiber?password=datomic")
@@ -33,7 +35,23 @@
 
 #_(count nutr-def)
 
+(defn batch-tx
+  [file-in  conn & {:keys [line-num] :or {line-num 10000}}]
+  (with-open [reader (io/reader  file-in)]
+    (let [raw (line-seq reader)
+          data (->> raw (drop 1) (drop-last))
+          parts (partition-all line-num data)]
+      (doseq [part parts]
+        (let [tx-data (map (fn [line]
+                             (read-string line))
+                           part)]
+          (do (time @(d/transact conn (vec tx-data))))
+               ;
+          )))))
 
+#_(time (batch-tx "/opt/data/stage1/nut-data.edn" conn))
+#_(.exists (io/file "/opt/data/stage1/nut-data.edn"))
+#_(tio/count-lines "/opt/data/stage1/nut-data.edn")
 
 (defn query
   [q-data]

@@ -144,7 +144,7 @@
                       :usda.nutrdata/cc (nth vals 17)}))
        ;
        ))
-   :limit 10
+  ;  :limit 10
    ))
 
 
@@ -155,15 +155,15 @@
 
   (try-parse-float "")
 
-  (nutr-def->edn)
+  (time (nutr-def->edn))
   #_(delete-files NUTR_DEF-out)
 
-  (food-des->edn)
+  (time (food-des->edn))
   #_(delete-files FOOD_DES-out)
   
-  (nut-data->edn)
+  (time (nut-data->edn)) ; 298 mb
   #_(delete-files NUT_DATA-out)
-  (count-lines NUT_DATA)
+  (count-lines NUT_DATA) ; 40.4 mb
   
 
   (def line (read-nth-line NUTR_DEF 1))
