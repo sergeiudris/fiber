@@ -28,7 +28,8 @@
      ]
     menu]
    [ant-layout
-    [ant-layout-header {:style {:background "#fff" :padding 0}}
+    {:style {:padding-top 24}}
+    #_[ant-layout-header {:style {:background "#fff" :padding 0}}
      ""
      ]
     [ant-layout-content {:class "main-content"

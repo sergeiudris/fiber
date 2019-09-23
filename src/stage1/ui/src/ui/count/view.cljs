@@ -119,7 +119,8 @@
                                                              :extra ext} :keywordize-keys true)]))
                         :scroll {
                                 ;  :x "max-content" 
-                                 :y 256}
+                                ;  :y 256
+                                 }
                         ; :rowSelection {:on-change (fn [keys rows]
                         ;                             (prn keys)
                         ;                             )}
@@ -229,12 +230,14 @@
       (let [items @selected]
         [ant-table {:show-header true
                     :size "small"
-                    :row-key table-items-key
+                    :row-key (fn [rec idx]
+                               (str (aget rec :id) idx))
                     :columns table-items-columns
                     :dataSource items
                     :scroll {;  :x "max-content" 
-                             ;:y 256
+                             :y 364
                              }
+                    :pagination false
                     :rowSelection {:on-change (fn [keys rows]
                                                 (prn keys))}}]))))
 
@@ -249,7 +252,6 @@
        #_[search]
        [auto-complete {}]
        [buttons]
-       [:br]
        [:br]
        [table]
        [:br]

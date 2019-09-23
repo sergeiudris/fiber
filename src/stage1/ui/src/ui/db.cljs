@@ -28,12 +28,12 @@
      :ui.count/search-res {:data []}
      :ui.count/results-visible? true
      :ui.count/search-table-mdata {:pagination {:showSizeChanger false
-                                                :defaultPageSize 10
+                                                :defaultPageSize 5
                                                 :pageSizeOptions  ["5" "10" "20"]
                                                 :position "top"
                                                 :total 0
                                                 :current 1
-                                                :pageSize 10}
+                                                :pageSize 5}
                                    :filters {}
                                    :sorter {}
                                    :extra {:currentDataSource []}}
