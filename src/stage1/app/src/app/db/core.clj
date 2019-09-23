@@ -86,6 +86,7 @@
         q-res-data (:data q-res)]
     (if q-res-data
       {:total (count q-res-data)
+       :search s
        :data (->>
               (drop offset q-res-data)
               (take limit)
@@ -123,6 +124,15 @@
               (vec))})
     (catch Exception e {:msg (.getMessage e)})))
 
+(defn query-items-nutrients
+  [eids]
+  (try
+    (let [qres (map (fn [e]
+                      (d/pull (db-now) '[*] e)) eids)]
+      {:total (count qres)
+       :data (vec qres)})
+    (catch Exception e {:msg (.getMessage e)})))
+
 ; https://docs.datomic.com/on-prem/query.html#fulltext
 
 (comment
@@ -132,7 +142,9 @@
   (pp/pprint (food-des-search
               "Beans"
               :offset 0
-              :limit 1))
+              :limit 2))
+  
+  (query-items-nutrients [17592186047001 17592186050667])
   
   (def _ (food-des-search
           "Beans"

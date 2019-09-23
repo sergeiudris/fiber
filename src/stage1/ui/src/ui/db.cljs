@@ -39,6 +39,9 @@
                                    :extra {:currentDataSource []}}
      :ui.count/search-input ""
      :ui.count/nutrients-res nil
+     :ui.count/items-nutrients-res nil
+     :ui.count/items-nutrients {}
+     :ui.count/added-items []
 
     ;
      }))

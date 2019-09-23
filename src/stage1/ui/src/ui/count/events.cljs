@@ -10,7 +10,8 @@
          s (or (:input eargs) input)
          table-mdata (:ui.count/search-table-mdata db)
          total (get-in db [:ui.count/search-res :total])
-         {:keys [current pageSize]} (:pagination table-mdata)
+         pag (:pagination table-mdata)
+         {:keys [current pageSize]} pag
          limit (or pageSize 10)
          offset (or (* pageSize (dec current)) 0)]
      {:dispatch [:ui.events/request
@@ -19,7 +20,12 @@
                   :path "/usda/search"
                   :on-success [::search-res]
                   :on-fail [::search-res]}]
-      :db (assoc db :ui.count/search-input s)})))
+      :db (merge db {:ui.count/search-input s
+                     :ui.count/search-table-mdata
+                     (if (:input eargs)
+                       (merge table-mdata {:pagination (merge pag {:current 1})})
+                       table-mdata)
+                     :ui.count/results-visible? true})})))
 
 (rf/reg-event-db
  ::search-res
@@ -67,8 +73,35 @@
  (fn-traced [db [_ val]]
             (assoc db :ui.count/nutrients-res val)))
 
+
+(rf/reg-event-fx
+ ::items-nutrients
+ (fn [{:keys [db]} [_ eargs]]
+   (let [nutrients (:ui.count/nutrients-res db)]
+     {:dispatch [:ui.events/request
+                 {:method :post
+                  :params {}
+                  :body {:items eargs}
+                  :path "/usda/items-nutrients"
+                  :on-success [::items-nutrients-res]
+                  :on-fail [::items-nutrients-res]}]
+      :db db})))
+
 (rf/reg-event-db
+ ::items-nutrients-res
+ (fn-traced [db [_ eargs]]
+            (let [it-nu (:ui.count/items-nutrients db)
+                  items (:data eargs)]
+              (merge db {:ui.count/items-nutrients-res eargs
+                         :ui.count/items-nutrients
+                         (merge it-nu
+                                (reduce (fn [a item]
+                                          (assoc a (:db/id item) item )) {} items))}))))
+
+
+(rf/reg-event-fx
  ::add-items
- (fn [db [_ eargs]]
-   (js/console.log eargs)
-   db))
+ (fn [{:keys [db]} [_ eargs]]
+   (let [added (:ui.count/added-items db)]
+     {:db (merge db {:ui.count/added-items (concat added eargs)})
+      :dispatch [::items-nutrients eargs]})))

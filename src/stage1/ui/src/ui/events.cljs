@@ -35,7 +35,7 @@
  ::request
 ;  [(re-frame/)]
  ;[(rf/inject-cofx ::inject/sub [:entity-request-data])]
- (fn-traced [{:keys [db event] :as ctx} [_ eargs]]
+ (fn [{:keys [db event] :as ctx} [_ eargs]]
    (let [base-url (get-in db [:ui.core/api :base-url])
          {:keys [method path on-success on-fail 
                  params body]} eargs

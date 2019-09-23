@@ -32,6 +32,14 @@
     (ring-resp/response
      (str data))))
 
+(defn post-items-nutrients
+  [req]
+  (let [{:keys [body params json-params headers edn-params]} req
+        items (:items edn-params)
+        data (db/query-items-nutrients (mapv #(:db/id %) items))]
+    (ring-resp/response
+     (str data))))
+
 #_(try (db/transact! [(:user edn-params)])
      (catch Exception e {:err-msg (.getMessage e)}))
 

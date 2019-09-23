@@ -75,8 +75,14 @@
                [ant-button-group
                 {:size "small"}
                 [ant-button
-                 {:icon "plus"
-                  :on-click #(rf/dispatch [:ui.count.events/add-items rec])}]])
+                 {;:icon "plus"
+                  :type "primary"
+                  :on-click #(rf/dispatch 
+                              [:ui.count.events/add-items
+                               [{:db/id (aget rec "id")}]
+                               ])}
+                 "add"
+                 ]])
               )}])
 
 (def columns (vec (concat food-des-columns extra-columns))) 
