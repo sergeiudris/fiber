@@ -256,6 +256,7 @@
        [auto-complete {}]
        [buttons]
        [:br]
+       [:br]
        [table]
        [:br]
        [table-items]
