@@ -32,7 +32,8 @@
 #_(def food-des (read-string (slurp "/opt/data/stage1/food-des.edn")))
 #_(def _ (do @(d/transact conn food-des)))
 
-
+#_(def nih-dri-elements (read-string (slurp "/opt/data/stage1/nih.dri.elements.edn")))
+#_(def _ (do @(d/transact conn nih-dri-elements)))
 
 #_(count nutr-def)
 
@@ -135,11 +136,27 @@
        :data (vec qres)})
     (catch Exception e {:msg (.getMessage e)})))
 
+(defn qpull-entities
+  [attr value]
+  (try
+    (let [qres (d/q '{:find [?e]
+                      :in [$ ?attr ?val]
+                      :where [[?e ?attr ?val]]}
+                    (db-now) attr value)]
+      {:total (count qres)
+       :data (->>
+              (map (fn [v]
+                     (-> (db-now) (d/entity (first v)) d/touch)) qres)
+              (vec))})
+    (catch Exception e {:msg (.getMessage e)})))
+
 ; https://docs.datomic.com/on-prem/query.html#fulltext
 
 (comment
 
   (query-nutrients)
+  
+  (qpull-entities :nih.dri.group/range "31-50")
 
   (pp/pprint (food-des-search
               "Beans"
@@ -215,6 +232,11 @@
   (food-des-search "Buckwheat")
   
   (food-des-search "Buck")
+  
+  (def nih-dri (d/q '{:find [?e]
+                    :in [$]
+                    :where [[?e :usda.nutr/units ?unit]]}
+                  (db-now)))
   
   
   
