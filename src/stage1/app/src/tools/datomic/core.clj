@@ -47,3 +47,9 @@
                [?e :db/ident ?ident]
                [_ :db.install/attribute ?e]]
              db)))
+
+(defn excise
+  [conn eids]
+  (do @(d/transact conn
+        (mapv (fn [e]
+                {:db/excise e}) eids))))

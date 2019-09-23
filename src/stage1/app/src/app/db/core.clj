@@ -37,6 +37,8 @@
 
 #_(count nutr-def)
 
+#_(td/excise conn [17592186733493 17592186733477 ] )
+
 (defn batch-tx
   [file-in  conn & {:keys [line-num] :or {line-num 10000}}]
   (with-open [reader (io/reader  file-in)]
@@ -82,7 +84,7 @@
     (catch Exception e {:msg (.getMessage e)})))
 
 (defn search-fulltext
-  [attr s & {:keys [offset limit]  }]
+  [attr s & {:keys [offset limit entity?]  }]
   (let [q-res (query-fulltext attr s)
         q-res-data (:data q-res)]
     (if q-res-data
@@ -92,7 +94,7 @@
               (drop offset q-res-data)
               (take limit)
               (map (fn [tup]
-                     {:entity nil
+                     {:entity (when entity? (d/pull (db-now) '[*] (first tup)))
                       #_(d/pull (db-now) '[:usda.item/desc-long] (first tup))
                       #_(d/pull (db-now) '[*] (first tup))
                       :db/id (nth tup 0)
@@ -160,7 +162,7 @@
 
   (query-nutrients)
   
-  (qpull-entities :nih.dri.group/range "31-50")
+  (qpull-entities :nih.dri.group/range "0-0.5")
   
   (query-nih-dri "31-50")
 
@@ -190,8 +192,13 @@
   (= (second (ffirst units)) "?g")
   (first (second (ffirst units))) ; \�
   
-  (nutrient-search "Vitamin K" :offset 0 :limit 10)
+  (nutrient-search "Vitamin+K" :offset 0 :limit 1 :entity? true)
+  
+  (search-fulltext :usda.nutr/desc "Chloride"
+                   :offset 0 :limit 10 :entity? true)
 
+  
+  
   ;
   )
 

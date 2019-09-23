@@ -111,6 +111,7 @@
  {:db/ident :usda.nutr/tagname
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
+  :db/fulltext false
   :db/doc
   "International Network of Food Data Systems (INFOODS) Tagnames"}
 
@@ -331,6 +332,11 @@ release, but is planned for future releases"}
   :db/valueType :db.type/boolean
   :db/cardinality :db.cardinality/one
   :db/doc "Is nutrient RDA (otherwise AI)"}
+ 
+ {:db/ident :nih.dri.nutr/usda-nutr-id
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "USDA three digit id string"}
 
  ]
 
