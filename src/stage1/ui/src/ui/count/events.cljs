@@ -66,3 +66,9 @@
  ::nutrients-res
  (fn-traced [db [_ val]]
             (assoc db :ui.count/nutrients-res val)))
+
+(rf/reg-event-db
+ ::add-items
+ (fn [db [_ eargs]]
+   (js/console.log eargs)
+   db))

@@ -67,7 +67,19 @@
 
 (def food-des-key :usda.item/id)
 
-(def columns food-des-columns)
+(def extra-columns
+  [{:title "action"
+    :key "action"
+    :render (fn [txt rec idx]
+              (r/as-element
+               [ant-button-group
+                {:size "small"}
+                [ant-button
+                 {:icon "plus"
+                  :on-click #(rf/dispatch [:ui.count.events/add-items rec])}]])
+              )}])
+
+(def columns (vec (concat food-des-columns extra-columns))) 
 
 #_(def pagination {:show-size-changer true
                  :default-page-size 10
