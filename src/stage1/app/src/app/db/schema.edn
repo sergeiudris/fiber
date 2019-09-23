@@ -134,22 +134,21 @@
   "Used to sort nutrient records in the same order as various reports produced from SR"}
 
  ;; NUT_DATA
- 
+
  {:db/ident :usda.item/nutrients
   :db/valueType :db.type/ref
   :db/cardinality :db.cardinality/many
   :db/isComponent true
-  :db/doc 
-  "Nutrients of a food item"
-  }
- 
+  :db/doc
+  "Nutrients of a food item"}
+
  {:db/ident :usda.nutrdata/id
   :db/valueType :db.type/string
   :db/unique :db.unique/identity
   :db/cardinality :db.cardinality/one
   :db/doc
   "A unique composite id, {item-id}-{nutr-id} "}
- 
+
  {:db/ident :usda.nutrdata/nutr-ref
   :db/valueType :db.type/ref
   :db/cardinality :db.cardinality/one
@@ -160,21 +159,20 @@
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
   :db/doc
-  "5-digit Nutrient Databank number that uniquely identifies a food item"
-  }
- 
+  "5-digit Nutrient Databank number that uniquely identifies a food item"}
+
  {:db/ident :usda.nutrdata/nutr-id
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
   :db/doc
   "Unique 3-digit identifier code for a nutrient"}
- 
+
  {:db/ident :usda.nutrdata/nutr-val
   :db/valueType :db.type/float
   :db/cardinality :db.cardinality/one
   :db/doc
   "Amount in 100 grams, edible portion †"}
- 
+
  {:db/ident :usda.nutrdata/num-data-points
   :db/valueType :db.type/float
   :db/cardinality :db.cardinality/one
@@ -183,7 +181,7 @@
 used to calculate the nutrient value. If the number of
 data points is 0, the value was calculated or
 imputed"}
- 
+
  {:db/ident :usda.nutrdata/std-error
   :db/valueType :db.type/float
   :db/cardinality :db.cardinality/one
@@ -191,13 +189,13 @@ imputed"}
   "Standard error of the mean. Null if cannot be
 calculated. The standard error is also not given if the
 number of data points is less than three"}
- 
+
  {:db/ident :usda.nutrdata/src-cd
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
   :db/doc
   "Code indicating type of data"}
- 
+
  {:db/ident :usda.nutrdata/deriv-cd
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
@@ -207,7 +205,7 @@ how the value is determined. This field is populated
 only for items added or updated starting with SR14.
 This field may not be populated if older records were
 used in the calculation of the mean value"}
- 
+
  {:db/ident :usda.nutrdata/ref-ndb-no
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
@@ -215,7 +213,7 @@ used in the calculation of the mean value"}
   "NDB number of the item used to calculate a missing
 value. Populated only for items added or updated
 starting with SR14"}
- 
+
  {:db/ident :usda.nutrdata/add-nutr-mark
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
@@ -224,56 +222,56 @@ starting with SR14"}
 or enrichment. This field is populated for ready-to-
 eat breakfast cereals and many brand-name hot
 cereals in food group 08"}
- 
+
  {:db/ident :usda.nutrdata/num-studies
   :db/valueType :db.type/long
   :db/cardinality :db.cardinality/one
   :db/doc
   "Number of studies"}
- 
+
  {:db/ident :usda.nutrdata/min
   :db/valueType :db.type/float
   :db/cardinality :db.cardinality/one
   :db/doc
   "Minimum value"}
- 
+
  {:db/ident :usda.nutrdata/max
   :db/valueType :db.type/float
   :db/cardinality :db.cardinality/one
   :db/doc
   "Maximum value"}
- 
+
  {:db/ident :usda.nutrdata/df
   :db/valueType :db.type/long
   :db/cardinality :db.cardinality/one
   :db/doc
   "Degrees of freedom"}
- 
+
  {:db/ident :usda.nutrdata/low-eb
   :db/valueType :db.type/float
   :db/cardinality :db.cardinality/one
   :db/doc
   "Lower 95% error bound"}
- 
+
  {:db/ident :usda.nutrdata/up-eb
   :db/valueType :db.type/float
   :db/cardinality :db.cardinality/one
   :db/doc
   "Upper 95% error bound"}
- 
+
  {:db/ident :usda.nutrdata/stat-cmt
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
   :db/doc
   "Statistical comments. See definitions below"}
- 
+
  {:db/ident :usda.nutrdata/addmod-date
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
   :db/doc
   "Indicates when a value was either added to the
 database or last modified"}
- 
+
  {:db/ident :usda.nutrdata/cc
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
@@ -283,7 +281,56 @@ evaluation of sample plan, sample handling
 analytical method, analytical quality control, and
 number of samples analyzed. Not included in this
 release, but is planned for future releases"}
+
+ ; NIH rdi elements https://www.ncbi.nlm.nih.gov/books/NBK56068/table/summarytables.t3/?report=objectonly
  
+ {:db/ident :nih.dri.group/range
+  :db/valueType :db.type/string
+  :db/unique :db.unique/identity
+  :db/cardinality :db.cardinality/one
+  :db/doc "Group age range "}
  
+ {:db/ident :nih.dri.group/category
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "Group category (Children Pregnancy ..)"
+  }
+ 
+ {:db/ident :nih.dri.group/min-age
+  :db/valueType :db.type/float
+  :db/cardinality :db.cardinality/one
+  :db/doc "Group min age"}
+ 
+ {:db/ident :nih.dri.group/max-age
+  :db/valueType :db.type/float
+  :db/cardinality :db.cardinality/one
+  :db/doc "Group max age"}
+ 
+ {:db/ident :nih.dri.group/nutrients
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/many
+  :db/isComponent true
+  :db/doc "DRI nutrients for the group"}
+ 
+ {:db/ident :nih.dri.nutr/name
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "Nutrient name"}
+ 
+ {:db/ident :nih.dri.nutr/units
+  :db/valueType :db.type/string
+  :db/cardinality :db.cardinality/one
+  :db/doc "Nutrient units"}
+ 
+ {:db/ident :nih.dri.nutr/dval
+  :db/valueType :db.type/float
+  :db/cardinality :db.cardinality/one
+  :db/doc "Daily value "}
+ 
+ {:db/ident :nih.dri.nutr/rda?
+  :db/valueType :db.type/boolean
+  :db/cardinality :db.cardinality/one
+  :db/doc "Is nutrient RDA (otherwise AI)"}
+
  ]
 

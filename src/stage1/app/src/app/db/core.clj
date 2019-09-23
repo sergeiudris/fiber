@@ -107,6 +107,8 @@
 
 (def food-des-search (mk-search-fulltext :usda.item/desc-long))
 
+(def nutrient-search (mk-search-fulltext :usda.nutr/desc))
+
 (def nutrients-q
   '[:find ?e
     :in $
@@ -136,16 +138,16 @@
 ; https://docs.datomic.com/on-prem/query.html#fulltext
 
 (comment
-  
+
   (query-nutrients)
 
   (pp/pprint (food-des-search
               "Beans"
               :offset 0
               :limit 2))
-  
+
   (query-items-nutrients [17592186047001 17592186050667])
-  
+
   (def _ (food-des-search
           "Beans"
           :offset 0
@@ -155,6 +157,17 @@
    "Beans"
    :offset nil
    :limit nil)
+
+  ; find all dinstinct units
+  (def units (d/q '{:find [(distinct ?unit)]
+                    :in [$]
+                    :where [[?e :usda.nutr/units ?unit]]}
+                  (db-now)))
+  
+  (= (second (ffirst units)) "?g")
+  (first (second (ffirst units))) ; \�
+  
+  (nutrient-search "Vitamin K" :offset 0 :limit 10)
 
   ;
   )
