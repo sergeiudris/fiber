@@ -38,14 +38,19 @@
 (defn batch-tx
   [file-in  conn & {:keys [line-num] :or {line-num 10000}}]
   (with-open [reader (io/reader  file-in)]
-    (let [raw (line-seq reader)
+    (let [total-lines (tio/count-lines file-in)
+          tx-count (atom 0)
+          raw (line-seq reader)
           data (->> raw (drop 1) (drop-last))
           parts (partition-all line-num data)]
+      (prn "total lines: " total-lines)
       (doseq [part parts]
         (let [tx-data (map (fn [line]
                              (read-string line))
                            part)]
-          (do (time @(d/transact conn (vec tx-data))))
+          (do (time @(d/transact conn (vec tx-data)))
+              (swap! tx-count inc)
+              (prn "transacted: " (* tx-count line-num)))
                ;
           )))))
 
