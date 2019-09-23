@@ -70,8 +70,8 @@
 
 (rf/reg-event-db
  ::nutrients-res
- (fn-traced [db [_ val]]
-            (assoc db :ui.count/nutrients-res val)))
+ (fn-traced [db [_ eargs]]
+            (assoc db :ui.count/nutrients-res eargs)))
 
 
 (rf/reg-event-fx
@@ -105,3 +105,37 @@
    (let [added (:ui.count/added-items db)]
      {:db (merge db {:ui.count/added-items (vec (concat added eargs))})
       :dispatch [::items-nutrients eargs]})))
+
+
+(rf/reg-event-fx
+ ::nutrients
+ (fn [{:keys [db]} [_ eargs]]
+   (let [nutrients (:ui.count/nutrients-res db)]
+     (if nutrients
+       {:db db}
+       {:dispatch [:ui.events/request
+                   {:method :get
+                    :params {}
+                    :path "/usda/nutrients"
+                    :on-success [::nutrients-res]
+                    :on-fail [::nutrients-res]}]
+        :db db}))))
+
+(rf/reg-event-fx
+ ::nhi-dri
+ (fn [{:keys [db]} [_ eargs]]
+   (let [nhi-dri (:ui.count/nhi-dri-res db)]
+     (if nhi-dri
+       {:db db}
+       {:dispatch [:ui.events/request
+                   {:method :get
+                    :params {:group "31-50"}
+                    :path "/usda/nhi-dri"
+                    :on-success [::nhi-dri-res]
+                    :on-fail [::nhi-dri-res]}]
+        :db db}))))
+
+(rf/reg-event-db
+ ::nhi-dri-res
+ (fn-traced [db [_ eargs]]
+            (assoc db :ui.count/nhi-dri-res eargs)))

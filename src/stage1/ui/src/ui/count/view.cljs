@@ -247,6 +247,7 @@
   []
   #_(js/console.log 'count-panel-fn)
   (rf/dispatch [:ui.count.events/nutrients])
+  (rf/dispatch [:ui.count.events/nhi-dri])
   (let [module-count @(rf/subscribe [::subs/module-count])
         base-url @(rf/subscribe [:ui.subs/base-url])]
     (fn []

@@ -150,6 +150,10 @@
               (vec))})
     (catch Exception e {:msg (.getMessage e)})))
 
+(defn query-nih-dri
+  [group-range]
+  (qpull-entities :nih.dri.group/range group-range))
+
 ; https://docs.datomic.com/on-prem/query.html#fulltext
 
 (comment
@@ -157,6 +161,8 @@
   (query-nutrients)
   
   (qpull-entities :nih.dri.group/range "31-50")
+  
+  (query-nih-dri "31-50")
 
   (pp/pprint (food-des-search
               "Beans"

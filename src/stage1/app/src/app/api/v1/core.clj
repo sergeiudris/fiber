@@ -31,6 +31,7 @@
               ["/v1/usda/search" :get (conj itcprs `app.api.v1.usda/get-search)]
               ["/v1/usda/nutrients" :get (conj itcprs `app.api.v1.usda/get-nutrients)]
               ["/v1/usda/items-nutrients" :post (conj itcprs `app.api.v1.usda/post-items-nutrients)]
+              ["/v1/usda/nhi-dri" :get (conj itcprs `app.api.v1.usda/get-nih-dri)]
               ;
               })
 

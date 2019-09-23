@@ -32,6 +32,14 @@
     (ring-resp/response
      (str data))))
 
+(defn get-nih-dri
+  [req]
+  (let [{:keys [body params json-params headers edn-params]} req
+        {:keys [group] :or {group "31-50"}} params
+        data (db/query-nih-dri group)]
+    (ring-resp/response
+     (str data))))
+
 (defn post-items-nutrients
   [req]
   (let [{:keys [body params json-params headers edn-params]} req

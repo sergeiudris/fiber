@@ -37,3 +37,8 @@
       (remove nil?)
       (vec)
       ))))
+
+(rf/reg-sub
+ ::nhi-dri-res
+ (fn [db _]
+   (:ui.count/nhi-dri-res db)))
