@@ -25,3 +25,13 @@
  ::search-table-mdata
  (fn [db _]
    (:ui.count/search-table-mdata db)))
+
+(rf/reg-sub
+ ::selected-items
+ (fn [db _]
+   (let [added (:ui.count/added-items db)
+         items-nutrients (:ui.count/items-nutrients db)]
+     (->>
+      (map (fn [item]
+             (get items-nutrients (:db/id item))) added)
+      (remove nil?)))))

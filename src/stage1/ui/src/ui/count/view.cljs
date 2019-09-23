@@ -106,7 +106,7 @@
               #_(mapv #(-> % :entity (dissoc :db/id)) items)
               pagination (:pagination @table-mdata)]
           (if @results-visible?
-            [ant-table {:show-header true
+            [ant-table {:show-header false
                         :size "small"
                         :row-key food-des-key
                         :columns columns
@@ -120,9 +120,9 @@
                         :scroll {
                                 ;  :x "max-content" 
                                  :y 256}
-                        :rowSelection {:on-change (fn [keys rows]
-                                                    (prn keys)
-                                                    )}
+                        ; :rowSelection {:on-change (fn [keys rows]
+                        ;                             (prn keys)
+                        ;                             )}
                         :pagination (merge pagination
                                            {:total total
                                             ; :on-change #(js/console.log %1 %2)
@@ -190,6 +190,54 @@
         :style {:margin-left 8}}
        [ant-button {:icon "unordered-list" :on-click #(rf/dispatch [:ui.count.events/results-visible] ) }]])))
 
+
+(def table-items-keywords
+  [
+  ;  :usda.item/id
+  ;  :usda.item/group-id
+   :usda.item/desc-long
+   :usda.item/desc-short
+   :usda.item/com-name
+   :usda.item/manufac-name
+   :usda.item/survey
+   :usda.item/ref-desc
+   :usda.item/refuse
+   :usda.item/sci-name
+   :usda.item/n-factor
+   :usda.item/pro-factor
+   :usda.item/fat-factor
+   :usda.item/cho-factor])
+
+
+(def table-items-columns
+  (mapv (fn [kw]
+          {:title (name kw)
+           :key (name kw)
+           :dataIndex kw
+          ;  :render (fn [txt rec idx]
+          ;            txt)
+           })
+        table-items-keywords))
+
+(def table-items-key :usda.item/id)
+
+
+(defn table-items
+  []
+  (let [selected (rf/subscribe [:ui.count.subs/selected-items])]
+    (fn []
+      (let [items @selected]
+        [ant-table {:show-header true
+                    :size "small"
+                    :row-key table-items-key
+                    :columns table-items-columns
+                    :dataSource items
+                    :scroll {;  :x "max-content" 
+                             ;:y 256
+                             }
+                    :rowSelection {:on-change (fn [keys rows]
+                                                (prn keys))}}]))))
+
 (defn count-panel
   []
   #_(js/console.log 'count-panel-fn)
@@ -204,5 +252,7 @@
        [:br]
        [:br]
        [table]
+       [:br]
+       [table-items]
        #_[ui.count.sample/sample-table]])))
 

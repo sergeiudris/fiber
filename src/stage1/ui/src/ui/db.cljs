@@ -27,7 +27,7 @@
 
      :ui.count/search-res {:data []}
      :ui.count/results-visible? true
-     :ui.count/search-table-mdata {:pagination {:showSizeChanger true
+     :ui.count/search-table-mdata {:pagination {:showSizeChanger false
                                                 :defaultPageSize 10
                                                 :pageSizeOptions  ["5" "10" "20"]
                                                 :position "top"

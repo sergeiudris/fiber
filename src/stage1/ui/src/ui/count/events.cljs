@@ -103,5 +103,5 @@
  ::add-items
  (fn [{:keys [db]} [_ eargs]]
    (let [added (:ui.count/added-items db)]
-     {:db (merge db {:ui.count/added-items (concat added eargs)})
+     {:db (merge db {:ui.count/added-items (vec (concat added eargs))})
       :dispatch [::items-nutrients eargs]})))
