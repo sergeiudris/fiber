@@ -52,6 +52,7 @@
 #_(time (batch-tx "/opt/data/stage1/nut-data.edn" conn))
 #_(.exists (io/file "/opt/data/stage1/nut-data.edn"))
 #_(tio/count-lines "/opt/data/stage1/nut-data.edn")
+#_(td/count-total (db-now) :usda.nutrdata/id)
 
 (defn query
   [q-data]
