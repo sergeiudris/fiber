@@ -146,9 +146,15 @@
  {:db/ident :usda.nutrdata/id
   :db/valueType :db.type/string
   :db/unique :db.unique/identity
-  :db/cardinality :db.cardinality/many
+  :db/cardinality :db.cardinality/one
   :db/doc
   "A unique composite id, {item-id}-{nutr-id} "}
+ 
+ {:db/ident :usda.nutrdata/nutr-ref
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/one
+  :db/doc
+  "A ref to nutrient"}
 
  {:db/ident :usda.nutrdata/item-id
   :db/valueType :db.type/string

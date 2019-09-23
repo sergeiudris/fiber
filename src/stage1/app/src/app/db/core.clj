@@ -3,7 +3,8 @@
               [datomic.api :as d]
               [tools.datomic.core :as td]
               [tools.io.core :as tio]
-              [clojure.java.io :as io]))
+              [clojure.java.io :as io]
+              [clojure.pprint :as pp]))
 
 
 (def db-uri "datomic:free://datomicdb:4334/fiber?password=datomic")
@@ -70,19 +71,18 @@
   [data]
   @(d/transact conn data))
 
-(defn food-des-query
-  [s]
+(defn query-fulltext
+  [attr s]
   (try
-    {:data (d/q '[:find ?entity ?name ?tx ?score
-                  :in $ ?search
-                  :where [(fulltext $ :usda.item/desc-long ?search) [[?entity ?name ?tx ?score]]]]
-                (db-now)
-                s)}
+    {:data (d/q '[:find ?entity ?val ?tx ?score
+                  :in $ ?attr ?search 
+                  :where [(fulltext $ ?attr ?search) [[?entity ?val ?tx ?score]]]]
+                (db-now) attr s )}
     (catch Exception e {:msg (.getMessage e)})))
 
-(defn food-des-search
-  [s & {:keys [offset limit]  }]
-  (let [q-res (food-des-query s)
+(defn search-fulltext
+  [attr s & {:keys [offset limit]  }]
+  (let [q-res (query-fulltext attr s)
         q-res-data (:data q-res)]
     (if q-res-data
       {:total (count q-res-data)
@@ -92,27 +92,37 @@
               (map (fn [tup]
                      {:entity (d/pull (db-now) '[*] (first tup))
                       :db/id (nth tup 0)
-                      :usda.item/desc-long (nth tup 1)
+                      attr (nth tup 1)
                       :tx (nth tup 2)
                       :score (nth tup 3)}) )
               vec)}
       q-res)))
 
+(defn mk-search-fulltext
+  [attr]
+  (partial search-fulltext attr))
+
+(def food-des-search (mk-search-fulltext :usda.item/desc-long))
+
 ; https://docs.datomic.com/on-prem/query.html#fulltext
 
 (comment
+
+  (pp/pprint (food-des-search
+              "Beans"
+              :offset 0
+              :limit 1))
   
-  (food-des-search
-   "Beans"
-   :offset 0
-   :limit 3
-   
-   )
+  (def _ (food-des-search
+          "Beans"
+          :offset 0
+          :limit 20))
+
   (food-des-search
    "Beans"
    :offset nil
    :limit nil)
-  
+
   ;
   )
 
