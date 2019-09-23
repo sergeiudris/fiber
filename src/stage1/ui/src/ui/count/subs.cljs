@@ -34,4 +34,6 @@
      (->>
       (map (fn [item]
              (get items-nutrients (:db/id item))) added)
-      (remove nil?)))))
+      (remove nil?)
+      (vec)
+      ))))

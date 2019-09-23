@@ -197,17 +197,18 @@
   ;  :usda.item/id
   ;  :usda.item/group-id
    :usda.item/desc-long
-   :usda.item/desc-short
-   :usda.item/com-name
-   :usda.item/manufac-name
-   :usda.item/survey
-   :usda.item/ref-desc
-   :usda.item/refuse
-   :usda.item/sci-name
-   :usda.item/n-factor
-   :usda.item/pro-factor
-   :usda.item/fat-factor
-   :usda.item/cho-factor])
+  ;  :usda.item/desc-short
+  ;  :usda.item/com-name
+  ;  :usda.item/manufac-name
+  ;  :usda.item/survey
+  ;  :usda.item/ref-desc
+  ;  :usda.item/refuse
+  ;  :usda.item/sci-name
+  ;  :usda.item/n-factor
+  ;  :usda.item/pro-factor
+  ;  :usda.item/fat-factor
+  ;  :usda.item/cho-factor
+   ])
 
 
 (def table-items-columns
@@ -234,9 +235,10 @@
                                (str (aget rec :id) idx))
                     :columns table-items-columns
                     :dataSource items
+                    :on-row (fn [rec idx]
+                             #js {:onClick (fn [] (js/console.log rec))})
                     :scroll {;  :x "max-content" 
-                             :y 364
-                             }
+                             :y 364}
                     :pagination false
                     :rowSelection {:on-change (fn [keys rows]
                                                 (prn keys))}}]))))
