@@ -46,7 +46,7 @@
               writer (io/writer filename-out :append true)
               ]
     (let [data (line-seq reader)
-          lines data]
+          lines (if limit (take limit data) data)]
       (.write writer (str "[" \newline))
       (doseq [line lines]
         (let [line-out (str (line->edn line) \newline)]
@@ -112,6 +112,41 @@
        ;
        ))))
 
+(defn nut-data->edn
+  "Processes ascii file into edn file"
+  []
+  (ascii-file->edn-file
+   NUT_DATA
+   NUT_DATA-out
+   (fn [line]
+     (let [vals (ascii-line->vals line)]
+       (into {}
+             (filter (comp some? val)
+                     {:usda.item/_nutrients [:usda.item/id (nth vals 0)]
+                      :usda.nutrdata/id (str (nth vals 0) "-" (nth vals 1))
+                      :usda.nutrdata/item-id (nth vals 0)
+                      :usda.nutrdata/nutr-id (nth vals 1)
+                      :usda.nutrdata/nutr-val (try-parse-float (nth vals 2))
+                      :usda.nutrdata/num-data-points (try-parse-float (nth vals 3))
+                      :usda.nutrdata/std-error (try-parse-float (nth vals 4))
+                      :usda.nutrdata/src-cd (nth vals 5)
+                      :usda.nutrdata/deriv-cd (nth vals 6)
+                      :usda.nutrdata/ref-ndb-no (nth vals 7)
+                      :usda.nutrdata/add-nutr-mark (nth vals 8)
+                      :usda.nutrdata/num-studies (try-parse-int (nth vals 9))
+                      :usda.nutrdata/min (try-parse-float (nth vals 10))
+                      :usda.nutrdata/max (try-parse-float (nth vals 11))
+                      :usda.nutrdata/df (try-parse-int (nth vals 12))
+                      :usda.nutrdata/low-eb (try-parse-float (nth vals 13))
+                      :usda.nutrdata/up-eb (try-parse-float (nth vals 14))
+                      :usda.nutrdata/stat-cmt (nth vals 15)
+                      :usda.nutrdata/addmod-date (nth vals 16)
+                      :usda.nutrdata/cc (nth vals 17)}))
+       ;
+       ))
+   :limit 10
+   ))
+
 
 
 (comment
@@ -125,6 +160,11 @@
 
   (food-des->edn)
   #_(delete-files FOOD_DES-out)
+  
+  (nut-data->edn)
+  #_(delete-files NUT_DATA-out)
+  (count-lines NUT_DATA)
+  
 
   (def line (read-nth-line NUTR_DEF 1))
   (count-lines NUTR_DEF)
