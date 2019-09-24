@@ -13,6 +13,7 @@
              ["antd/lib/button" :default AntButton]
              ["antd/lib/button/button-group" :default AntButtonGroup]
              ["antd/lib/input" :default AntInput]
+             ["antd/lib/progress" :default AntProgress]
              ["antd/lib/input/Search" :default AntInputSearch]
              ["antd/lib/table" :default AntTable]
              ["antd/lib/auto-complete" :default AntAutoComplete]))
@@ -24,6 +25,7 @@
 (def ant-input-search (r/adapt-react-class AntInputSearch))
 (def ant-auto-complete (r/adapt-react-class AntAutoComplete))
 (def ant-auto-complete-option (r/adapt-react-class (.-Option AntAutoComplete)))
+(def ant-progress (r/adapt-react-class AntProgress))
 
 
 (def ant-table (r/adapt-react-class AntTable))
@@ -241,7 +243,7 @@
                     :on-row (fn [rec idx]
                              #js {:onClick (fn [] (js/console.log rec))})
                     :scroll {;  :x "max-content" 
-                             :y 364}
+                             :y 192}
                     :pagination false
                     :rowSelection {:on-change (fn [keys rows]
                                                 (prn keys))}}]))))
@@ -289,14 +291,16 @@
             ]
         [:table {:style {:border "1px solid #f0f2f5" 
                          :border-radius "15px"
-                         :width "30%"}}
+                         :width "40%"}}
          [:tbody
           [:tr
            [:th "Nutrient"]
            [:th "RDA/AI"]
            [:th "units"]
            [:th "total(g)"]
-           [:th "%"]]
+           [:th "%"]
+           [:th ""]
+           ]
           (map (fn [nutr]
                  #_(js.console.log nutr)
                  (let [name (:nih.dri.nutr/name nutr)
@@ -304,6 +308,7 @@
                        units (:nih.dri.nutr/units nutr)
                        dvalg (to-grams dval units)
                        total (nutrient-total nutr items usda-nutrs)
+                       pct (* 100 (/ total dvalg))
                        ]
                    [:tr {:key name}
                     [:td name]
@@ -312,8 +317,14 @@
                     [:td 
                      (gstring/format "%.4f" total )]
                     [:td 
-                     (gstring/format "%.0f" (* 100 (/ total dvalg )) )
-                     ]]))
+                     (gstring/format "%.0f" pct )
+                     ]
+                    [:td 
+                     [ant-progress {:percent pct :size "small" :showInfo false
+                                    :style {:width "64px"}
+                                    }]
+                     ]
+                    ]))
                nutrs)
           ]
          ;
@@ -332,7 +343,6 @@
        #_[search]
        [auto-complete {}]
        [buttons]
-       [:br]
        [:br]
        [table]
        [:br]
