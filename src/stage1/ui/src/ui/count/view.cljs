@@ -7,6 +7,8 @@
              [ui.count.events :as events]
              [ajax.core :refer [GET POST]]
              [ui.count.sample]
+             [goog.string :as gstring]
+             [goog.string.format]
              ["antd/lib/icon" :default AntIcon]
              ["antd/lib/button" :default AntButton]
              ["antd/lib/button/button-group" :default AntButtonGroup]
@@ -70,6 +72,7 @@
 (def extra-columns
   [{:title "action"
     :key "action"
+    :width "64px"
     :render (fn [txt rec idx]
               (r/as-element
                [ant-button-group
@@ -85,7 +88,7 @@
                  ]])
               )}])
 
-(def columns (vec (concat food-des-columns extra-columns))) 
+(def columns (vec (concat extra-columns food-des-columns ))) 
 
 #_(def pagination {:show-size-changer true
                  :default-page-size 10
@@ -242,6 +245,73 @@
                     :pagination false
                     :rowSelection {:on-change (fn [keys rows]
                                                 (prn keys))}}]))))
+; [[#{"kJ" "�g" "IU" "kcal" "g" "mg"}]]
+(defn to-grams
+  [value units]
+  (cond
+    (= units "g") value
+    (= units "mg") (/ value 1000)
+    (contains? ["?g" "μg" "�g"] units) (/ value 1000000)
+    :else nil))
+
+(defn nutrient-total
+  [nutr items usda-nutrs]
+  ; (js/console.log nutr)
+  ; (js/console.log items)
+  (reduce (fn [a x]
+            (let [item-nutrs (:usda.item/nutrients x)
+                  nutr-usda-id (:nih.dri.nutr/usda-nutr-id nutr)]
+              (reduce (fn [ag inutr]
+                        (let [inutr-usda-id (:usda.nutrdata/nutr-id inutr)
+                              units (get-in usda-nutrs [inutr-usda-id :usda.nutr/units])
+                              value (:usda.nutrdata/nutr-val inutr)]
+                          ; (js/console.log nutr)
+                          ; (js/console.log inutr)
+                          ; (js/console.log units)
+                          (if (= inutr-usda-id nutr-usda-id)
+                            (+ ag (to-grams value units))
+                            ag
+                          ;
+                            )))a item-nutrs))) 0 items))
+
+(defn metrics
+  []
+  (let [dri-data (rf/subscribe [:ui.count.subs/nhi-dri])
+        selected (rf/subscribe [:ui.count.subs/selected-items])
+        usda-nutrients (rf/subscribe [:ui.count.subs/nutrients])
+        ]
+    (fn []
+      (let [nutrs (:nih.dri.group/nutrients @dri-data)
+            items @selected
+            usda-nutrs @usda-nutrients
+            ]
+        [:table {:style {:border "1px solid #f0f2f5" 
+                         :border-radius "15px"
+                         :width "30%"}}
+         [:tbody
+          [:tr
+           [:th "Nutrient"]
+           [:th "RDA/AI"]
+           [:th "units"]
+           [:th "total(g)"]
+           [:th "%"]]
+          (map (fn [nutr]
+                 #_(js.console.log nutr)
+                 (let [name (:nih.dri.nutr/name nutr)
+                       dval (:nih.dri.nutr/dval nutr)
+                       units (:nih.dri.nutr/units nutr)]
+                   [:tr {:key name}
+                    [:td name]
+                    [:td dval]
+                    [:td units]
+                    [:td
+                     (gstring/format "%.4f" (nutrient-total nutr items usda-nutrs))]
+                    [:td 0]]))
+               nutrs)
+          ]
+         ;
+         ])))
+  )
 
 (defn count-panel
   []
@@ -260,5 +330,7 @@
        [table]
        [:br]
        [table-items]
+       [:br]
+       [metrics]
        #_[ui.count.sample/sample-table]])))
 

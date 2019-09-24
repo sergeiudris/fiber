@@ -42,3 +42,13 @@
  ::nhi-dri-res
  (fn [db _]
    (:ui.count/nhi-dri-res db)))
+
+(rf/reg-sub
+ ::nhi-dri
+ (fn [db _]
+   (-> db (get-in  [:ui.count/nhi-dri-res :data]) (first))))
+
+(rf/reg-sub
+ ::nutrients
+ (fn [db _]
+   (:ui.count/nutrients db)))

@@ -43,6 +43,7 @@
      :ui.count/items-nutrients {}
      :ui.count/added-items []
      :ui.count/nhi-dri-res nil
+     :ui.count/nutrients nil
      
 
     ;

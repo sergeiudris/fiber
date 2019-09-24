@@ -71,7 +71,13 @@
 (rf/reg-event-db
  ::nutrients-res
  (fn-traced [db [_ eargs]]
-            (assoc db :ui.count/nutrients-res eargs)))
+            (let [data (:data eargs)]
+              (merge db
+                     {:ui.count/nutrients-res eargs
+                      :ui.count/nutrients
+                      (reduce (fn [a x]
+                                (assoc a (:usda.nutr/id x) x)) {} data)}))
+            ))
 
 
 (rf/reg-event-fx
