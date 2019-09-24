@@ -315,16 +315,20 @@
   ; (js/console.log items)
   (reduce (fn [a x]
             (let [item-nutrs (:usda.item/nutrients x)
-                  nutr-usda-id (:nih.dri.nutr/usda-nutr-id nutr)]
+                  nutr-usda-id (:nih.dri.nutr/usda-nutr-id nutr)
+                  grams (or (:val x) 100)
+                  coef (/ grams 100)
+                  ]
               (reduce (fn [ag inutr]
                         (let [inutr-usda-id (:usda.nutrdata/nutr-id inutr)
                               units (get-in usda-nutrs [inutr-usda-id :usda.nutr/units])
-                              value (:usda.nutrdata/nutr-val inutr)]
+                              value (:usda.nutrdata/nutr-val inutr)
+                              ]
                           ; (js/console.log nutr)
                           ; (js/console.log inutr)
                           ; (js/console.log units)
                           (if (= inutr-usda-id nutr-usda-id)
-                            (+ ag (to-grams value units))
+                            (+ ag (to-grams (* value coef) units))
                             ag
                           ;
                             )))a item-nutrs))) 0 items))
@@ -354,7 +358,7 @@
            [:th "%"]
            ]
           (map (fn [nutr]
-                 #_(js.console.log nutr)
+                 #_(js/console.log items)
                  (let [name (:nih.dri.nutr/name nutr)
                        dval (:nih.dri.nutr/dval nutr)
                        units (:nih.dri.nutr/units nutr)
