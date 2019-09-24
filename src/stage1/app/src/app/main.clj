@@ -7,7 +7,9 @@
             [fiber.core]
             [app.data.core]
             [app.data.usda]
-   
+            [app.db.core]
+            [app.setup]
+
    ;
             )
   ;
@@ -16,8 +18,9 @@
 
 (defn -main  [& args]
   (tools.nrepl/-main)
-  (app.srv.server/run-dev)
-  )
+  (app.db.core/connect!)
+  (app.setup/load!)
+  (app.srv.server/run-dev))
 
 #_(defn -main  [& args]
   (tools.nrepl/-main)

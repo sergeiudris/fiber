@@ -147,7 +147,14 @@
   ;  :limit 10
    ))
 
-
+(defn create-files!
+  []
+  (try
+    (do
+      (time (nutr-def->edn))
+      (time (food-des->edn))
+      (time (nut-data->edn)))
+    (catch Exception e (do (prn (.getMessage e)) false))))
 
 (comment
 
@@ -164,6 +171,8 @@
   (time (nut-data->edn)) ; 298 mb
   #_(delete-files NUT_DATA-out)
   (count-lines NUT_DATA) ; 40.4 mb
+  
+  #_(create-files!)
   
 
   (def line (read-nth-line NUTR_DEF 1))

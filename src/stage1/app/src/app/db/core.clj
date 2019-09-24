@@ -9,16 +9,20 @@
 
 (def db-uri "datomic:free://datomicdb:4334/fiber?password=datomic")
 
-(def _ (d/create-database db-uri))
-
 #_(d/delete-database db-uri)
 
-(def conn (d/connect db-uri))
-; (def conn (d/connect client {:db-name "hello"}))
-
-(def db (d/db conn))
+(declare conn)
 
 (defn db-now []  (d/db conn))
+
+(defn connect!
+  []
+  (d/create-database db-uri)
+  (def  conn (d/connect db-uri)))
+
+#_(connect!)
+
+; (def conn (d/connect client {:db-name "hello"}))
 
 #_(def schema-tx (read-string (slurp "src/app/db/schema.edn")))
 #_(do @(d/transact conn schema-tx))
@@ -62,6 +66,21 @@
 #_(.exists (io/file "/opt/data/stage1/nut-data.edn"))
 #_(tio/count-lines "/opt/data/stage1/nut-data.edn")
 #_(td/count-total (db-now) :usda.nutrdata/id)
+
+(defn populate!
+  []
+  (try
+    (do
+      (time @(d/transact conn (read-string (slurp "src/app/db/schema.edn"))))
+      (time @(d/transact conn (read-string (slurp "/opt/data/stage1/nutr-def.edn"))))
+      (time @(d/transact conn (read-string (slurp "/opt/data/stage1/food-des.edn"))))
+      (time @(d/transact conn (read-string (slurp "/opt/data/stage1/nih.dri.elements.edn"))))
+      (time (batch-tx "/opt/data/stage1/nut-data.edn" conn))
+      ;
+      )
+    (catch Exception e (do (prn (.getMessage e)) false))))
+
+#_(populate!)
 
 (defn query
   [q-data]
