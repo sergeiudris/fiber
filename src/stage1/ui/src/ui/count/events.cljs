@@ -112,6 +112,20 @@
      {:db (merge db {:ui.count/added-items (vec (concat added eargs))})
       :dispatch [::items-nutrients eargs]})))
 
+(rf/reg-event-fx
+ ::remove-items
+ (fn [{:keys [db]} [_ eargs]]
+   (let [added (:ui.count/added-items db)
+         idxs (reduce (fn [a x]
+                        (conj a (:idx x) )
+                        ) #{} eargs)
+         filtered (vec
+                   (keep-indexed (fn [idx x]
+                                   (if (idxs idx) nil x)) added))
+         ]
+     {:db (assoc db :ui.count/added-items filtered)
+     })))
+
 
 (rf/reg-event-fx
  ::nhi-dri

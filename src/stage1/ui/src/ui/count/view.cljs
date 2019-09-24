@@ -88,9 +88,13 @@
                                ])}
                  "add"
                  ]])
-              )}])
+              )}
+   #_{:title ""
+    :key "empty"
+    }
+   ])
 
-(def columns (vec (concat extra-columns food-des-columns ))) 
+(def columns (vec (concat food-des-columns extra-columns ))) 
 
 #_(def pagination {:show-size-changer true
                  :default-page-size 10
@@ -216,7 +220,7 @@
    ])
 
 
-(def table-items-columns
+(def table-items-columns-main
   (mapv (fn [kw]
           {:title (name kw)
            :key (name kw)
@@ -228,6 +232,27 @@
 
 (def table-items-key :usda.item/id)
 
+
+(def table-items-extra-columns
+  [{:title ""
+    :key "action"
+    :width "64px"
+    :render (fn [txt rec idx]
+              (r/as-element
+               [ant-button-group
+                {:size "small"}
+                [ant-button
+                 {;:icon "plus"
+                  :type "primary"
+                  :on-click #(rf/dispatch
+                              [:ui.count.events/remove-items
+                               [{:db/id (aget rec "id")
+                                 :idx idx}]])}
+                 "del"]]))}
+  ])
+
+(def table-items-columns 
+  (vec (concat table-items-columns-main table-items-extra-columns)))
 
 (defn table-items
   []
@@ -241,7 +266,7 @@
                     :columns table-items-columns
                     :dataSource items
                     :on-row (fn [rec idx]
-                             #js {:onClick (fn [] (js/console.log rec))})
+                             #js {:onDoubleClick (fn [] (js/console.log rec))})
                     :scroll {;  :x "max-content" 
                              :y 192}
                     :pagination false
@@ -289,17 +314,18 @@
             items @selected
             usda-nutrs @usda-nutrients
             ]
-        [:table {:style {:border "1px solid #f0f2f5" 
+        [:table {:border "1"
+                 :style {:border "1px solid #f0f2f5" 
                          :border-radius "15px"
-                         :width "40%"}}
+                         :width "40vw"}}
          [:tbody
           [:tr
            [:th "Nutrient"]
            [:th "RDA/AI"]
            [:th "units"]
            [:th "total(g)"]
+           #_[:th "%"]
            [:th "%"]
-           [:th ""]
            ]
           (map (fn [nutr]
                  #_(js.console.log nutr)
@@ -316,12 +342,16 @@
                     [:td units]
                     [:td 
                      (gstring/format "%.4f" total )]
-                    [:td 
+                    #_[:td 
                      (gstring/format "%.0f" pct )
                      ]
                     [:td 
-                     [ant-progress {:percent pct :size "small" :showInfo false
+                     [ant-progress {:percent pct :size "small" 
+                                    :showInfo true
                                     :style {:width "64px"}
+                                    :format (fn [percent success-percent]
+                                              (str (gstring/format "%.0f" pct) "%")
+                                              )
                                     }]
                      ]
                     ]))

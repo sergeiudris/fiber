@@ -102,3 +102,12 @@ body {
   height: calc(100vh - 64px);
   overflow-y: auto;
 }
+
+.ant-table-small>.ant-table-content>
+.ant-table-body>table>.ant-table-tbody>tr>td,
+
+.ant-table-small>.ant-table-content>
+.ant-table-scroll>.ant-table-body>table>.ant-table-tbody>tr>td
+{
+  padding: 2px;
+}
