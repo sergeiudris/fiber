@@ -24,11 +24,15 @@ shadow(){
     ./node_modules/.bin/shadow-cljs "$@"
 }
 
+prod(){
+    yarn
+    shadow -A:prod:git release app
+}
+
 main(){
 
   if [ "$STAGE" != "dev" ]; then
-    yarn
-    shadow -A:dev:git watch app
+    shadow -A:dev:git server
   else 
     tail -f /dev/null
   fi 
@@ -42,7 +46,7 @@ dev(){
     # yarn dev
 }
 
-prod(){
+prod-local(){
     yarn
     shadow -A:prod:local release app
     # yarn prod
