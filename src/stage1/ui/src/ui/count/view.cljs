@@ -235,7 +235,7 @@
 
 (def table-items-extra-columns
   [
-   {:title ""
+   {:title "amount(g)"
     :key "amount"
     :width "128px"
     :render (fn [txt rec idx]
@@ -286,6 +286,7 @@
       (let [items @selected]
         [ant-table {:show-header true
                     :size "small"
+                    :style {:height "23vh"}
                     :row-key (fn [rec idx]
                                (aget rec "uuid")
                                #_(str (aget rec :id) idx))
