@@ -48,13 +48,13 @@ body {
 
 .fiber-db-query-editor {
   border: 1px solid lightgrey;
-  height: 192px !important;
+  height: 24vh !important;
   flex: 1 0 auto;
 }
 
 .fiber-db-query-results-editor {
   border: 1px solid lightgrey;
-  height: 288px !important;
+  max-height: 40vh !important;
   flex: 1 0 auto;
 }
 
@@ -114,4 +114,8 @@ body {
 
 .fiber-table-amount-field {
   margin-right: 16px;
+}
+
+.fiber-example-queries-table-row {
+  cursor: pointer;
 }

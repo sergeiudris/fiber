@@ -7,26 +7,6 @@
             [goog.dom]
             [ui.dbquery.core]))
 
-(rf/reg-event-fx
- ::create
- (fn-traced [{:keys [db]} [_ eargs]]
-            (let [editor @ui.dbquery.core/editor
-                  editor-val (if editor (.getValue editor) nil) #_(:ui.dbquery/editor-val db)]
-              {:dispatch [:ui.events/request
-                          {:method :post
-                           :params nil
-                           :path "/ent"
-                           :body {:ent (cljs.reader/read-string editor-val)}
-                           :on-success [::create-resp]
-                           :on-fail [::create-resp]}]
-               :db (assoc db :ui.dbquery/create (.toLocaleTimeString (js/Date.)))})
-            ))
-
-(rf/reg-event-db
- ::create-resp
- (fn-traced [db [_ val]]
-            (assoc db :ui.dbquery/create-resp val)))
-
 
 
 
@@ -49,31 +29,36 @@
  (fn-traced [db [_ val]]
             (assoc db :ui.dbquery/query-resp val)))
 
-(rf/reg-event-db
- ::validate
- (fn-traced [db [_ eargs]]
-            (assoc db :ui.dbquery/validate (Math/random))))
+
+(rf/reg-event-fx
+ ::example-queries
+ (fn-traced [{:keys [db]} [_ eargs]]
+            (let [data (:ui.dbquery/example-queries-res db)]
+              (if data
+                {:db db}
+                {:dispatch [:ui.events/request
+                            {:method :get
+                             :params {}
+                             :path "/usda/example-queries"
+                             :on-success [::example-queries-res]
+                             :on-fail [::example-queries-res]}]
+                 :db db}))))
 
 (rf/reg-event-db
- ::generate
- (fn [db [_ eargs]]
-   (let [new-val (ui.dbquery.spec/gen-resource) #_(rs/gen-ent)
-         new-val-string (with-out-str (cljs.pprint/pprint new-val))
-         ]
-     (.setValue
-      (.-session @ui.dbquery.core/editor)
-      #_(str (Math/random))
-      new-val-string)
+ ::example-queries-res
+ (fn-traced [db [_ val]]
+            (assoc db :ui.dbquery/example-queries-res val)))
+
+(rf/reg-event-db
+ ::select-query
+ (fn [db [_ ea]]
+   (let [name (aget ea "name")
+         qs (get-in db [:ui.dbquery/example-queries-res :data])
+         x (first (filter #(= (:name %) name) qs))
+         new-val (:q x)
+         new-val-string (with-out-str (cljs.pprint/pprint new-val))]
+     (do (.setValue
+          (.-session @ui.dbquery.core/editor-query)
+          new-val-string))
      db)))
-
-; #performance!
-#_(rf/reg-event-db
- ::editor-val
- (fn-traced [db [_ eargs]]
-            (assoc db :ui.dbquery/editor-val eargs)))
-
-#_(s/valid? nil? nil )
-
-#_(s/valid? ::sp/entity {::sp/uuid "ads"
-                         ::sp/type :resource})
 

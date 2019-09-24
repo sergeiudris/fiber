@@ -4,7 +4,8 @@
             [tools.core :refer [version prn-members try-parse-int]]
             [clj-time.core :as t]
             [app.db.core :as db]
-            [clj-time.format :as f]))
+            [clj-time.format :as f]
+            [app.db.query]))
 
 
 (defn get-ping
@@ -45,6 +46,15 @@
   (let [{:keys [body params json-params headers edn-params]} req
         items (:items edn-params)
         data (db/query-items-nutrients (mapv #(:db/id %) items))]
+    (ring-resp/response
+     (str data))))
+
+(defn get-example-queries
+  [req]
+  (let [{:keys [body params json-params headers edn-params]} req
+        data {:data [app.db.query/count-nutrients
+                     app.db.query/count-food-items
+                     app.db.query/nih-age-groups]}]
     (ring-resp/response
      (str data))))
 

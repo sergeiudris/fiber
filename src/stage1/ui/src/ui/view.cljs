@@ -37,7 +37,7 @@
              :actions nil}
     "home" {:panel [(resolve 'ui.home.view/home-panel)]
             :actions nil}
-    "dbquery" {:panel [(resolve 'ui.dbquery.view/cred-panel)]}
+    "dbquery" {:panel [(resolve 'ui.dbquery.view/panel)]}
     "settings" {:panel [(resolve 'ui.settings.view/settings-panel)]}
     "monitor" {:panel [(resolve 'ui.monitor.view/monitor-panel)]}
     [:div (str "no panel for module: " module-name)]))

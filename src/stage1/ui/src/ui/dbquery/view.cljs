@@ -15,11 +15,18 @@
              ["brace/mode/graphqlschema.js"]
              ["brace/mode/json.js"]
              ["brace/theme/github.js"]
+             ["antd/lib/icon" :default AntIcon]
+             ["antd/lib/button" :default AntButton]
+             ["antd/lib/button/button-group" :default AntButtonGroup]
              #_["antd/lib/button" :default ant-Button]
-             #_["antd/lib/table" :default AntTable]))
+             ["antd/lib/table" :default AntTable]))
 
 
 (def react-ace (r/adapt-react-class ReactAce))
+(def ant-icon (r/adapt-react-class AntIcon))
+(def ant-button (r/adapt-react-class AntButton))
+(def ant-button-group (r/adapt-react-class AntButtonGroup))
+(def ant-table (r/adapt-react-class AntTable))
 
 #_@ui.dbquery.core/editor
 #_(js/console.log @ui.dbquery.core/editor)
@@ -27,61 +34,17 @@
 #_(with-out-str (cljs.pprint/pprint '(foo bar)))
 
 
-#_(def ant-table (r/adapt-react-class AntTable))
-
-
-(comment
-
-  ;
-  )
-
-(def editor-default-value
-  (with-out-str (cljs.pprint/pprint (ui.dbquery.spec/gen-resource))))
-
-(defn editor-ent
-  []
-  (let [default-value editor-default-value
-        #_(with-out-str (cljs.pprint/pprint (rs/gen-ent)))
-        value (r/atom default-value)
-        generated-ent (rf/subscribe [:ui.dbquery.subs/generate])]
-    (fn []
-      [react-ace {:name "fiber-db-editor"
-                  :mode "clojure"
-                  :theme "github"
-                  :className "fiber-db-editor"
-                    ;  :default-value default-value
-                  :value @value
-                  :on-load (fn [edr] (reset! ui.dbquery.core/editor edr))
-                  :on-change (fn [val evt] (do
-                                             #_(js/console.log val)
-                                             (reset! value val)
-                                             #_(rf/dispatch [:ui.dbquery.events/editor-val val])))
-                  :editor-props {"$blockScrolling" true}}]
-      )
-    )
-  )
-
-#_(def query-editor-default-value
-  (with-out-str
-    (cljs.pprint/pprint
-     '[:find [?a ...] :where [_ :fiber.spec/uuid ?a]])))
 
 (def query-editor-default-value
   (with-out-str
     (cljs.pprint/pprint
-     '[:find ?e ?uuid
+     '[:find (count ?e)
        :where
-       [?e :fiber.spec/uuid ?uuid]])))
-
-
-
-#_(cljs.reader/read-string query-editor-default-value)
-#_(cljs.reader/read-string (str '{:x 3}))
-#_(cljs.reader/read-string (.getValue @ui.dbquery.core/editor-query))
+       [?e :usda.nutr/id]])))
 
 (defn editor-query
   []
-  (let [default-value query-editor-default-value
+  (let [default-value ""
         value (r/atom default-value)]
     (fn []
       [react-ace {:name "fiber-db-query-editor"
@@ -97,20 +60,7 @@
                                              #_(rf/dispatch [:ui.dbquery.events/editor-val val])))
                   :editor-props {"$blockScrolling" true}}])))
 
-(def columns [{:title "attr1" :data-index "attr1" :key "attr1"}
-              {:title "attr2" :data-index "attr2" :key "attr2"}
-              {:title "attr3" :data-index "attr3" :key "attr3"}])
-
-#_(defn query-results-table
-  []
-  (let []
-    (fn []
-      [ant-table {:size "small"
-                  :columns columns :data []}])))
-
-
-
-(defn query-results-editor
+(defn editor-results
   []
   (let [default-value "{}"
         value (rf/subscribe [:ui.dbquery.subs/query-resp])
@@ -128,32 +78,76 @@
                                              ))
                   :editor-props {"$blockScrolling" ##Inf}}])))
 
-(defn cred-panel []
-  (let [default-value (with-out-str (cljs.pprint/pprint (rs/gen-ent)))
-        value (r/atom default-value)
-        create-date (rf/subscribe [:ui.dbquery.subs/create])
-        create-resp (rf/subscribe [:ui.dbquery.subs/create-resp])
-        ]
-    #_(prn default-value)
+(defn buttons
+  []
+  (let []
+    (fn []
+      [ant-button-group
+       {:size "small"}
+       [ant-button
+        {:on-click (fn [] (rf/dispatch [:ui.dbquery.events/query]))}
+        "query"]]
+      )
+    )
+  )
+
+(defn example-queries-list
+  []
+  (let [data (rf/subscribe [:ui.dbquery.subs/example-queries])]
+    (fn []
+      (let [qs @data]
+        [:section
+         (map (fn [q]
+                [:div {:key (:name q)}
+                 (:name q)]) qs)]))))
+
+(def example-queries-columns
+  [{:title "name"
+    :key "name"
+    :dataIndex :name
+     }]
+  )
+
+(defn example-queries-table
+  []
+  (let [data (rf/subscribe [:ui.dbquery.subs/example-queries])]
+    (fn []
+      (let [qs @data]
+        [ant-table
+         {:showHeader false
+          :columns example-queries-columns
+          :dataSource qs
+          :size "small"
+          :rowClassName "fiber-example-queries-table-row"
+          :row-key (fn [rec idx]
+                     (aget rec "name"))
+          :onRow (fn [rec idx]
+                   #js {:onClick (fn []
+                                   (rf/dispatch
+                                    [:ui.dbquery.events/select-query
+                                     rec]))
+                        :onDoubleClick (fn [] (js/console.log rec))})
+          :pagination false}]))))
+
+(defn panel []
+  (rf/dispatch [:ui.dbquery.events/example-queries])
+  (let []
     (fn []
       (let []
-        [:div
-         [:span "edit entity:"]
-         [:section {:style {:display "flex"}}
-          [editor-ent]
-          [:div 
-           [:div (str "last ::create event: " @create-date)]
-           [:div (str "last :ui.dbquery/create-resp: " @create-resp)]]]
-         [:br]
-         [:span "query entities:"]
+        [:div {:style {:display "flex"}}
          [:section
+          [:span "query"]
           [editor-query]
-          ]
-         [:br]
-         [:span "query results:"]
-         [query-results-editor]
+          [:br]
+          [buttons]
+          [:br]
+          [:br]
+          [:span "results"]
+          [editor-results]
          ;
-         ]
+          ]
+         [:section {:style {:padding-top 20 :padding-left 32}}
+          [example-queries-table]]]
         ;
         ))))
 

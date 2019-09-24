@@ -30,3 +30,14 @@
  ::editor-val
  (fn [db _]
    (:ui.dbquery/editor-val db)))
+
+(rf/reg-sub
+ ::example-queries-res
+ (fn [db _]
+   (:ui.dbquery/example-queries-res db)))
+
+(rf/reg-sub
+ ::example-queries
+ (fn [db _]
+   (let [raw (:ui.dbquery/example-queries-res db)]
+     (:data raw))))
