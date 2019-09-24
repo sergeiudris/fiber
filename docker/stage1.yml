@@ -19,8 +19,8 @@ services:
       # - 12083:8080
     command: bash c main
     # command: tail -f /dev/null
-    environment:
-      - STAGE=dev
+    # environment:
+    #   - STAGE=dev
     depends_on:
       - base2
     stdin_open: true
@@ -29,7 +29,7 @@ services:
       resources:
         limits:
           cpus: '4'
-          memory: 8096M
+          memory: 4096M
         # reservations:
         #   cpus: '0.25'
         #   memory: 20M      
@@ -51,10 +51,10 @@ services:
       # - 7878:7878
       # - 11488:7888
       # - 12083:8080
-    # command: bash c dev
-    command: tail -f /dev/null
-    environment:
-      - STAGE=dev
+    command: bash c main
+    # command: tail -f /dev/null
+    # environment:
+    #   - STAGE=dev
     depends_on:
       - base2
     stdin_open: true
@@ -63,7 +63,7 @@ services:
       resources:
         limits:
           cpus: '4'
-          memory: 2048M
+          memory: 4096M
         # reservations:
         #   cpus: '0.25'
         #   memory: 20M

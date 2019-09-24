@@ -7,7 +7,7 @@
             [clojure.java.shell :refer [sh]]
             [clojure.java.io :as io]))
 
-(def *stage* (System/getenv "STAGE"))
+(def ^:dynamic *stage* (System/getenv "STAGE"))
 
 (defn download-data!
   []
