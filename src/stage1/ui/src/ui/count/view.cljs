@@ -242,13 +242,14 @@
               (r/as-element
                [:div {:class "fiber-table-amount-field"}
                 [ant-input {:defaultValue "100"
-                            :on-change (fn [ev ]
-                                         (rf/dispatch 
+                            :on-change (fn [ev]
+                                         (rf/dispatch
                                           [:ui.count.events/change-item-amount
                                            {:db/id (aget rec "id")
-                                            :val (.. ev -target -value)
-                                            :idx idx}])
-                                         )
+                                            :uuid (aget rec "uuid")
+                                            :val (cljs.reader/read-string
+                                                  (.. ev -target -value))
+                                            :idx idx}]))
                             :size "small"
                             :type "number"}]
                 ]

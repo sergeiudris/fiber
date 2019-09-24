@@ -136,9 +136,12 @@
 
 (rf/reg-event-fx
  ::change-item-amount
- (fn [{:keys [db]} [_ eargs]]
-   (let [added (:ui.count/added-items db)]
-     {:db db})))
+ (fn [{:keys [db]} [_ ea]]
+   (let [added (:ui.count/added-items db)
+         val (:val ea)
+         uuid (:uuid ea)
+         xm (assoc-in added [uuid :val] val)]
+     {:db (assoc db :ui.count/added-items xm )})))
 
 
 (rf/reg-event-fx
