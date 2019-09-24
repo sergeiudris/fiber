@@ -10,7 +10,5 @@ COPY deps.edn .
 RUN clojure -A:cache:git -Stree
 COPY . .
 RUN bash c prod
-RUN rm -rf node_modules
-
 
 EXPOSE 9500 7888 9630

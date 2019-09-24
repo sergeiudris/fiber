@@ -28,7 +28,7 @@
 (defn db-exists?
   []
   (try
-    (d/connect db-uri)
+    (def conn (d/connect db-uri))
     (catch Exception e (do (prn (.getMessage e)) false))))
 
 #_(db-exists?)

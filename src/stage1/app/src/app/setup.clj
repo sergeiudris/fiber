@@ -41,8 +41,11 @@
 
 (defn init!
   []
-  (when
+  (if
    (and
     (not (= app.setup/*stage* "dev"))
     (not (app.db.core/db-exists?)))
-    (upload-data!)))
+    (do
+      (app.db.core/connect!)
+      (upload-data!))
+    (app.db.core/connect!)))

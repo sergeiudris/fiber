@@ -19,6 +19,7 @@ services:
       dockerfile: ./prod.Dockerfile
     ports:
       - 4500:8080
+      - 4554:7878
     command: bash c main
     # command: tail -f /dev/null
     stdin_open: true
