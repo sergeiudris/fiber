@@ -156,6 +156,13 @@
       (time (nut-data->edn)))
     (catch Exception e (do (prn (.getMessage e)) false))))
 
+(defn del-files!
+  []
+  (try
+    (do
+      (delete-files NUTR_DEF-out FOOD_DES-out NUT_DATA-out))
+    (catch Exception e (do (prn (.getMessage e)) false))))
+
 (comment
 
   (read-src-file NUTR_DEF NUTR_DEF-out)

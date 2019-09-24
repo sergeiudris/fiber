@@ -58,7 +58,7 @@
                            part)]
           (do (time @(d/transact conn (vec tx-data)))
               (swap! tx-count inc)
-              (prn "transacted: " (* tx-count line-num)))
+              (prn "transacted: " (* @tx-count line-num)))
                ;
           )))))
 

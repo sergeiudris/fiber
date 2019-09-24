@@ -19,7 +19,7 @@
 (defn -main  [& args]
   (tools.nrepl/-main)
   (app.db.core/connect!)
-  (app.setup/load!)
+  #_(app.setup/init!)
   (app.srv.server/run-dev))
 
 #_(defn -main  [& args]

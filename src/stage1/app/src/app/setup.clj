@@ -16,7 +16,7 @@
 
 #_(db-populated?)
 
-(defn load!
+(defn init!
   []
   (app.data.usda/create-files!)
   (app.db.core/populate!))
