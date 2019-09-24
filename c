@@ -22,6 +22,14 @@ term(){
    dc exec $1 bash -c "bash;"
 }
 
+app-logs(){
+    bash c dc logs -f app    
+}
+
+remove-db(){
+    docker volume rm docker_fiber.stage1.datomicdb
+}
+
 link-data(){
     mkdir -p spaces/data
     ln -s ../../../fiber.data spaces/data/fiber.data

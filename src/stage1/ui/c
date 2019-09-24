@@ -24,6 +24,16 @@ shadow(){
     ./node_modules/.bin/shadow-cljs "$@"
 }
 
+main(){
+
+  if [ "$STAGE" != "dev" ]; then
+    dev
+  else 
+    tail -f /dev/null
+  fi 
+
+}
+
 dev(){
     yarn
     shadow -A:dev:local watch app

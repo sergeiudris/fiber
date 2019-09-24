@@ -5,6 +5,7 @@
             [app.db.query :as dbq]
             [app.data.usda]))
 
+(def *stage* (System/getenv "STAGE"))
 
 (defn db-populated?
   []
@@ -18,5 +19,6 @@
 
 (defn init!
   []
+  (app.data.usda/del-files!)
   (app.data.usda/create-files!)
   (app.db.core/populate!))

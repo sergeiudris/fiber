@@ -21,14 +21,23 @@ test_refresh(){
   lein test-refresh
 }
 
+main(){
+
+  if [ "$STAGE" != "dev" ]; then
+    dev
+  else 
+    tail -f /dev/null
+  fi 
+
+}
+
 dev(){
+
   echo "-- running dev script"
-  
   # lein clean
   # lein dev
 
   clojure -A:dev:local -m app.main
-
   # lein clean
   # repl_headless
 }
