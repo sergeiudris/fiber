@@ -111,7 +111,7 @@
  {:db/ident :usda.nutr/tagname
   :db/valueType :db.type/string
   :db/cardinality :db.cardinality/one
-  :db/fulltext false
+  :db/fulltext true
   :db/doc
   "International Network of Food Data Systems (INFOODS) Tagnames"}
 
