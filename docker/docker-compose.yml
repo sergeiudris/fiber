@@ -3,10 +3,10 @@ version: "3.2"
 services:
 
   datomicdb:
-    image: seeris/fiber.datomicfree
+    image: seeris/fiber.fiberdb
     volumes:
       - type: volume
-        source:  fiber.datomicdb
+        source:  fiber.db
         target: /opt/datomic-data
         volume:
           nocopy: true
@@ -48,4 +48,4 @@ services:
           cpus: '4'
           memory: 4096M
 volumes:
-  fiber.datomicdb:
+  fiber.db:

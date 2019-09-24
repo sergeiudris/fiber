@@ -2,8 +2,8 @@ version: "3.2"
 
 services:
 
-  datomicfree:
-    image: fiber.datomicfree
+  fiberdb:
+    image: seeris/fiber.fiberdb
     build:
       context: ./datomicfree
       dockerfile: ./Dockerfile
@@ -18,13 +18,13 @@ services:
     depends_on:
       - base2
 
-  datomicdb:
-    image: fiber.datomicfree
+  db:
+    image: seeris/fiber.fiberdb
     volumes:
-      # - ../../:/opt/root
-      # - ./datomicfree:/opt/app
+      - ../../:/opt/root
+      - ./datomicfree:/opt/app
       - type: volume
-        source:  fiber.stage1.datomicdb
+        source:  fiber.stage1.db
         target: /opt/datomic-data
         volume:
           nocopy: true
@@ -39,4 +39,4 @@ services:
     stdin_open: true
     tty: true
     depends_on:
-      - datomicfree
+      - fiberdb

@@ -5,7 +5,7 @@ dc(){
 
     docker-compose --compatibility \
         -f docker/base.yml \
-        -f docker/datomic.yml \
+        -f docker/db.yml \
         -f docker/stage1.yml \
         "$@"
 }

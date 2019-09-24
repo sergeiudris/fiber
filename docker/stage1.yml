@@ -3,7 +3,7 @@ version: "3.2"
 services:
 
   app:
-    image: fiber.stage1.app
+    image: seeris/fiber.app
     volumes:
       - ../src/stage1/app:/opt/app
       - ../../fiber.data:/opt/data
@@ -14,11 +14,8 @@ services:
     ports:
       - 4554:7878
       - 4500:8080
-      # - 7878:7878
-      # - 11488:7888
-      # - 12083:8080
-    command: bash c main
-    # command: tail -f /dev/null
+    # command: bash c dev
+    command: tail -f /dev/null
     environment:
       - STAGE=dev
     depends_on:
@@ -30,12 +27,8 @@ services:
         limits:
           cpus: '4'
           memory: 4096M
-        # reservations:
-        #   cpus: '0.25'
-        #   memory: 20M      
-
   ui:
-    image: fiber.stage1.ui
+    image: seeris/fiber.ui
     volumes:
       - ../src/stage1/ui:/opt/app
       - ../:/opt/root
@@ -43,16 +36,11 @@ services:
       context: ../src/stage1/ui
       dockerfile: ./Dockerfile
     ports:
-      # - 7802:7878
-      # - 7082:8080
       - 4664:7888
       - 4600:9500
       - 9630:9630
-      # - 7878:7878
-      # - 11488:7888
-      # - 12083:8080
-    command: bash c main
-    # command: tail -f /dev/null
+    # command: bash c main
+    command: tail -f /dev/null
     environment:
       - STAGE=dev
     depends_on:
@@ -64,9 +52,6 @@ services:
         limits:
           cpus: '4'
           memory: 4096M
-        # reservations:
-        #   cpus: '0.25'
-        #   memory: 20M
 
 volumes:
-  fiber.stage1.datomicdb:
+  fiber.stage1.db:

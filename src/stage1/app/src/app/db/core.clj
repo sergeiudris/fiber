@@ -7,7 +7,7 @@
               [clojure.pprint :as pp]))
 
 
-(def db-uri "datomic:free://datomicdb:4334/fiber?password=datomic")
+(def db-uri "datomic:free://db:4334/fiber?password=datomic")
 
 #_(d/delete-database db-uri)
 
@@ -17,8 +17,11 @@
 
 (defn connect!
   []
-  (d/create-database db-uri)
-  (def  conn (d/connect db-uri)))
+  (try
+    (do
+      (d/create-database db-uri)
+      (def  conn (d/connect db-uri)))
+    (catch Exception e (do (prn (.getMessage e)) false))))
 
 #_(connect!)
 
