@@ -89,4 +89,10 @@ prod-app-logs(){
     bash c prod logs -f app    
 }
 
+push(){
+    docker push seeris/fiber.db
+    docker push seeris/fiber.app
+    docker push seeris/fiber.ui
+}
+
 "$@"
