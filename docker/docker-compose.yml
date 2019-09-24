@@ -2,6 +2,16 @@ version: "3.2"
 
 services:
 
+  datomicdb:
+    image: seeris/fiber.datomicfree
+    volumes:
+      - type: volume
+        source:  fiber.datomicdb
+        target: /opt/datomic-data
+        volume:
+          nocopy: true
+    command: ./bin/transactor ./config/free-transactor.properties
+
   app:
     image: fiber.app
     build:
@@ -37,4 +47,4 @@ services:
           cpus: '4'
           memory: 4096M
 volumes:
-  fiber.stage1.datomicdb:
+  fiber.datomicdb:

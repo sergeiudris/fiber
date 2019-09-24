@@ -79,7 +79,7 @@ prod-down(){
 }
 
 prod-remove-db(){
-    docker volume rm docker_fiber.stage1.datomicdb
+    docker volume rm docker_fiber.datomicdb
 }
 
 prod-term(){
