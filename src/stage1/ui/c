@@ -27,7 +27,8 @@ shadow(){
 main(){
 
   if [ "$STAGE" != "dev" ]; then
-    dev
+    yarn
+    shadow -A:dev:git watch app
   else 
     tail -f /dev/null
   fi 

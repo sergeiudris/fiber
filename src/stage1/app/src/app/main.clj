@@ -18,7 +18,7 @@
 (defn -main  [& args]
   (tools.nrepl/-main)
   (app.db.core/connect!)
-  (when (not (= app.setup/*stage* "dev"))
+  #_(when (not (= app.setup/*stage* "dev"))
     (app.setup/init!))
   (app.srv.server/run-dev))
 

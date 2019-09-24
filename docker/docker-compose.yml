@@ -13,7 +13,7 @@ services:
     command: ./bin/transactor ./config/free-transactor.properties
 
   app:
-    image: fiber.app
+    image: seeris/fiber.app
     build:
       context: ../src/stage1/app
       dockerfile: ./prod.Dockerfile
@@ -30,7 +30,7 @@ services:
           cpus: '4'
           memory: 4096M
   ui:
-    image: fiber.ui
+    image: seeris/fiber.ui
     build:
       context: ../src/stage1/ui
       dockerfile: ./prod.Dockerfile
