@@ -248,11 +248,13 @@
 ; [[#{"kJ" "�g" "IU" "kcal" "g" "mg"}]]
 (defn to-grams
   [value units]
+  #_(js/console.log value units)
+  #_(js/console.log (contains? ["?g" "?g"] units))
   (cond
     (= units "g") value
     (= units "mg") (/ value 1000)
-    (contains? ["?g" "μg" "�g"] units) (/ value 1000000)
-    :else nil))
+    (contains? ["μg" "�g"] units) (/ value 1000000)
+    :else #_"?g" (/ value 1000000)))
 
 (defn nutrient-total
   [nutr items usda-nutrs]
@@ -299,14 +301,19 @@
                  #_(js.console.log nutr)
                  (let [name (:nih.dri.nutr/name nutr)
                        dval (:nih.dri.nutr/dval nutr)
-                       units (:nih.dri.nutr/units nutr)]
+                       units (:nih.dri.nutr/units nutr)
+                       dvalg (to-grams dval units)
+                       total (nutrient-total nutr items usda-nutrs)
+                       ]
                    [:tr {:key name}
                     [:td name]
-                    [:td dval]
+                    [:td dvalg]
                     [:td units]
-                    [:td
-                     (gstring/format "%.4f" (nutrient-total nutr items usda-nutrs))]
-                    [:td 0]]))
+                    [:td 
+                     (gstring/format "%.4f" total )]
+                    [:td 
+                     (gstring/format "%.0f" (* 100 (/ total dvalg )) )
+                     ]]))
                nutrs)
           ]
          ;
