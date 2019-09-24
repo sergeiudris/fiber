@@ -49,7 +49,8 @@
     ; dbquery
      :ui.dbquery/example-queries-res nil
 
-
+    ; settings
+     :ui.settings/settings {:group "31-50"}
 
     ;
      }))

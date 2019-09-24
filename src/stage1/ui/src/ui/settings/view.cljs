@@ -8,8 +8,18 @@
              [ui.settings.spec]
              [fiber.spec :as rs]
              [ui.settings.core]
+             ["antd/lib/row" :default AntRow]
+             ["antd/lib/col" :default AntCol]
+             ["antd/lib/select" :default AntSelect]
+   
              #_["antd/lib/button" :default ant-Button]
              #_["antd/lib/table" :default AntTable]))
+
+
+(def ant-row (r/adapt-react-class AntRow ))
+(def ant-col (r/adapt-react-class AntCol))
+(def ant-select (r/adapt-react-class AntSelect))
+(def ant-select-option (r/adapt-react-class (.-Option AntSelect)))
 
 
 (comment
@@ -21,8 +31,17 @@
   (let []
     (fn []
       (let []
-        [:div
-         "settings"
+        [:section
+         [:div "settings"]
+         [:br]
+         [ant-row
+          [ant-col {:span 3} "Age group: "]
+          [ant-col {:span 4}
+           [ant-select {:default-value "31-50"
+                        :style {:width "120px"}
+                        :on-change (fn [vl] (js/console.log vl))}
+            [ant-select-option {:value "31-50"} "31-50"]]]
+          ]
          ;
          ]
         ;

@@ -156,7 +156,7 @@
        [ant-menu-item {:key "settings-panel"}
         [ant-icon {:type "setting"}]
         [:span "settings"]]
-       [ant-menu-item {:key "monitor-panel"}
+       #_[ant-menu-item {:key "monitor-panel"}
         [ant-icon {:type "monitor"}]
         [:span "monitor"]]
        ])))
