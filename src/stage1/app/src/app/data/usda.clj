@@ -24,7 +24,7 @@
 (def NUT_DATA-out (str data-dir-out "nut-data.edn"))
 
 
-(when-not (.exists (io/file (str data-dir "sr28asc")))
+#_(when-not (.exists (io/file (str data-dir "sr28asc")))
   (sh "bash "))
 
 (comment

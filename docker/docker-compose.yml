@@ -21,8 +21,9 @@ services:
       - 4554:7878
       - 4500:8080
     command: bash c main
-    depends_on:
-      - base2
+    # command: tail -f /dev/null
+    stdin_open: true
+    tty: true
     deploy:
       resources:
         limits:
@@ -36,9 +37,9 @@ services:
     ports:
       - 4664:7888
       - 4600:9500
+      - 9630:9630
     command: bash c main
-    depends_on:
-      - base2
+    # command: tail -f /dev/null
     stdin_open: true
     tty: true
     deploy:

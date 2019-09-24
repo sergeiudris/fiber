@@ -15,7 +15,7 @@
     (when (not (.exists (io/file "/opt/data")))
       (do
         (sh "/bin/bash" "-c"
-            "git clone https://github.com/seeris/fiber.data /opt/data/fiber.data"
+            "git clone https://github.com/seeris/fiber.data /opt/data/"
             :dir "/opt")))
     (catch Exception e (do (prn (.getMessage e)) false))))
 
