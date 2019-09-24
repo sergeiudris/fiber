@@ -2,8 +2,8 @@ version: "3.2"
 
 services:
 
-  datomicdb:
-    image: seeris/fiber.fiberdb
+  db:
+    image: seeris/fiber.db:dev
     volumes:
       - type: volume
         source:  fiber.db

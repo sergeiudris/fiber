@@ -3,7 +3,7 @@ version: "3.2"
 services:
 
   fiberdb:
-    image: fiber.fiberdb
+    image: fiber.db
     build:
       context: ./datomicfree
       dockerfile: ./Dockerfile
@@ -19,7 +19,7 @@ services:
       - base2
 
   db:
-    image: fiber.fiberdb
+    image: fiber.db
     volumes:
       - ../../:/opt/root
       - ./datomicfree:/opt/app

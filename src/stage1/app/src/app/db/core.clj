@@ -7,7 +7,7 @@
               [clojure.pprint :as pp]))
 
 
-(def db-uri "datomic:free://db:4334/fiber1?password=datomic")
+(def db-uri "datomic:free://db:4334/fiber?password=datomic")
 
 #_(d/delete-database db-uri)
 
