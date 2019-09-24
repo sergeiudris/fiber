@@ -19,6 +19,12 @@
                           #_routing-example.core
                           #_conduit.core]}
          :dbquery {:entries [ui.dbquery.view]
+                   :depends-on #{:main}}
+
+         :settings {:entries [ui.settings.view]
+                    :depends-on #{:main}}
+
+         :monitor {:entries [ui.monitor.view]
                    :depends-on #{:main}}}
 
         :compiler-options

@@ -108,20 +108,6 @@
 
 
 (rf/reg-event-fx
- ::nutrients
- (fn [{:keys [db]} [_ eargs]]
-   (let [nutrients (:ui.count/nutrients-res db)]
-     (if nutrients
-       {:db db}
-       {:dispatch [:ui.events/request
-                   {:method :get
-                    :params {}
-                    :path "/usda/nutrients"
-                    :on-success [::nutrients-res]
-                    :on-fail [::nutrients-res]}]
-        :db db}))))
-
-(rf/reg-event-fx
  ::nhi-dri
  (fn [{:keys [db]} [_ eargs]]
    (let [nhi-dri (:ui.count/nhi-dri-res db)]

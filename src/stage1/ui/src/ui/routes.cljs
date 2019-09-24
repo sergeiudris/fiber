@@ -16,7 +16,10 @@
 (def routes ["/" {""      :count
                   "home" :home
                   "count" :count
-                  "dbquery" :dbquery}])
+                  "dbquery" :dbquery
+                  "settings" :settings
+                  "monitor" :monitor
+                  }])
 
 #_(def _ (events/listen history EventType.NAVIGATE
                       (fn [e]

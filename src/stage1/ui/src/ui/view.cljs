@@ -38,6 +38,8 @@
     "home" {:panel [(resolve 'ui.home.view/home-panel)]
             :actions nil}
     "dbquery" {:panel [(resolve 'ui.dbquery.view/cred-panel)]}
+    "settings" {:panel [(resolve 'ui.settings.view/settings-panel)]}
+    "monitor" {:panel [(resolve 'ui.monitor.view/monitor-panel)]}
     [:div (str "no panel for module: " module-name)]))
 
 (defn module->panel
@@ -99,6 +101,8 @@
     :count-panel [ui.count.view/count-panel]
     :home-panel [ui.home.view/home-panel]
     :dbquery-panel [panel-defered "dbquery"]
+    :settings-panel [panel-defered "settings"]
+    :monitor-panel [panel-defered "monitor"]
     [:div (str "no panel: " panel-name)]))
 
 
@@ -140,18 +144,22 @@
     (fn []
       [ant-menu {:theme "light"
                  :mode "inline"
-                 :default-selected-keys ["home-panel"]
+                 :default-selected-keys ["count-panel"]
                  :selected-keys (if @active-panel [(name @active-panel)] nil)
-                 :on-select on-select }
-       [ant-menu-item {:key "home-panel"}
-        [ant-icon {:type "home"}]
-        [:span "home"]]
+                 :on-select on-select}
        [ant-menu-item {:key "count-panel"}
         [ant-icon {:type "pie-chart"}]
         [:span "count"]]
        [ant-menu-item {:key "dbquery-panel"}
         [ant-icon {:type "database"}]
-        [:span "dbquery"]]])))
+        [:span "dbquery"]]
+       [ant-menu-item {:key "settings-panel"}
+        [ant-icon {:type "setting"}]
+        [:span "settings"]]
+       [ant-menu-item {:key "monitor-panel"}
+        [ant-icon {:type "monitor"}]
+        [:span "monitor"]]
+       ])))
 
 (defn ui
   []
