@@ -41,7 +41,8 @@
      :ui.count/nutrients-res nil
      :ui.count/items-nutrients-res nil
      :ui.count/items-nutrients {}
-     :ui.count/added-items []
+     :ui.count/added-items {}
+     :ui.count/added-items-ids []
      :ui.count/nhi-dri-res nil
      :ui.count/nutrients nil
      

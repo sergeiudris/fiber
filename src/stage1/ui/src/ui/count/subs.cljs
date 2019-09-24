@@ -30,14 +30,17 @@
  ::selected-items
  (fn [db _]
    (let [added (:ui.count/added-items db)
-         items-nutrients (:ui.count/items-nutrients db)]
+         added-ids (:ui.count/added-items-ids db)
+         items-nutrients (:ui.count/items-nutrients db)
+         xs (mapv (fn [uuid] (get added uuid)) added-ids)]
+    ;  (js/console.log added-ids)
+    ;  (js/console.log added)
+    ;  []
      (->>
       (map (fn [item]
-             (merge item (get items-nutrients (:db/id item)))
-             ) added)
+             (merge item (get items-nutrients (:db/id item)))) xs)
       (remove nil?)
-      (vec)
-      ))))
+      (vec)))))
 
 (rf/reg-sub
  ::nhi-dri-res

@@ -109,29 +109,36 @@
  ::add-items
  (fn [{:keys [db]} [_ eargs]]
    (let [added (:ui.count/added-items db)
+         added-ids (:ui.count/added-items-ids db)
          xs (mapv (fn [x]
-                    (assoc x :uuid (str (random-uuid)))) eargs)]
-     {:db (merge db {:ui.count/added-items (vec (concat added xs))})
+                    (assoc x :uuid (str (random-uuid)))) eargs)
+         xs-ids (mapv #(:uuid %) xs)]
+     {:db (merge db 
+                 {:ui.count/added-items-ids (vec (concat added-ids xs-ids))
+                  :ui.count/added-items (reduce (fn [a x]
+                                                  (assoc a (:uuid x) x)
+                                                  ) added xs)
+                  })
       :dispatch [::items-nutrients eargs]})))
 
 (rf/reg-event-fx
  ::remove-items
  (fn [{:keys [db]} [_ eargs]]
    (let [added (:ui.count/added-items db)
-         uuids (reduce (fn [a x]
-                         (js/console.log x)
-                         (conj a (:uuid x))) #{} eargs)
-         filtered (filterv (fn [x]
-                             (if (uuids (:uuid x)) false true)) added)]
-     {:db (assoc db :ui.count/added-items filtered)})))
+         added-ids (:ui.count/added-items-ids db)
+         ids (mapv #(:uuid %) eargs)
+         xs-ids (filterv (fn [uuid]
+                           (not (some #(= % uuid) ids))) added-ids)
+         xm (apply dissoc added ids)]
+     {:db (merge db
+                 {:ui.count/added-items-ids xs-ids
+                  :ui.count/added-item xm})})))
 
 (rf/reg-event-fx
  ::change-item-amount
  (fn [{:keys [db]} [_ eargs]]
    (let [added (:ui.count/added-items db)]
-     (js/console.log eargs)
-     {:db db
-      })))
+     {:db db})))
 
 
 (rf/reg-event-fx
