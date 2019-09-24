@@ -111,3 +111,7 @@ body {
 {
   padding: 2px;
 }
+
+.fiber-table-amount-field {
+  margin-right: 16px;
+}

@@ -234,7 +234,27 @@
 
 
 (def table-items-extra-columns
-  [{:title ""
+  [
+   {:title ""
+    :key "amount"
+    :width "128px"
+    :render (fn [txt rec idx]
+              (r/as-element
+               [:div {:class "fiber-table-amount-field"}
+                [ant-input {:defaultValue "100"
+                            :on-change (fn [ev ]
+                                         (rf/dispatch 
+                                          [:ui.count.events/change-item-amount
+                                           {:db/id (aget rec "id")
+                                            :val (.. ev -target -value)
+                                            :idx idx}])
+                                         )
+                            :size "small"
+                            :type "number"}]
+                ]
+               )
+              )}
+   {:title ""
     :key "action"
     :width "64px"
     :render (fn [txt rec idx]
@@ -244,10 +264,14 @@
                 [ant-button
                  {;:icon "plus"
                   :type "primary"
-                  :on-click #(rf/dispatch
-                              [:ui.count.events/remove-items
-                               [{:db/id (aget rec "id")
-                                 :idx idx}]])}
+                  :on-click 
+                  #_(fn [] (js/console.log rec))
+                  #(rf/dispatch
+                      [:ui.count.events/remove-items
+                       [{:db/id (aget rec "id")
+                         :idx idx
+                         :uuid (aget rec "uuid")
+                         }]])}
                  "del"]]))}
   ])
 
@@ -262,11 +286,12 @@
         [ant-table {:show-header true
                     :size "small"
                     :row-key (fn [rec idx]
-                               (str (aget rec :id) idx))
+                               (aget rec "uuid")
+                               #_(str (aget rec :id) idx))
                     :columns table-items-columns
                     :dataSource items
                     :on-row (fn [rec idx]
-                             #js {:onDoubleClick (fn [] (js/console.log rec))})
+                              #js {:onDoubleClick (fn [] (js/console.log rec))})
                     :scroll {;  :x "max-content" 
                              :y 192}
                     :pagination false

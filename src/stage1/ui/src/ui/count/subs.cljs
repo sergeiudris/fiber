@@ -33,7 +33,8 @@
          items-nutrients (:ui.count/items-nutrients db)]
      (->>
       (map (fn [item]
-             (get items-nutrients (:db/id item))) added)
+             (merge item (get items-nutrients (:db/id item)))
+             ) added)
       (remove nil?)
       (vec)
       ))))
