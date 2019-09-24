@@ -241,7 +241,7 @@
     :render (fn [txt rec idx]
               (r/as-element
                [:div {:class "fiber-table-amount-field"}
-                [ant-input {:defaultValue "100"
+                [ant-input {:defaultValue (or (aget rec "val") 100)
                             :on-change (fn [ev]
                                          (rf/dispatch
                                           [:ui.count.events/change-item-amount
