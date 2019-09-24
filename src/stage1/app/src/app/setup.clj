@@ -22,8 +22,7 @@
 #_(download-data!)
 #_(sh "/bin/bash" "-c" "ls /opt/data1/fiber.data" :dir "/opt")
 
-
-(defn db-populated?
+(defn db-sane?
   []
   (try
     (and
@@ -33,9 +32,17 @@
 
 #_(db-populated?)
 
-(defn init!
+(defn upload-data!
   []
   (download-data!)
   (app.data.usda/del-files!)
   (app.data.usda/create-files!)
   (app.db.core/populate!))
+
+(defn init!
+  []
+  (when
+   (and
+    (not (= app.setup/*stage* "dev"))
+    (not (app.db.core/db-exists?)))
+    (upload-data!)))

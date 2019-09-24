@@ -19,7 +19,6 @@ services:
     volumes:
       - ../:/opt/root
       - ./java8clj10:/opt/app
-      - ../.dockershare/java8clj10:/opt/shared
     # command: tail -f /dev/null
     stdin_open: true
     tty: true
