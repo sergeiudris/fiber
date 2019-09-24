@@ -61,4 +61,29 @@ reset-spaces(){
     link-space-cln
 }
 
+prod(){
+
+    docker-compose --compatibility \
+        -f docker/base.yml \
+        -f docker/datomic.yml \
+        -f docker/docker-compose.yml \
+        "$@"
+}
+
+prod-up(){
+    prod up -d --build
+}
+
+prod-down(){
+    prod down 
+}
+
+prod-term(){
+   prod exec $1 bash -c "bash;"
+}
+
+prod-app-logs(){
+    bash c prod logs -f app    
+}
+
 "$@"

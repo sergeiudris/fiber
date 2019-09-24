@@ -1,0 +1,40 @@
+version: "3.2"
+
+services:
+
+  app:
+    image: fiber.app
+    build:
+      context: ../src/stage1/app
+      dockerfile: ./prod.Dockerfile
+    ports:
+      - 4554:7878
+      - 4500:8080
+    command: bash c main
+    depends_on:
+      - base2
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 4096M
+  ui:
+    image: fiber.ui
+    build:
+      context: ../src/stage1/ui
+      dockerfile: ./prod.Dockerfile
+    ports:
+      - 4664:7888
+      - 4600:9500
+    command: bash c main
+    depends_on:
+      - base2
+    stdin_open: true
+    tty: true
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 4096M
+volumes:
+  fiber.stage1.datomicdb:

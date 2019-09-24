@@ -19,8 +19,8 @@ services:
       # - 12083:8080
     command: bash c main
     # command: tail -f /dev/null
-    # environment:
-    #   - STAGE=dev
+    environment:
+      - STAGE=dev
     depends_on:
       - base2
     stdin_open: true
@@ -53,8 +53,8 @@ services:
       # - 12083:8080
     command: bash c main
     # command: tail -f /dev/null
-    # environment:
-    #   - STAGE=dev
+    environment:
+      - STAGE=dev
     depends_on:
       - base2
     stdin_open: true
