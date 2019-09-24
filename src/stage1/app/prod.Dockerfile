@@ -16,6 +16,9 @@ WORKDIR /opt/app
 # RUN lein deps
 # RUN bash c install_deps
 
+RUN git clone https://github.com/seeris/fiber /opt/root && \
+    cd /opt/root/ && \
+    git checkout 3173267a01ff300d48e5e49c24fc8b4ff9033652
 COPY . .
 RUN clojure -A:dev:cache -Stree
 

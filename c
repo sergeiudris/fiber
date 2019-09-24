@@ -78,6 +78,10 @@ prod-down(){
     prod down 
 }
 
+prod-remove-db(){
+    docker volume rm docker_fiber.datomicdb
+}
+
 prod-term(){
    prod exec $1 bash -c "bash;"
 }

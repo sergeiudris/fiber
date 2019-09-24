@@ -37,4 +37,4 @@ services:
           cpus: '4'
           memory: 4096M
 volumes:
-  fiber.stage1.datomicdb:
+  fiber.datomicdb:
