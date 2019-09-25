@@ -4,7 +4,7 @@ food metrics app</br>
 
 <div align="center">
   <a href="./doc/resources/app-1.gif?raw=true">
-  <img width="64%" src="./doc/resources/app-1.gif"></img>
+  <img width="80%" src="./doc/resources/app-1.gif"></img>
   </a>
 </div>
 
