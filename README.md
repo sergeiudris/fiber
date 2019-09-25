@@ -11,21 +11,26 @@ status: early stage, dev only
 
 
 - [concept](./doc/concept/concept.md)
-- [
+- [run](#run)
+- [dev](#dev)
 
 ## run 
 
 - using [docker-compose.yml](./docker-compose.yml)
 
 ```bash
+
+# clone repo
 git clone https://github.com/seeris/fiber
 cd fiber
-docker-compose up -d # start
+
+# start containers
+docker-compose up -d 
 
 # follow logs (the first time it will take 5-10 mins to populate db)
 docker-compose logs -f app
 
-# stop 
+# stop,remove containers
 docker-compose down
 
 # remove db 
@@ -33,7 +38,20 @@ docker volume rm fiber.db
 
 ```
 
-## development
+## dev
+
+- using [.yml files](./docker/)
+
+```bash
+
+# clone repo
+git clone https://github.com/seeris/fiber
+cd fiber
+
+# start 
+
+
+```
 
 
 
