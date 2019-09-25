@@ -65,7 +65,7 @@ prod(){
 
     docker-compose --compatibility \
         -f docker/base.yml \
-        -f docker/docker-compose.yml \
+        -f docker/prod.yml \
         "$@"
 }
 

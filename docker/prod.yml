@@ -21,6 +21,8 @@ services:
       - 4500:8080
       - 4554:7878
     command: bash c main
+    depends_on:
+      - base2
     links:
       - db:db
     deploy:
@@ -38,6 +40,8 @@ services:
       - 4600:9500
       - 9630:9630
     command: bash c main
+    depends_on:
+      - base2
     deploy:
       resources:
         limits:
