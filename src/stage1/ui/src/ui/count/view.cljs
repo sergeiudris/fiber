@@ -334,14 +334,16 @@
                           ;
                             )))a item-nutrs))) 0 items))
 
+
+
 (defn metrics
-  []
+  [ {:keys [main-col-title category]}]
   (let [dri-data (rf/subscribe [:ui.count.subs/nhi-dri])
         selected (rf/subscribe [:ui.count.subs/selected-items])
         usda-nutrients (rf/subscribe [:ui.count.subs/nutrients])
         ]
-    (fn []
-      (let [nutrs (:nih.dri.group/nutrients @dri-data)
+    (fn [p]
+      (let [nutrs (category @dri-data)
             items @selected
             usda-nutrs @usda-nutrients
             ]
@@ -351,7 +353,7 @@
                          :width "40vw"}}
          [:tbody
           [:tr
-           [:th "Nutrient"]
+           [:th main-col-title]
            [:th "RDA/AI"]
            [:th "units"]
            [:th "total(g)"]
@@ -392,6 +394,21 @@
          ])))
   )
 
+(defn metrics-elements
+  []
+  [metrics {:category  :nih.dri.group/elements
+            :main-col-title "Elements"}])
+
+(defn metrics-vitamins
+  []
+  [metrics {:category  :nih.dri.group/vitamins
+            :main-col-title "Vitamins"}])
+
+(defn pad
+  [w]
+  [:div {:style {:width w}}]
+  )
+
 (defn count-panel
   []
   #_(js/console.log 'count-panel-fn)
@@ -409,6 +426,10 @@
        [:br]
        [table-items]
        [:br]
-       [metrics]
+       [:section {:style {:display "flex"}}
+        [metrics-elements]
+        [pad 32]
+        [metrics-vitamins]]
+       
        #_[ui.count.sample/sample-table]])))
 
