@@ -1,4 +1,6 @@
-# fiber: food app
+# fiber
+
+food metrics app
 
 ## content
 
