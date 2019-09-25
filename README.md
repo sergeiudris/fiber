@@ -2,7 +2,7 @@
 
 food metrics app</br>
 
-#### [stage 1:](./doc/concept/concept.md#stage-1)
+#### [stage 1:](./doc/concept/concept.md#stage-1-mwp)
 
 <div align="center">
   <a href="./doc/resources/app-1.gif?raw=true">
