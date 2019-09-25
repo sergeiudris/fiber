@@ -307,11 +307,23 @@ release, but is planned for future releases"}
   :db/cardinality :db.cardinality/one
   :db/doc "Group max age"}
  
- {:db/ident :nih.dri.group/nutrients
+ {:db/ident :nih.dri.group/elements
   :db/valueType :db.type/ref
   :db/cardinality :db.cardinality/many
   :db/isComponent true
-  :db/doc "DRI nutrients for the group"}
+  :db/doc "DRI elements for the group"}
+ 
+ {:db/ident :nih.dri.group/vitamins
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/many
+  :db/isComponent true
+  :db/doc "DRI vitamins for the group"}
+ 
+ {:db/ident :nih.dri.group/macronutrients
+  :db/valueType :db.type/ref
+  :db/cardinality :db.cardinality/many
+  :db/isComponent true
+  :db/doc "DRI macronutrients for the group"}
  
  {:db/ident :nih.dri.nutr/name
   :db/valueType :db.type/string

@@ -52,7 +52,7 @@
 
 #_(count nutr-def)
 
-#_(td/excise conn [17592186733493 17592186733477 ] )
+#_(td/excise conn [17592186733493 17592186733477 17592186054375 ] )
 
 (defn batch-tx
   [file-in  conn & {:keys [line-num] :or {line-num 10000}}]
@@ -224,8 +224,8 @@
   
   (nutrient-search "Vitamin+K" :offset 0 :limit 1 :entity? true)
   
-  (search-fulltext :usda.nutr/desc "Chloride"
-                   :offset 0 :limit 10 :entity? true)
+  (pp/pprint (search-fulltext :usda.nutr/desc "Choline"
+                              :offset 0 :limit 50 :entity? true))
 
   
   

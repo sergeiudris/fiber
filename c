@@ -95,18 +95,5 @@ push(){
     docker push seeris/fiber.ui
 }
 
-user(){
-    docker-compose --compatibility \
-    -f docker/user.yml \
-    "$@"
-}
-
-user-up(){
-    user up -d --build
-}
-
-user-down(){
-    user down
-}
 
 "$@"
