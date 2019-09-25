@@ -1,4 +1,4 @@
-version: "3.2"
+version: "3.7"
 
 services:
 
@@ -55,3 +55,4 @@ services:
 
 volumes:
   fiber.stage1.db:
+     name: fiber.stage1.db

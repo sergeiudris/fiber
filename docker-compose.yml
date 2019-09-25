@@ -1,4 +1,4 @@
-version: "3.2"
+version: "3.7"
 
 services:
 
@@ -36,3 +36,4 @@ services:
           memory: 4096M
 volumes:
   fiber.db:
+     name: fiber.db

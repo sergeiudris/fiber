@@ -27,7 +27,7 @@ app-logs(){
 }
 
 remove-db(){
-    docker volume rm docker_fiber.stage1.datomicdb
+    docker volume rm fiber.stage1.db
 }
 
 link-data(){
@@ -78,7 +78,7 @@ prod-down(){
 }
 
 prod-remove-db(){
-    docker volume rm docker_fiber.datomicdb
+    docker volume rm fiber.db
 }
 
 prod-term(){
