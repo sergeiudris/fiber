@@ -52,7 +52,7 @@
 
 #_(count nutr-def)
 
-#_(td/excise conn [17592186733493 17592186733477 17592186054375 ] )
+#_(td/excise conn [17592186733493 17592186733477 17592186054375 17592186054375] )
 
 (defn batch-tx
   [file-in  conn & {:keys [line-num] :or {line-num 10000}}]
