@@ -118,3 +118,6 @@ bash c down
   - https://hub.docker.com/r/seeris/fiber.app
   - https://hub.docker.com/r/seeris/fiber.ui
 
+#### blog
+
+  - [stage 1](https://seeris.github.io/posts-output/2019-09-25-fiber-app)
