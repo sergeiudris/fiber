@@ -2,6 +2,8 @@
 
 food metrics app</br>
 
+usability status: not ready yet
+
 #### [stage 1:](./doc/concept/concept.md#stage-1-mwp)
 
 <div align="center">
