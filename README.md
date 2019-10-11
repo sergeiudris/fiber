@@ -7,7 +7,7 @@ usability status: not ready yet
 #### [stage 1:](./doc/concept/concept.md#stage-1-mwp)
 
 <div align="center">
-  <a href="./doc/resources/app-1.gif?raw=true">
+  <a href="./doc/resources/stage-1.gif?raw=true">
   <img width="80%" src="./doc/resources/stage-1.gif"></img>
   </a>
 </div>
