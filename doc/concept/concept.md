@@ -38,14 +38,14 @@ food metrics app
 </a>
 </div>
 
-* accelerate, make minimal working product
+* accelerate, make minimum working product
 * users can:
     - search, select food items
     - see aggregate values
 
 #### stage 2: design
 
-* design minimal viable product
+* design minimum viable product
 
 #### stage 3: mvp
 
