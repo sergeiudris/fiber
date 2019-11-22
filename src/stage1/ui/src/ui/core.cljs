@@ -16,8 +16,6 @@
 
 #_(fiber.core/optimize)
 
-#_(sample.lib.logic/example)
-
 #_(repl/dir rf)
 
 #_(re-frame.loggers/get-loggers)
