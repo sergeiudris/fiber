@@ -90,6 +90,15 @@ prod-app-logs(){
 }
 
 prod-push(){
+
+    docker tag seeris/fiber.db:dev seeris/fiber.db
+    docker tag seeris/fiber.app:dev seeris/fiber.app
+    docker tag seeris/fiber.ui:dev seeris/fiber.ui
+
+    docker push seeris/fiber.db:dev
+    docker push seeris/fiber.app:dev
+    docker push seeris/fiber.ui:dev
+
     docker push seeris/fiber.db
     docker push seeris/fiber.app
     docker push seeris/fiber.ui
