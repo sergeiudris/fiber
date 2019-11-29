@@ -23,6 +23,3 @@ EXPOSE 4001
 EXPOSE 8080
 EXPOSE 7878
 
-
-# CMD ["bash","c", "nrepl_clj"]
-CMD ["bash","c", "dev"]

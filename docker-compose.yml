@@ -16,7 +16,7 @@ services:
     image: seeris/fiber.app:dev
     ports:
       - 4500:8080
-    command: bash c main
+    command: bash f main
     links:
       - db:db
     deploy:
@@ -28,7 +28,7 @@ services:
     image: seeris/fiber.ui:dev
     ports:
       - 4600:9500
-    command: bash c main
+    command: bash f main
     deploy:
       resources:
         limits:

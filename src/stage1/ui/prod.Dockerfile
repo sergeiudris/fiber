@@ -9,6 +9,6 @@ RUN git clone https://github.com/seeris/fiber /opt/root && \
 COPY deps.edn .
 RUN clojure -A:cache:git -Stree
 COPY . .
-RUN bash c prod
+RUN bash f prod
 
 EXPOSE 9500 7888 9630

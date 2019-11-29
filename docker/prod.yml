@@ -20,7 +20,7 @@ services:
     ports:
       - 4500:8080
       - 4554:7878
-    command: bash c main
+    command: bash f main
     depends_on:
       - base2
     links:
@@ -39,7 +39,7 @@ services:
       - 4664:7888
       - 4600:9500
       - 9630:9630
-    command: bash c main
+    command: bash f main
     depends_on:
       - base2
     deploy:
