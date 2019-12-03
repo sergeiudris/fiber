@@ -3,16 +3,16 @@ version: "3.7"
 services:
 
   app:
-    image: fiber.app
+    image: playground.fiber.app
     volumes:
       - ../src/stage1/app:/opt/app
-      - ../../fiber.data:/opt/data
+      - ../../playground.fiber.data:/opt/data
       - ../:/opt/root
     build:
       context: ../src/stage1/app
       dockerfile: ./Dockerfile
     ports:
-      - 4554:7878
+      - 7788:7788
       - 4500:8080
     # command: bash f dev
     command: tail -f /dev/null
@@ -28,7 +28,7 @@ services:
           cpus: '4'
           memory: 4096M
   ui:
-    image: fiber.ui
+    image: playground.fiber.ui
     volumes:
       - ../src/stage1/ui:/opt/app
       - ../:/opt/root
@@ -36,7 +36,7 @@ services:
       context: ../src/stage1/ui
       dockerfile: ./Dockerfile
     ports:
-      - 4664:7888
+      - 8899:8899
       - 4600:9500
       - 9630:9630
     # command: bash f main
@@ -52,7 +52,3 @@ services:
         limits:
           cpus: '4'
           memory: 4096M
-
-volumes:
-  fiber.stage1.db:
-     name: fiber.stage1.db

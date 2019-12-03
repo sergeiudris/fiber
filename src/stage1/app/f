@@ -10,7 +10,7 @@ repl_headless(){
 }
 
 repl_connect(){
-  lein repl :connect 0.0.0.0:7878
+  lein repl :connect 0.0.0.0:7788
 }
 
 test(){
@@ -24,7 +24,7 @@ test_refresh(){
 main(){
 
   if [ "$STAGE" != "dev" ]; then
-    clojure -A:dev:git -m app.main
+    clojure -A:dev -m app.main
   else 
     tail -f /dev/null
   fi 

@@ -30,7 +30,7 @@
      (= 8789 (ffirst (d/q (:q dbq/count-food-items) (db/db-now)))))
     (catch Exception e (do (prn (.getMessage e)) false))))
 
-#_(db-populated?)
+#_(db-sane?)
 
 (defn upload-data!
   []
@@ -38,6 +38,8 @@
   (app.data.usda/del-files!)
   (app.data.usda/create-files!)
   (app.db.core/populate!))
+
+#_(upload-data!)
 
 (defn init!
   []

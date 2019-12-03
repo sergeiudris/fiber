@@ -27,12 +27,12 @@ app-logs(){
 }
 
 remove-db(){
-    docker volume rm fiber.stage1.db
+    docker volume rm playground.fiber.stage1.db
 }
 
 link-data(){
     mkdir -p spaces/data
-    ln -s ../../../fiber.data spaces/data/fiber.data
+    ln -s ../../../playground.fiber.data spaces/data/fiber.data
 }
 
 link-space-srv() {
@@ -42,7 +42,7 @@ link-space-srv() {
     ln -s ../../src/stage1/fiber/src spaces/$SPACE/fiber
     ln -s ../../.vscode spaces/$SPACE/.vscode
     ln -s ../../src/stage1/app/deps.edn spaces/$SPACE/deps.edn
-    ln -s ../../../fiber.data spaces/$SPACE/data
+    ln -s ../../../playground.fiber.data spaces/$SPACE/data
 }
 link-space-cln() {
     SPACE=cln
@@ -59,49 +59,6 @@ reset-spaces(){
     link-data
     link-space-srv
     link-space-cln
-}
-
-prod(){
-
-    docker-compose --compatibility \
-        -f docker/base.yml \
-        -f docker/prod.yml \
-        "$@"
-}
-
-prod-up(){
-    prod up -d --build
-}
-
-prod-down(){
-    prod down 
-}
-
-prod-remove-db(){
-    docker volume rm fiber.db
-}
-
-prod-term(){
-   prod exec $1 bash -c "bash;"
-}
-
-prod-app-logs(){
-    bash c prod logs -f app    
-}
-
-prod-push(){
-
-    docker tag seeris/fiber.db:dev seeris/fiber.db
-    docker tag seeris/fiber.app:dev seeris/fiber.app
-    docker tag seeris/fiber.ui:dev seeris/fiber.ui
-
-    docker push seeris/fiber.db:dev
-    docker push seeris/fiber.app:dev
-    docker push seeris/fiber.ui:dev
-
-    docker push seeris/fiber.db
-    docker push seeris/fiber.app
-    docker push seeris/fiber.ui
 }
 
 

@@ -11,4 +11,4 @@ RUN clojure -A:cache:git -Stree
 COPY . .
 RUN bash f prod
 
-EXPOSE 9500 7888 9630
+EXPOSE 9500 8899 9630

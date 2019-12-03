@@ -12,114 +12,42 @@ status: primordial
   </a>
 </div>
 
-## content
-
-- [concept](./doc/concept/concept.md)
-- [start](#start)
-- [develop](#develop)
-- [resources](#resources)
-- [etc](#etc)
-
-## start 
-
-- using [docker-compose.yml](./docker-compose.yml)
+## dev
 
 ```bash
 
-# clone repo
-git clone https://github.com/seeris/fiber
-cd fiber
+# clone repo and data repo
+git clone https://github.com/seeris/playground.fiber
+git clone https://github.com/seeris/playground.fiber.data
+
+cd playground.fiber
 
 # start containers
-docker-compose up -d 
-
-# follow logs (the first time it will take 5-10 mins to populate db)
-docker-compose logs -f app
-
-# stop,remove containers
-docker-compose down
-
-# remove db 
-docker volume rm fiber.db
-
-```
-
-## develop
-
-#### start
-
-- using [.yml files](./docker/)
-
-```bash
-
-# clone repo
-git clone https://github.com/seeris/fiber
-cd fiber
-
-# start containers
-bash c up
+bash f up
 
 # start app (separate terminal)
-bash c term app
-bash c dev 
+bash f term app
+bash f dev 
+
+# in app/setup.clj evaluate (upload-data!) to populate db
 
 # start ui (separate terminal)
-bash c term ui
-bash c dev 
+bash f term ui
+bash f dev 
 
-```
-<div align="left">
-  <a href="./doc/resources/main-win-3.png?raw=true">
-  <img width="28%" src="./doc/resources/main-win-3.png"></img>
-  </a>
-  <a href="./doc/resources/main-win-4.png?raw=true">
-  <img width="28%" src="./doc/resources/main-win-4.png"></img>
-  </a>
-   <a href="./doc/resources/ui-1.png?raw=true">
-  <img width="28%" src="./doc/resources/ui-1.png"></img>
-  </a>
-</div>
-
-```bash
+# ui on http://localhost:4600/
 
 # stop, remove containers
-bash c down
+bash f down
 
 ```
 
-#### REPL
-
-- app REPL port `4554` 
-- ui REPL port `4664` (shadow-cljs)
-
-#### spaces
-
-- [consider using](https://seeris.github.io/posts-output/2019-09-18-symlink-workspaces-vscode) 
-  `spaces/cln` `spaces/srv` with VSCode
+- app REPL `7788` 
+- ui REPL  `8899`
 
 ## resources
 
-- data for the `fiber` app is stored in [fiber.data](https://github.com/seeris/fiber.data) repo
+- data is stored in https://github.com/seeris/playground.fiber.data
+- using `spaces` for dev https://seeris.github.io/posts-output/2019-09-18-symlink-workspaces-vscode
 
-## etc
 
-#### stack
-
-- [clj](https://clojure.org)
-- [cljs](https://clojurescript.org/)
-- [datomic](https://www.datomic.com/on-prem.html)
-- [docker](https://www.docker.com/)
-- [shadow-cljs](https://github.com/thheller/shadow-cljs)
-- [clj deps](https://clojure.org/reference/deps_and_cli)
-- [re-frame](https://github.com/Day8/re-frame)
-- [antd](https://github.com/ant-design/ant-design)
-
-#### docker hub images
-
-  - https://hub.docker.com/r/seeris/fiber.db
-  - https://hub.docker.com/r/seeris/fiber.app
-  - https://hub.docker.com/r/seeris/fiber.ui
-
-#### blog
-
-  - [stage 1](https://seeris.github.io/posts-output/2019-09-25-fiber-app)

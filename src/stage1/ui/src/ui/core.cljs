@@ -10,11 +10,7 @@
             [ui.config :as config]
             [ui.subs :as subs]
             [ui.view]
-            [fiber.spec :as rs]
-            [fiber.core]
             [tools.core]))
-
-#_(fiber.core/optimize)
 
 #_(repl/dir rf)
 

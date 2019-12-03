@@ -6,7 +6,6 @@
              [ui.dbquery.events]
              [ui.dbquery.subs]
              [ui.dbquery.spec]
-             [fiber.spec :as rs]
              [ui.dbquery.core]
              #_["ace-builds/src-noconflict/ace.js" :default Ace]
              ["react-ace/lib/index.js" :default ReactAce]

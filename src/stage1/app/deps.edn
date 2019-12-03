@@ -36,12 +36,6 @@
            :cache {:extra-deps
                    {;local libs deps for caching during docker build
                     org.clojure/test.check {:mvn/version "0.10.0"}}}
-           :local {:extra-deps {;tools {:local/root "/opt/root/stage1/tools"}
-                                fiber  {:local/root "/opt/root/src/stage1/fiber"}}}
-           :git {:extra-deps {fiber  {:git/url "https://github.com/seeris/fiber"
-                                      :sha "b3c593a5c70ab24981748a697fd7d839bed629e1"
-                                      :deps/root "src/stage1/fiber"}}}
-
            :cider-clj {:extra-deps {org.clojure/clojure {:mvn/version "1.10.1"}
                                     cider/cider-nrepl {:mvn/version "0.22.1"}}
                        :main-opts ["-m" "nrepl.cmdline" "--middleware" "[cider.nrepl/cider-middleware]"]}

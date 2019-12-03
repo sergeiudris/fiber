@@ -4,7 +4,6 @@
             [tools.io.core]
             [app.srv.server]
             [tools.core]
-            [fiber.core]
             [app.data.core]
             [app.data.usda]
             [app.db.core]
@@ -32,7 +31,6 @@
   (tools.core/version)
 
   
-  (fiber.core/priority)
 
   ;
   )

@@ -21,5 +21,5 @@ RUN clojure -A:dev:cache -Stree
 
 EXPOSE 4001
 EXPOSE 8080
-EXPOSE 7878
+EXPOSE 7788
 

@@ -6,7 +6,6 @@
              [ui.monitor.events]
              [ui.monitor.subs]
              [ui.monitor.spec]
-             [fiber.spec :as rs]
              [ui.monitor.core]
              #_["antd/lib/button" :default ant-Button]
              #_["antd/lib/table" :default AntTable]))

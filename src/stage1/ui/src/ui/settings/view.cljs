@@ -6,7 +6,6 @@
              [ui.settings.events]
              [ui.settings.subs]
              [ui.settings.spec]
-             [fiber.spec :as rs]
              [ui.settings.core]
              ["antd/lib/row" :default AntRow]
              ["antd/lib/col" :default AntCol]
