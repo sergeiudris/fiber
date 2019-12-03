@@ -4,7 +4,7 @@ food metrics app</br>
 
 status: primordial
 
-#### [stage 1:](./doc/concept/concept.md#stage-1-mwp)
+## concept
 
 <div align="center">
   <a href="./doc/resources/stage-1.gif?raw=true">
