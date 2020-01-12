@@ -16,7 +16,7 @@ WORKDIR /opt/app
 # RUN lein deps
 # RUN bash c install_deps
 
-RUN git clone https://github.com/seeris/fiber /opt/root && \
+RUN git clone https://github.com/sergeiudris/fiber /opt/root && \
     cd /opt/root/ && \
     git checkout 8c942a6fb092330efa54dbd0ab1b0731b20bab01
 

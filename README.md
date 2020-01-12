@@ -17,8 +17,8 @@ status: primordial
 ```bash
 
 # clone repo and data repo
-git clone https://github.com/seeris/playground.fiber
-git clone https://github.com/seeris/playground.fiber.data
+git clone https://github.com/sergeiudris/playground.fiber
+git clone https://github.com/sergeiudris/playground.fiber.data
 
 cd playground.fiber
 
@@ -47,7 +47,7 @@ bash f down
 
 ## resources
 
-- data is stored in https://github.com/seeris/playground.fiber.data
-- using `spaces` for dev https://seeris.github.io/posts-output/2019-09-18-symlink-workspaces-vscode
+- data is stored in https://github.com/sergeiudris/playground.fiber.data
+- using `spaces` for dev https://sergeiudris.github.io/posts-output/2019-09-18-symlink-workspaces-vscode
 
 
