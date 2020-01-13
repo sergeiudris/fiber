@@ -48,6 +48,3 @@ bash f down
 ## resources
 
 - data is stored in https://github.com/sergeiudris/playground.fiber.data
-- using `spaces` for dev https://sergeiudris.github.io/posts-output/2019-09-18-symlink-workspaces-vscode
-
-
