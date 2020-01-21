@@ -1,4 +1,4 @@
-# playground.fiber
+# experiment.fiber
 
 food metrics app</br>
 
@@ -17,8 +17,8 @@ status: primordial
 ```bash
 
 # clone repo and data repo
-git clone https://github.com/sergeiudris/playground.fiber
-git clone https://github.com/sergeiudris/playground.fiber.data
+git clone https://github.com/sergeiudris/experiment.fiber
+git clone https://github.com/sergeiudris/experiment.fiber.data
 
 cd playground.fiber
 
@@ -47,4 +47,4 @@ bash f down
 
 ## resources
 
-- data is stored in https://github.com/sergeiudris/playground.fiber.data
+- data is stored in https://github.com/sergeiudris/experiment.fiber.data
