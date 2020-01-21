@@ -27,12 +27,12 @@ app-logs(){
 }
 
 remove-db(){
-    docker volume rm playground.fiber.stage1.db
+    docker volume rm experiment.fiber.stage1.db
 }
 
 link-data(){
     mkdir -p spaces/data
-    ln -s ../../../playground.fiber.data spaces/data/fiber.data
+    ln -s ../../../experiment.fiber.data spaces/data/fiber.data
 }
 
 link-space-srv() {
@@ -42,7 +42,7 @@ link-space-srv() {
     ln -s ../../src/stage1/fiber/src spaces/$SPACE/fiber
     ln -s ../../.vscode spaces/$SPACE/.vscode
     ln -s ../../src/stage1/app/deps.edn spaces/$SPACE/deps.edn
-    ln -s ../../../playground.fiber.data spaces/$SPACE/data
+    ln -s ../../../experiment.fiber.data spaces/$SPACE/data
 }
 link-space-cln() {
     SPACE=cln

@@ -3,10 +3,10 @@ version: "3.7"
 services:
 
   app:
-    image: playground.fiber.app
+    image: experiment.fiber.app
     volumes:
       - ../src/stage1/app:/opt/app
-      - ../../playground.fiber.data:/opt/data
+      - ../../experiment.fiber.data:/opt/data
       - ../:/opt/root
     build:
       context: ../src/stage1/app
@@ -28,7 +28,7 @@ services:
           cpus: '4'
           memory: 4096M
   ui:
-    image: playground.fiber.ui
+    image: experiment.fiber.ui
     volumes:
       - ../src/stage1/ui:/opt/app
       - ../:/opt/root

@@ -20,7 +20,7 @@ status: primordial
 git clone https://github.com/sergeiudris/experiment.fiber
 git clone https://github.com/sergeiudris/experiment.fiber.data
 
-cd playground.fiber
+cd experiment.fiber
 
 # start containers
 bash f up

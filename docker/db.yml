@@ -3,7 +3,7 @@ version: "3.7"
 services:
 
   fiberdb:
-    image: playground.fiber.db
+    image: experiment.fiber.db
     build:
       context: ./datomicfree
       dockerfile: ./Dockerfile
@@ -19,12 +19,12 @@ services:
       - base2
 
   db:
-    image: playground.fiber.db
+    image: experiment.fiber.db
     volumes:
       - ../../:/opt/root
       - ./datomicfree:/opt/app
       - type: volume
-        source:  playground.fiber.stage1.db
+        source:  experiment.fiber.stage1.db
         target: /opt/datomic-data
         volume:
           nocopy: true
@@ -43,5 +43,5 @@ services:
 
 
 volumes:
-  playground.fiber.stage1.db:
-    name: playground.fiber.stage1.db
+  experiment.fiber.stage1.db:
+    name: experiment.fiber.stage1.db
